@@ -1,0 +1,110 @@
+%YAML 1.1
+%TAG !u! tag:unity3d.com,2011:
+--- !u!1 &146698
+GameObject:
+  m_ObjectHideFlags: 0
+  m_PrefabParentObject: {fileID: 0}
+  m_PrefabInternal: {fileID: 100100000}
+  serializedVersion: 4
+  m_Component:
+  - 4: {fileID: 497378}
+  - 114: {fileID: 11480004}
+  - 114: {fileID: 11436504}
+  - 114: {fileID: 11427584}
+  m_Layer: 0
+  m_Name: DataController
+  m_TagString: Untagged
+  m_Icon: {fileID: 0}
+  m_NavMeshLayer: 0
+  m_StaticEditorFlags: 0
+  m_IsActive: 1
+--- !u!4 &497378
+Transform:
+  m_ObjectHideFlags: 1
+  m_PrefabParentObject: {fileID: 0}
+  m_PrefabInternal: {fileID: 100100000}
+  m_GameObject: {fileID: 146698}
+  m_LocalRotation: {x: 0, y: 0, z: 0, w: 1}
+  m_LocalPosition: {x: -4.22716522, y: -.130859375, z: .14919506}
+  m_LocalScale: {x: 1, y: 1, z: 1}
+  m_Children: []
+  m_Father: {fileID: 0}
+  m_RootOrder: 0
+--- !u!114 &11427584
+MonoBehaviour:
+  m_ObjectHideFlags: 1
+  m_PrefabParentObject: {fileID: 0}
+  m_PrefabInternal: {fileID: 100100000}
+  m_GameObject: {fileID: 146698}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 0e72d87355b78a14a8d076b4cc7aaa09, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  sectorMasterList: []
+  stationMasterList: []
+  jumpgateMasterList: []
+  planetMasterList: []
+  NPCMasterList: []
+  commodityShopMasterList: []
+  commodityMasterList: []
+  hullMasterList: []
+  cargoHoldMasterList: []
+  cannonMasterList: []
+  engineMasterList: []
+  figherBayMasterList: []
+  missileLauncherMasterList: []
+  platingMasterList: []
+  scannerMasterList: []
+  shieldMasterList: []
+  commodityShopInventoryList: []
+  NPCPool: []
+  currentSectorID: 0
+  currentStationID: 0
+--- !u!114 &11436504
+MonoBehaviour:
+  m_ObjectHideFlags: 1
+  m_PrefabParentObject: {fileID: 0}
+  m_PrefabInternal: {fileID: 100100000}
+  m_GameObject: {fileID: 146698}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: f83d1f8a9e8f93d42a0ea3201b291052, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  perItemMax: 1500
+--- !u!114 &11480004
+MonoBehaviour:
+  m_ObjectHideFlags: 1
+  m_PrefabParentObject: {fileID: 0}
+  m_PrefabInternal: {fileID: 100100000}
+  m_GameObject: {fileID: 146698}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 4db0f71396f80d14a918c1e977913033, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  playerName: Jonah Joris
+  playerPortrait: portrait.png
+  hullID: 1
+  engineID: 1
+  platingID: 1
+  cargoID: 1
+  pilotCrewID: 1
+  tacticalCrewID: 2
+  engineeringCrewID: 3
+  securityCrewID: 4
+  medicalCrewID: 5
+  liasonCrewID: 6
+  playerWallet: 10000
+--- !u!1001 &100100000
+Prefab:
+  m_ObjectHideFlags: 1
+  serializedVersion: 2
+  m_Modification:
+    m_TransformParent: {fileID: 0}
+    m_Modifications: []
+    m_RemovedComponents: []
+  m_ParentPrefab: {fileID: 0}
+  m_RootGameObject: {fileID: 146698}
+  m_IsPrefabParent: 1
