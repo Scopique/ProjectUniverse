@@ -1,0 +1,80 @@
+
+Quick Setup Guide
+
+*******************************************************************************************************************************
+									Build the GameMgr
+*******************************************************************************************************************************
+1. Drag the _GameMgr Prefab into the scene hierarchy
+
+
+
+*******************************************************************************************************************************
+									(FX_3DRadar_Mgr) Setup The Player
+*******************************************************************************************************************************
+1. Assign the Player transform to the _GameMgr --> FX_3DRadar_Mgr --> Radar Settings --> Player Properties --> Player field.
+2. Assign the Player Camera to the _GameMgr --> FX_3DRadar_Mgr --> Radar Settings --> Player Properties --> Player Camera field.
+
+
+
+*******************************************************************************************************************************
+									(Layer Editor) Create Two New Layers 
+*******************************************************************************************************************************
+1. Radar
+2. VFB
+
+3. Set your Players camera to exclude these layers from rendering
+
+
+*******************************************************************************************************************************
+									(Tag Editor) Create Two New Tags
+*******************************************************************************************************************************
+This may get done automatically?
+1. Sub_Component
+2. TargetButton
+
+
+
+*******************************************************************************************************************************
+									(FX_Class_Mgr) Create Target Classes & Sub Classes
+*******************************************************************************************************************************
+By Default There Are Two Classes With Sub Classes.
+
+1. Click add new class button to create a new primary Class. Every Class needs a Sub Class. 
+	By default a Sub Class is created automatically. Names can be assigned to Classes and Sub Classes.
+
+2. Assign a Sprite Texture for the Sub Class Icon
+	
+3. To Remove a Sub Class click the "-" button next to the icon.
+4. To Remove a Class click the "-" button next to the Class Name.
+
+
+
+*******************************************************************************************************************************	
+									(FX_Faction_Mgr) Create Factions
+*******************************************************************************************************************************
+By default there are two factions "Red Team" & "Blue Team"
+
+1. Add or remove factions by adjusting the number of factions under "Setup Factions" --> "Number Of Factions"
+2. After the faction count has been set names can be assigned under the "Setup Factions" --> "Factions Names"
+3. Adjust the cutoff values for Friendly & Hostile. Any relation values between these numbers will be Neutral.
+3. Set the faction relations under "Set Global Faction Relations" & adjust the values to be Friendly, Neutral, or Hostile.
+
+
+
+*******************************************************************************************************************************	
+									(FX_3DRadar_RID) Adding Targets
+*******************************************************************************************************************************
+Targets can only be created after the above has been completed as targets depend on information from both the "Class Mgr" & "Faction Mgr".
+
+1. Drag the "Target_1" prefab into the scene hierarchy
+2. Set the targets "Class & Sub Class" under "Class Selection" by adjusting the sliders.
+3. Set the targets "Faction" under "Faction Selection" by adjusting the slider.
+4. Set any other desired properties.
+
+The "FX_3DRadar_RID" must resides on the same object as the collider.
+Sub Components should only be one level below the parent / "FX_3DRadar_RID" script.
+Every target needs a TargetButton. This can be found in the prefabs folder as "TargetButton".
+
+
+
+

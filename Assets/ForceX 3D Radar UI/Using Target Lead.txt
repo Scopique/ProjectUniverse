@@ -1,0 +1,29 @@
+*******************************************************************************************************************************
+										How To Use The Target Lead Indicator
+*******************************************************************************************************************************
+
+All settings for the Target Lead Indicator can be found "FX_3DRadar_Mgr" --> "HUD Dispaly Settings" --> "Target Lead Indicator Settings"
+
+When the Target Lead Indicator is enabled it will display a point where the player needs to shoot in ordre to hit a target.
+To do this the Target Lead Indicator needs a few things first.
+1. Player Velocity "Auto Calculated"
+2. Target Velocity "Auto Calculated"
+3. Players Projectile Velocity "FX_3DRadar_Mgr.ProjectileVelocity"
+
+Both the Player & Targets velocity will be automatically calculated using one of two methods. 
+Method 1. If "Use Player / Target Physics" is selected in the "Target Lead Indicator Settings" then the velocity will be determined 
+via Rigidbodies attached to the Player / Target.
+
+Method 2. If "Use Player / Target Physics" is not selected the the velocity will be calculated per frame based on how far the Player / Target
+moved from the previous frame.
+
+Next the Target Lead Indicator needs to know how fast the projectile is that will be fired at the target.
+This can be done in one of two ways.
+
+Method 1. Pre-set the projectile velocity into "Projectile Velocity" field. This is good if you know your projectile speed and it will never change.
+
+Method 2. Update the Projectile Velocity during runtime from an external script "FX_3DRadar_Mgr.ProjectileVelocity = My Projectile Speed;" This is a Float Value.
+This is not a static var so you will need a refrence to the "FX_3DRadar_Mgr.cs" script.
+This method is good if you have multiple weapons with different speeds that the player can switch between, or you need fine controll such as usign the average speed of a fire group.
+
+If a Projectile Velocity is not provided the Target Lead Indicator will appear to center over the target.

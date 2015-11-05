@@ -43,6 +43,8 @@ public class MinerMovement : MonoBehaviour
     public bool isMining;
     //Time since docked
     public float dockTime = 0.0f;
+    //Distance to object before action
+    public float distanceToAction = 10.0f;
 
     #endregion
 
@@ -110,7 +112,8 @@ public class MinerMovement : MonoBehaviour
         {
             transform.Translate(Vector3.forward * shipSpeed * Time.deltaTime);
 
-            DistanceCheck();
+            RaycastColliderCheck();
+
         }else if (isMining)
         {
             ReturnToStationCheck();
@@ -364,6 +367,40 @@ public class MinerMovement : MonoBehaviour
                 default:
                     break;
             }        
+        }
+    }
+
+    /// <summary>
+    /// Using raycasting, keep an eye out for what's in front of us.
+    /// If it's something we need to take an action on, then determine
+    /// what we hit, and what action to take.
+    /// </summary>
+    void RaycastColliderCheck()
+    {
+        RaycastHit hit;
+        Vector3 fwd = transform.TransformDirection(Vector3.forward);
+        if (Physics.Raycast(transform.position, fwd, out hit, distanceToAction))
+        {
+            string tag = hit.collider.gameObject.tag;
+            switch (tag)
+            {
+                case "Planet":
+                    break;
+                case "NPC":
+                    break;
+                case "Asteroid":
+                    Mine();
+                    break;
+                case "BlackHole":
+                    break;
+                case "Station":
+                    StartCoroutine(Dock());
+                    break;
+                case "Jumpgate":
+                    break;
+                default:
+                    break;
+            }   
         }
     }
 

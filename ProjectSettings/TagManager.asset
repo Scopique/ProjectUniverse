@@ -11,6 +11,8 @@ TagManager:
   - Police
   - Miner
   - EgressPoint
+  - Sub_Component
+  - TargetButton
   layers:
   - Default
   - TransparentFX
@@ -20,8 +22,8 @@ TagManager:
   - UI
   - 
   - 
-  - 
-  - 
+  - Radar
+  - VFB
   - 
   - 
   - 

@@ -39,6 +39,8 @@ public class MerchantMovement : MonoBehaviour
     public bool isJumping;
     //Time since docked
     public float dockTime = 0.0f;
+    //Distance to object before action
+    public float distanceToAction = 20.0f;
 
     #endregion
 
@@ -109,7 +111,6 @@ public class MerchantMovement : MonoBehaviour
             SetMovementPlan();
 
             StartMovementPlan();
-
         }
     }
 
@@ -126,8 +127,8 @@ public class MerchantMovement : MonoBehaviour
 	void Update () {
         if (!isDocked && !isJumping) { 
             transform.Translate(Vector3.forward * shipSpeed * Time.deltaTime);
-
-            DistanceCheck();
+            
+            RaycastColliderCheck();
         }
 
         //This method is to ensure that a rogue NPC
@@ -326,6 +327,40 @@ public class MerchantMovement : MonoBehaviour
         if (dist <= 2)
         {
             string tag = routeDestinations[currentDestinationIndex].DestinationTag;
+            switch (tag)
+            {
+                case "Planet":
+                    break;
+                case "NPC":
+                    break;
+                case "Asteroid":
+                    break;
+                case "BlackHole":
+                    break;
+                case "Station":
+                    StartCoroutine(Dock());
+                    break;
+                case "Jumpgate":
+                    Jump();
+                    break;
+                default:
+                    break;
+            }
+        }
+    }
+
+    /// <summary>
+    /// Using raycasting, keep an eye out for what's in front of us.
+    /// If it's something we need to take an action on, then determine
+    /// what we hit, and what action to take.
+    /// </summary>
+    void RaycastColliderCheck()
+    {
+        RaycastHit hit;
+        Vector3 fwd = transform.TransformDirection(Vector3.forward);
+        if (Physics.Raycast(transform.position, fwd, out hit, distanceToAction))
+        {
+            string tag = hit.collider.gameObject.tag;
             switch (tag)
             {
                 case "Planet":

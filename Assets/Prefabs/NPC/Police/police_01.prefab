@@ -120,6 +120,7 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   shipSpeed: 10
+  distanceToAction: 10
 --- !u!114 &11419480
 MonoBehaviour:
   m_ObjectHideFlags: 1
