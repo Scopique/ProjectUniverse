@@ -13,6 +13,7 @@ GameObject:
   - 95: {fileID: 9565144}
   - 54: {fileID: 5408408}
   - 114: {fileID: 11425580}
+  - 136: {fileID: 13635108}
   m_Layer: 0
   m_Name: astraStarshipVariantD_Player
   m_TagString: Untagged
@@ -115,6 +116,19 @@ MonoBehaviour:
   rollSpeed: 2
   pitchSpeed: 5
   yawSpeed: 5
+--- !u!136 &13635108
+CapsuleCollider:
+  m_ObjectHideFlags: 1
+  m_PrefabParentObject: {fileID: 0}
+  m_PrefabInternal: {fileID: 100100000}
+  m_GameObject: {fileID: 184350}
+  m_Material: {fileID: 0}
+  m_IsTrigger: 0
+  m_Enabled: 1
+  m_Radius: 71.0755234
+  m_Height: 222.778351
+  m_Direction: 2
+  m_Center: {x: 0, y: 3.81469727e-06, z: 20.7963028}
 --- !u!1001 &100100000
 Prefab:
   m_ObjectHideFlags: 1

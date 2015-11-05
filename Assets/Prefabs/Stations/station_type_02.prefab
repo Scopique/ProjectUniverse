@@ -11,6 +11,8 @@ GameObject:
   - 33: {fileID: 3380224}
   - 23: {fileID: 2300174}
   - 95: {fileID: 9588678}
+  - 54: {fileID: 5418284}
+  - 65: {fileID: 6573458}
   m_Layer: 0
   m_Name: SciFiSpaceStation
   m_TagString: Untagged
@@ -83,7 +85,7 @@ Transform:
   m_PrefabInternal: {fileID: 100100000}
   m_GameObject: {fileID: 139992}
   m_LocalRotation: {x: 0, y: 0, z: 0, w: 1}
-  m_LocalPosition: {x: 4.42375755, y: 7.63185883, z: 23.6885834}
+  m_LocalPosition: {x: 4.42375755, y: 7.63185883, z: 2.29999995}
   m_LocalScale: {x: 1, y: 1, z: 1}
   m_Children:
   - {fileID: 414182}
@@ -152,6 +154,33 @@ MeshFilter:
   m_PrefabInternal: {fileID: 100100000}
   m_GameObject: {fileID: 124134}
   m_Mesh: {fileID: 4300000, guid: 4e0085c90da625546a091a59066017ca, type: 3}
+--- !u!54 &5418284
+Rigidbody:
+  m_ObjectHideFlags: 1
+  m_PrefabParentObject: {fileID: 0}
+  m_PrefabInternal: {fileID: 100100000}
+  m_GameObject: {fileID: 124134}
+  serializedVersion: 2
+  m_Mass: 1
+  m_Drag: 0
+  m_AngularDrag: .0500000007
+  m_UseGravity: 0
+  m_IsKinematic: 1
+  m_Interpolate: 0
+  m_Constraints: 0
+  m_CollisionDetection: 0
+--- !u!65 &6573458
+BoxCollider:
+  m_ObjectHideFlags: 1
+  m_PrefabParentObject: {fileID: 0}
+  m_PrefabInternal: {fileID: 100100000}
+  m_GameObject: {fileID: 124134}
+  m_Material: {fileID: 0}
+  m_IsTrigger: 0
+  m_Enabled: 1
+  serializedVersion: 2
+  m_Size: {x: 31.5674915, y: 12.7651653, z: 24.197773}
+  m_Center: {x: -1.41181087, y: .366201907, z: -4.72553062}
 --- !u!95 &9588678
 Animator:
   serializedVersion: 3
