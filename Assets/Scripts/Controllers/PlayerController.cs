@@ -32,6 +32,11 @@ public class PlayerController : MonoBehaviour
     [Header("Finances")]
     public int playerWallet;
 
+    [Header("Location")]
+    public int sectorID;
+    public int stationID;
+    public int jumpgateID;
+
     #region Properties for Advanced Stats
        
     //These values aren't visible in the inspector, but 

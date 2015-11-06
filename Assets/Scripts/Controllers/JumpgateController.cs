@@ -6,6 +6,8 @@ public class JumpgateController : MonoBehaviour
 
     #region Inspector Properties
 
+    public int jumpgateID;
+
     public GameObject egressPoint;
 
     #endregion

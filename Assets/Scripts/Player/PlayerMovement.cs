@@ -85,12 +85,28 @@ public class PlayerMovement : MonoBehaviour {
 
     void OnTriggerEnter(Collider Other)
     {
+        string tag = Other.gameObject.tag;
+        switch (tag)
+        {
+            case "Station":
+                StationController sc = Other.GetComponent<StationController>();
+                PlayerController.playerController.stationID = sc.stationID;
+                break;
+            case "Jumpgate":
+                JumpgateController jc = Other.GetComponent<JumpgateController>();
+                PlayerController.playerController.jumpgateID = jc.jumpgateID;
+                break;
+        }
+
         //Activate button
-        Messenger.Broadcast("PlayerStructureProximity", Other.gameObject.tag);
+        Messenger.Broadcast("PlayerStructureProximity", tag);
     }
 
     void OnTriggerExit(Collider Other)
     {
+        PlayerController.playerController.stationID = 0;
+        PlayerController.playerController.jumpgateID = 0;
+        //Deactivate button
         Messenger.Broadcast("PlayerStructureProximity", "Exit");
     }
 

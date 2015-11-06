@@ -38,7 +38,7 @@ public class DockJumpAction : MonoBehaviour
         if (Input.GetKey(KeyCode.F) && buttonActive)
         {
             //DoTheThing
-            //
+            PlayerStructureProximity_Action();
         }
 	}
     
@@ -78,6 +78,20 @@ public class DockJumpAction : MonoBehaviour
     private void PlayerStructureProximity_Action()
     {
         //Take an action based on the StructureTag value?
+        switch(StructureTag)
+        {
+            case "Station":
+                Messenger.Broadcast("OpenPlayerDockingMenu");
+                break;
+            case "Jumpgate":
+                Messenger.Broadcast("OpenPlayerJumpingMenu");
+                break;
+            case "Exit":
+                Messenger.Broadcast("CloseStructureMenu");
+                break;
+            default:
+                break;
+        }
     }
 
     #endregion
