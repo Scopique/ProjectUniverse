@@ -83,6 +83,17 @@ public class PlayerMovement : MonoBehaviour {
         }
     }
 
+    void OnTriggerEnter(Collider Other)
+    {
+        //Activate button
+        Messenger.Broadcast("PlayerStructureProximity", Other.gameObject.tag);
+    }
+
+    void OnTriggerExit(Collider Other)
+    {
+        Messenger.Broadcast("PlayerStructureProximity", "Exit");
+    }
+
     #endregion
 
     #region Private Methods
