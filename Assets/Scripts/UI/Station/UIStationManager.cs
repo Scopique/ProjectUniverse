@@ -9,6 +9,7 @@ public class UIStationManager : MonoBehaviour
     
     [Header("Child Panels")]
     public GameObject stationMainMenu;
+    public GameObject commodityMarketMenu;
 
     #endregion
 
@@ -36,13 +37,24 @@ public class UIStationManager : MonoBehaviour
 	
 	// Update is called once per frame
 	void Update () {
-
+        //TODO: When the ESC key is pressed, close the LIFO window in the openWindowList
+        //  Keep going until we have no more windows in the collection to close. 
     }
 
     #endregion
 
     #region Public Methods
-    
+
+    public void OpenCommodityMarket() {
+        DisplayCommodityMarket();
+    }
+
+    public void OpenShipyard() { }
+
+    public void OpenBar() { }
+
+    public void OpenPersonalHangar() { }
+
     public void CloseStationMenus()
     {
         CloseStructureMenu();
@@ -57,6 +69,12 @@ public class UIStationManager : MonoBehaviour
         //Open the 
         stationMainMenu.SetActive(true);
         openWindowList.Add(stationMainMenu);
+    }
+
+    private void DisplayCommodityMarket()
+    {
+        commodityMarketMenu.SetActive(true);
+        openWindowList.Add(commodityMarketMenu);
     }
 
     private void CloseStructureMenu()

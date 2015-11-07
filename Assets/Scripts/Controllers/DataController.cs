@@ -195,6 +195,15 @@ public class DataController : MonoBehaviour
         }
     }
 
+    public List<CommodityShopInventoryDataObject> GetShopInventory(int StationID)
+    {
+        List<CommodityShopInventoryDataObject> items = dataController.commodityShopInventoryList
+            .Where(c => c.stationID.Equals(StationID))
+            .ToList<CommodityShopInventoryDataObject>();
+
+        return items;
+    }
+
     #endregion
 
 
