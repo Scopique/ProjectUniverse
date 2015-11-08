@@ -48,6 +48,8 @@ public class UICommodityMarketManager : MonoBehaviour
     /// </summary>
     private void PopulateGrid()
     {
+        contentPanel.transform.DetachChildren();
+
         int stationID = PlayerController.playerController.stationID;
         if (stationID > 0) { 
             List<CommodityShopInventoryDataObject> items = DataController.dataController.GetShopInventory(PlayerController.playerController.stationID);
@@ -59,7 +61,7 @@ public class UICommodityMarketManager : MonoBehaviour
                 //gim.commodityImage.overrideSprite = null;          //Need to Resource.Load this
                 //gim.commodityBuySell.overrideSprite = null;        //Also need to Resource.Load this, but we might want to keep this one around longer
                 gim.commodityQuantity.text = item.commodityQuantity.ToString();
-                gim.commodityPrice.text = "$100";                      //TODO: Price needs access to Market to calculate the price. Component on SectorController
+                gim.commodityPrice.text = "[CALC]";                      //TODO: Price needs access to Market to calculate the price. Component on SectorController
                 newGridItem.transform.SetParent(contentPanel.transform);
             }
             

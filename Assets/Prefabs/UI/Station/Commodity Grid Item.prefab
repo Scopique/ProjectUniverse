@@ -61,6 +61,7 @@ GameObject:
   - 224: {fileID: 22460494}
   - 222: {fileID: 22203412}
   - 114: {fileID: 11434872}
+  - 114: {fileID: 11426252}
   m_Layer: 0
   m_Name: Commodity Grid Item
   m_TagString: Untagged
@@ -144,6 +145,21 @@ MonoBehaviour:
     m_VerticalOverflow: 0
     m_LineSpacing: 1
   m_Text: $9999
+--- !u!114 &11426252
+MonoBehaviour:
+  m_ObjectHideFlags: 1
+  m_PrefabParentObject: {fileID: 0}
+  m_PrefabInternal: {fileID: 100100000}
+  m_GameObject: {fileID: 178352}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: c54ed8d3ffc2aa74d914b4eee67a11ba, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  commodityImage: {fileID: 11483938}
+  commodityBuySell: {fileID: 11420300}
+  commodityQuantity: {fileID: 11428868}
+  commodityPrice: {fileID: 11425696}
 --- !u!114 &11428868
 MonoBehaviour:
   m_ObjectHideFlags: 1
@@ -355,7 +371,23 @@ Prefab:
   serializedVersion: 2
   m_Modification:
     m_TransformParent: {fileID: 0}
-    m_Modifications: []
+    m_Modifications:
+    - target: {fileID: 0}
+      propertyPath: commodityImage
+      value: 
+      objectReference: {fileID: 11483938}
+    - target: {fileID: 0}
+      propertyPath: commodityBuySell
+      value: 
+      objectReference: {fileID: 11420300}
+    - target: {fileID: 0}
+      propertyPath: commodityQuantity
+      value: 
+      objectReference: {fileID: 11428868}
+    - target: {fileID: 0}
+      propertyPath: commodityPrice
+      value: 
+      objectReference: {fileID: 11425696}
     m_RemovedComponents: []
   m_ParentPrefab: {fileID: 0}
   m_RootGameObject: {fileID: 178352}

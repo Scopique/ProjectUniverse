@@ -39,6 +39,10 @@ public class UIStationManager : MonoBehaviour
 	void Update () {
         //TODO: When the ESC key is pressed, close the LIFO window in the openWindowList
         //  Keep going until we have no more windows in the collection to close. 
+        if (Input.GetKeyUp("escape") && openWindowList.Count>0)
+        {
+            CloseTopWindow();
+        }
     }
 
     #endregion
@@ -68,13 +72,28 @@ public class UIStationManager : MonoBehaviour
     {
         //Open the 
         stationMainMenu.SetActive(true);
-        openWindowList.Add(stationMainMenu);
+        if (!openWindowList.Contains(stationMainMenu))
+        {
+            openWindowList.Add(stationMainMenu);
+        }
+        
     }
 
     private void DisplayCommodityMarket()
     {
         commodityMarketMenu.SetActive(true);
-        openWindowList.Add(commodityMarketMenu);
+        if (!openWindowList.Contains(commodityMarketMenu))
+        {
+            openWindowList.Add(commodityMarketMenu);
+        }
+    }
+
+    private void CloseTopWindow()
+    {
+        int topWindowIdx = openWindowList.Count - 1;
+        GameObject topWindow = openWindowList[topWindowIdx];
+        topWindow.SetActive(false);
+        openWindowList.Remove(topWindow);
     }
 
     private void CloseStructureMenu()
