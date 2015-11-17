@@ -119,8 +119,9 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 4e184fdf6c62d4440aa92c6a6beaec24, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  shipSpeed: 75
-  distanceToAction: 10
+  shipSpeed: 100
+  rotationSpeed: 2
+  distanceToAction: 25
 --- !u!114 &11419480
 MonoBehaviour:
   m_ObjectHideFlags: 1
@@ -156,7 +157,15 @@ Prefab:
       objectReference: {fileID: 0}
     - target: {fileID: 0}
       propertyPath: shipSpeed
-      value: 75
+      value: 100
+      objectReference: {fileID: 0}
+    - target: {fileID: 0}
+      propertyPath: rotationSpeed
+      value: 2
+      objectReference: {fileID: 0}
+    - target: {fileID: 0}
+      propertyPath: distanceToAction
+      value: 25
       objectReference: {fileID: 0}
     m_RemovedComponents: []
   m_ParentPrefab: {fileID: 0}

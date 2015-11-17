@@ -28,6 +28,9 @@ public class PoliceMovement : MonoBehaviour
     [Space(10)]
     //How fast the ship moves
     public float shipSpeed = 75.0f;
+    //How quickly the ship will rotate 
+    //  to face it's next waypoint
+    public float rotationSpeed = 5.0f;
 
     [Header("Movement Flags")]
     //Distance to object before action
@@ -91,7 +94,7 @@ public class PoliceMovement : MonoBehaviour
     {
 
         var rotation = Quaternion.LookRotation(routeDestinations[currentDestinationIndex].Destination - transform.position);
-        transform.rotation = Quaternion.Slerp(transform.rotation, rotation, Time.deltaTime * 5.0f);
+        transform.rotation = Quaternion.Slerp(transform.rotation, rotation, Time.deltaTime * rotationSpeed);
 
         transform.Translate(Vector3.forward * shipSpeed * Time.deltaTime);
 
