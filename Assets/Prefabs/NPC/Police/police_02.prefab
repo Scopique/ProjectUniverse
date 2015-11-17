@@ -137,7 +137,7 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 4e184fdf6c62d4440aa92c6a6beaec24, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  shipSpeed: 10
+  shipSpeed: 75
   distanceToAction: 10
 --- !u!1001 &100100000
 Prefab:
@@ -153,6 +153,10 @@ Prefab:
     - target: {fileID: 0}
       propertyPath: NPCType
       value: 2
+      objectReference: {fileID: 0}
+    - target: {fileID: 0}
+      propertyPath: shipSpeed
+      value: 75
       objectReference: {fileID: 0}
     m_RemovedComponents: []
   m_ParentPrefab: {fileID: 0}

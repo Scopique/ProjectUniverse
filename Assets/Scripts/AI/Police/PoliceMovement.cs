@@ -27,7 +27,7 @@ public class PoliceMovement : MonoBehaviour
 
     [Space(10)]
     //How fast the ship moves
-    public float shipSpeed = 10.0f;
+    public float shipSpeed = 75.0f;
 
     [Header("Movement Flags")]
     //Distance to object before action
@@ -89,6 +89,9 @@ public class PoliceMovement : MonoBehaviour
     /// </remarks>
     void Update()
     {
+
+        var rotation = Quaternion.LookRotation(routeDestinations[currentDestinationIndex].Destination - transform.position);
+        transform.rotation = Quaternion.Slerp(transform.rotation, rotation, Time.deltaTime * 5.0f);
 
         transform.Translate(Vector3.forward * shipSpeed * Time.deltaTime);
 
@@ -161,7 +164,7 @@ public class PoliceMovement : MonoBehaviour
         {
             currentDestinationIndex += 1;
             if (currentDestinationIndex == routeDestinations.Count) { currentDestinationIndex = 0; }
-            transform.LookAt(routeDestinations[currentDestinationIndex].Destination, Vector3.up);
+            //transform.LookAt(routeDestinations[currentDestinationIndex].Destination, Vector3.up);
             
         }
         catch (System.Exception ex)
