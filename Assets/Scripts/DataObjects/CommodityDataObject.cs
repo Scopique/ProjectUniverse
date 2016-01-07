@@ -6,12 +6,23 @@ using System.Collections.Generic;
 [Serializable]
 public class CommodityDataObject
 {
+    public enum COMMODITYCLASS
+    {
+        Common,
+        Luxury,
+        Food,
+        Minerals,
+        Medical,
+        Military,
+        Industrial
+    }
+
     public int commodityID;
     public string commodityName;
     public int commodityBasePrice;
     public int commodityCurrentPrice;
     public int commodityQuantity;
-    public DataController.COMMODITYCLASS commodityClass;
+    public COMMODITYCLASS commodityClass;
 
     /*
      * Other props, like legality, size/weight, etc
@@ -26,7 +37,7 @@ public class CommodityDataObject
             0,
             0,
             0,
-            DataController.COMMODITYCLASS.Common
+            COMMODITYCLASS.Common
             );
     }
 
@@ -36,7 +47,7 @@ public class CommodityDataObject
         int CommodityBasePrice,
         int CommodityCurrentPrice,
         int CommodityQuantity,
-        DataController.COMMODITYCLASS CommodityClass
+        COMMODITYCLASS CommodityClass
         )
     {
         NewCommodityDataObject(
@@ -55,7 +66,7 @@ public class CommodityDataObject
         int CommodityBasePrice,
         int CommodityCurrentPrice,
         int CommodityQuantity,
-        DataController.COMMODITYCLASS CommodityClass
+        COMMODITYCLASS CommodityClass
         )
     {
         this.commodityID = CommodityID;
