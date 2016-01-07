@@ -33,7 +33,7 @@ public class dbCommodityDataObject : ScriptableObject {
         database.RemoveAt(index);
     }
 
-    public int COUNT
+    public int Count
     {
         get { return database.Count; }
     }
