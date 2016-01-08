@@ -22,6 +22,7 @@ public class CommodityDataObject
     public int commodityBasePrice;
     public int commodityCurrentPrice;
     public int commodityQuantity;
+    public Texture2D commodityImage;
     public COMMODITYCLASS commodityClass;
 
     /*
@@ -37,10 +38,12 @@ public class CommodityDataObject
             0,
             0,
             0,
+            null,
             COMMODITYCLASS.Common
             );
     }
 
+    //For legacy database
     public CommodityDataObject(
         int CommodityID,
         string CommodityName,
@@ -56,6 +59,28 @@ public class CommodityDataObject
             CommodityBasePrice,
             CommodityCurrentPrice,
             CommodityQuantity,
+            null,
+            CommodityClass
+            );
+    }
+
+    public CommodityDataObject(
+        int CommodityID,
+        string CommodityName,
+        int CommodityBasePrice,
+        int CommodityCurrentPrice,
+        int CommodityQuantity,
+        Texture2D CommodityImage,
+        COMMODITYCLASS CommodityClass
+        )
+    {
+        NewCommodityDataObject(
+            CommodityID,
+            CommodityName,
+            CommodityBasePrice,
+            CommodityCurrentPrice,
+            CommodityQuantity,
+            CommodityImage,
             CommodityClass
             );
     }
@@ -66,6 +91,7 @@ public class CommodityDataObject
         int CommodityBasePrice,
         int CommodityCurrentPrice,
         int CommodityQuantity,
+        Texture2D CommodityImage,
         COMMODITYCLASS CommodityClass
         )
     {
@@ -74,6 +100,7 @@ public class CommodityDataObject
         this.commodityBasePrice = CommodityBasePrice;
         this.commodityCurrentPrice = CommodityCurrentPrice;
         this.commodityQuantity = CommodityQuantity;
+        this.commodityImage = CommodityImage == null ? new Texture2D(64,64) : CommodityImage;
         this.commodityClass = CommodityClass;
     }
 }

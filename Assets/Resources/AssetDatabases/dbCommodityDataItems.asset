@@ -17,4 +17,5 @@ MonoBehaviour:
     commodityBasePrice: 10
     commodityCurrentPrice: 0
     commodityQuantity: 0
+    commodityImage: {fileID: 2800000, guid: dba999555c02e6045b9ea7fafbd18d89, type: 3}
     commodityClass: 3
