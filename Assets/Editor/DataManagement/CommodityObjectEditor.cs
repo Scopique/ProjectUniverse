@@ -17,7 +17,7 @@ public class CommodityObjectEditor : EditorWindow {
     private bool isEdit = false;            //Is this an edit as opposed to a new record?
     private int selectedIdx = -1;           //-1 means nothing selected
     private int editID = 0;
-    private Texture2D editImage = null;
+    private Texture2D editImage = new Texture2D(64,64);
     private string editName = string.Empty;
     private int editBasePrice = 0;
     private int editCurrentPrice = 0;
@@ -49,22 +49,25 @@ public class CommodityObjectEditor : EditorWindow {
         //A button to create a NEW item
         //A form that allows for the editing/adding
 
-        if (GUI.Button(new Rect(10, 10, 200, 15), "Add New Commodity"))
+        EditorGUILayout.BeginHorizontal(GUILayout.Width(Screen.width));
+        if (GUILayout.Button("Add New Commodity", GUILayout.Width(200)))
         {
             NewCommodity();
         }
-        filterClass = CommodityClassPopup(new Rect(220, 10, 175, 15), "Filter by class:", filterClass);
+        filterClass = CommodityClassPopup("Filter by class:", filterClass, GUILayout.Width(175));
+        EditorGUILayout.EndHorizontal();
+
+        EditorGUILayout.Space();
 
         DisplayListAreaHeader();
         
-        scrollPos = GUI.BeginScrollView(new Rect(0, 55, Screen.width, 150), scrollPos, new Rect(5, 0, Screen.width - 10, 800));
-        
+        scrollPos = EditorGUILayout.BeginScrollView( scrollPos,GUILayout.MaxWidth(Screen.width), GUILayout.Height(150));
         DisplayListArea();
-        //DisplayListAreaRect();
-        GUI.EndScrollView();
+        EditorGUILayout.EndScrollView();
+
         EditorGUILayout.Space();
         DisplayEditArea();
-        //DisplayEditAreaRect();
+        
     }
 
 
@@ -86,16 +89,17 @@ public class CommodityObjectEditor : EditorWindow {
 
     private void DisplayListAreaHeader()
     {
-        EditorGUI.SelectableLabel(new Rect(5,   45, 32, 32),"IMG");
-        EditorGUI.SelectableLabel(new Rect(47,  45, 75, 15), "ID");
-        EditorGUI.SelectableLabel(new Rect(132, 45, 200, 15), "NAME");
-        EditorGUI.SelectableLabel(new Rect(342, 45, 125, 15), "BASE PRICE");
-        EditorGUI.SelectableLabel(new Rect(479, 45, 175, 15), "CLASS");
+        EditorGUILayout.BeginHorizontal(GUILayout.Width(Screen.width));
+        EditorGUILayout.LabelField("IMG", GUILayout.Width(32));
+        EditorGUILayout.LabelField("ID", GUILayout.Width(75));
+        EditorGUILayout.LabelField("NAME", GUILayout.Width(200));
+        EditorGUILayout.LabelField("BASE PRICE", GUILayout.Width(125));
+        EditorGUILayout.LabelField("CLASS", GUILayout.Width(175));
+        EditorGUILayout.EndHorizontal();
     }
 
     private void DisplayListArea()
     {
-        float rowPos = 1.0f;
         int rowIdx = 1;
 
         float cellID = Screen.width * 0.1f;
@@ -115,15 +119,16 @@ public class CommodityObjectEditor : EditorWindow {
                 img = AssetPreview.GetAssetPreview(cdo.commodityImage);
             }
 
+            EditorGUILayout.BeginHorizontal(GUILayout.Width(Screen.width));
 
             GUILayout.Label(img, GUILayout.Height(32), GUILayout.Width(32));
             //EditorGUI.DrawPreviewTexture(new Rect(10, 32 *  rowPos, 32, 32), cdo.commodityImage);
-            EditorGUI.SelectableLabel(new Rect(52, 32 * rowPos, 75, 15), cdo.commodityID.ToString());
-            EditorGUI.SelectableLabel(new Rect(137, 32 * rowPos, 200, 15), cdo.commodityName);
-            EditorGUI.SelectableLabel(new Rect(347, 32 * rowPos, 125, 15), cdo.commodityBasePrice.ToString());
-            EditorGUI.SelectableLabel(new Rect(482, 32 * rowPos, 175, 15), cdo.commodityClass.ToString());
+            EditorGUILayout.LabelField(cdo.commodityID.ToString(), GUILayout.Width(75));
+            EditorGUILayout.LabelField(cdo.commodityName, GUILayout.Width(200));
+            EditorGUILayout.LabelField(cdo.commodityBasePrice.ToString(), GUILayout.Width(125));
+            EditorGUILayout.LabelField(cdo.commodityClass.ToString(), GUILayout.Width(175));
 
-            if (GUI.Button(new Rect(667, 32 * rowPos, 100, 15), "Edit"))
+            if (GUILayout.Button("Edit", GUILayout.Width(100)))
             {
                 //Copy this info to the edit form
                 enableEditArea = true;
@@ -136,7 +141,7 @@ public class CommodityObjectEditor : EditorWindow {
                 editBasePrice = int.Parse(cdo.commodityBasePrice.ToString());
                 editClass = cdo.commodityClass;
             }
-            if (GUI.Button(new Rect(777, 32 * rowPos, 100, 15), "Del"))
+            if (GUILayout.Button("Del", GUILayout.Width(100)))
             {
                 //Remove this from the array
                 database.Remove(cdo);
@@ -144,9 +149,9 @@ public class CommodityObjectEditor : EditorWindow {
                 selectedIdx = -1;
             }
 
-            rowIdx += 1;
-            rowPos += 1.0f;
+            EditorGUILayout.EndHorizontal();
 
+            rowIdx += 1;
             
         }
     }
@@ -154,15 +159,18 @@ public class CommodityObjectEditor : EditorWindow {
     private void DisplayEditArea()
     {
 
+
         EditorGUI.BeginDisabledGroup(enableEditArea == false);
 
-        editImage = (Texture2D)EditorGUI.ObjectField(new Rect(10, 225, 64, 64), editImage, typeof(Texture2D), false);
-        editID = int.Parse(TextField(new Rect(84, 225, 75, 15), "ID:", editID.ToString()));
-        editName = TextField(new Rect(169, 225, 200, 15), "Name:", editName).ToString();
-        editBasePrice = int.Parse(TextField(new Rect(379, 225, 125, 15),  "Base Price:", editBasePrice.ToString()));
-        editClass = CommodityClassPopup(new Rect(514, 225, 175, 15), "Class:", editClass);
-        
-        if (GUI.Button(new Rect(699, 225, 100, 15), "Save"))
+        EditorGUILayout.BeginHorizontal(GUILayout.Width(Screen.width));
+
+        editImage = (Texture2D)EditorGUILayout.ObjectField(editImage, typeof(Texture2D), false, GUILayout.Height(64), GUILayout.Width(64));
+        editID = int.Parse(TextField("ID:", editID.ToString(), GUILayout.Width(75)));
+        editName = TextField("Name:", editName, GUILayout.Width(200)).ToString();
+        editBasePrice = int.Parse(TextField("Base Price:", editBasePrice.ToString(), GUILayout.Width(125)));
+        editClass = CommodityClassPopup("Class:", editClass, GUILayout.Width(175));
+
+        if (GUILayout.Button("Save", GUILayout.Width(100)))
         {
             //Save this, either as a new item, or an edit
             if (isEdit)
@@ -185,14 +193,15 @@ public class CommodityObjectEditor : EditorWindow {
             ResetForm();
         }
 
-        if (GUI.Button(new Rect(809, 225, 100, 15), "Cancel"))
+        if (GUILayout.Button("Cancel", GUILayout.Width(100)))
         {
             ResetForm();
         }
 
+        EditorGUILayout.EndHorizontal();
+
         EditorGUI.EndDisabledGroup();
     }
-
 
 
 
@@ -227,18 +236,18 @@ public class CommodityObjectEditor : EditorWindow {
     /// <summary>
     /// Create a EditorGUILayout.TextField with no space between label and text field
     /// </summary>
-    public static string TextField(Rect rect, string label, string text)
+    public static string TextField(string label, string text, params GUILayoutOption[] args)
     {
         Vector2 textDimensions = GUI.skin.label.CalcSize(new GUIContent(label));
         EditorGUIUtility.labelWidth = textDimensions.x;
-        return EditorGUI.TextField(rect, label, text);
+        return EditorGUILayout.TextField(label, text, args);
     }
 
-    public static CommodityDataObject.COMMODITYCLASS CommodityClassPopup(Rect rect, string label, CommodityDataObject.COMMODITYCLASS commodityClass)
+    public static CommodityDataObject.COMMODITYCLASS CommodityClassPopup(string label, CommodityDataObject.COMMODITYCLASS commodityClass, params GUILayoutOption[] args)
     {
         Vector2 textDimensions = GUI.skin.label.CalcSize(new GUIContent(label));
         EditorGUIUtility.labelWidth = textDimensions.x;
-        return (CommodityDataObject.COMMODITYCLASS)EditorGUI.EnumPopup(rect, label, commodityClass);
+        return (CommodityDataObject.COMMODITYCLASS)EditorGUILayout.EnumPopup(label, commodityClass, args);
     }
 
     #endregion
