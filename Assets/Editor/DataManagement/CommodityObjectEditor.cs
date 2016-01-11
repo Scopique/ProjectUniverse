@@ -1,6 +1,8 @@
 ﻿using UnityEngine;
 using UnityEditor;
+using System.Linq;
 using System.Collections;
+using System.Collections.Generic;
 
 public class CommodityObjectEditor : EditorWindow {
 
@@ -11,9 +13,9 @@ public class CommodityObjectEditor : EditorWindow {
 
     private dbCommodityDataObject database;
 
-
-    private bool isEdit = false;        //Is this an edit as opposed to a new record?
-    private int selectedIdx = -1;       //-1 means nothing selected
+    private bool enableEditArea = false;     //Lock it down until NEW or EDIT
+    private bool isEdit = false;            //Is this an edit as opposed to a new record?
+    private int selectedIdx = -1;           //-1 means nothing selected
     private int editID = 0;
     private Texture2D editImage = null;
     private string editName = string.Empty;
@@ -21,6 +23,8 @@ public class CommodityObjectEditor : EditorWindow {
     private int editCurrentPrice = 0;
     private int editQuantity = 0;
     private CommodityDataObject.COMMODITYCLASS editClass = CommodityDataObject.COMMODITYCLASS.Common;
+
+    private CommodityDataObject.COMMODITYCLASS filterClass = CommodityDataObject.COMMODITYCLASS.Common;
 
     private Vector2 scrollPos;
 
@@ -45,14 +49,16 @@ public class CommodityObjectEditor : EditorWindow {
         //A button to create a NEW item
         //A form that allows for the editing/adding
 
-        if (GUI.Button(new Rect(10,10,Screen.width-20, 25), "Add New Commodity"))
+        if (GUI.Button(new Rect(10, 10, 200, 15), "Add New Commodity"))
         {
             NewCommodity();
         }
+        filterClass = CommodityClassPopup(new Rect(220, 10, 175, 15), "Filter by class:", filterClass);
 
         DisplayListAreaHeader();
-
-        scrollPos = GUI.BeginScrollView(new Rect(0, 55, Screen.width, 150), scrollPos, new Rect(5, 0, Screen.width - 10, 400));
+        
+        scrollPos = GUI.BeginScrollView(new Rect(0, 55, Screen.width, 150), scrollPos, new Rect(5, 0, Screen.width - 10, 800));
+        
         DisplayListArea();
         //DisplayListAreaRect();
         GUI.EndScrollView();
@@ -77,8 +83,6 @@ public class CommodityObjectEditor : EditorWindow {
             CreateDatabase();
     }
 
-    #region Layout Methods
-
 
     private void DisplayListAreaHeader()
     {
@@ -91,55 +95,66 @@ public class CommodityObjectEditor : EditorWindow {
 
     private void DisplayListArea()
     {
+        float rowPos = 1.0f;
+        int rowIdx = 1;
 
-        
         float cellID = Screen.width * 0.1f;
         float cellName = Screen.width * 0.2f;
         float cellBasePrice = Screen.width * 0.1f;
         float cellClass = Screen.width * 0.15f;
 
-        for (int cnt = 0; cnt < database.Count; cnt++)
+        List<CommodityDataObject> filterList = (from db in database.database where db.commodityClass.Equals(filterClass) select db).ToList<CommodityDataObject>();
+
+        //for (int cnt = 0; cnt < filterList.Count; cnt++)
+        foreach(CommodityDataObject cdo in filterList)
         {
-            Rect row = EditorGUILayout.BeginHorizontal(GUILayout.ExpandWidth(true));
+            Texture2D img = new Texture2D(32, 32);
 
-            EditorGUI.DrawPreviewTexture(new Rect(10, 32 * cnt, 32, 32), database.Commodity(cnt).commodityImage);
-            EditorGUI.SelectableLabel(new Rect(52, 32 * cnt, 75, 15), database.Commodity(cnt).commodityID.ToString());
-            EditorGUI.SelectableLabel(new Rect(137, 32 * cnt, 200, 15), database.Commodity(cnt).commodityName);
-            EditorGUI.SelectableLabel(new Rect(347, 32 * cnt, 125, 15), database.Commodity(cnt).commodityBasePrice.ToString());
-            EditorGUI.SelectableLabel(new Rect(482, 32 * cnt, 175, 15), database.Commodity(cnt).commodityClass.ToString());
+            if (cdo.commodityImage != null)
+            {
+                img = AssetPreview.GetAssetPreview(cdo.commodityImage);
+            }
 
-            if (GUI.Button(new Rect(667, 32 * cnt, 100, 15), "Edit"))
+
+            GUILayout.Label(img, GUILayout.Height(32), GUILayout.Width(32));
+            //EditorGUI.DrawPreviewTexture(new Rect(10, 32 *  rowPos, 32, 32), cdo.commodityImage);
+            EditorGUI.SelectableLabel(new Rect(52, 32 * rowPos, 75, 15), cdo.commodityID.ToString());
+            EditorGUI.SelectableLabel(new Rect(137, 32 * rowPos, 200, 15), cdo.commodityName);
+            EditorGUI.SelectableLabel(new Rect(347, 32 * rowPos, 125, 15), cdo.commodityBasePrice.ToString());
+            EditorGUI.SelectableLabel(new Rect(482, 32 * rowPos, 175, 15), cdo.commodityClass.ToString());
+
+            if (GUI.Button(new Rect(667, 32 * rowPos, 100, 15), "Edit"))
             {
                 //Copy this info to the edit form
+                enableEditArea = true;
+
                 isEdit = true;
-                selectedIdx = cnt;
-                editImage = database.Commodity(cnt).commodityImage;
-                editID = int.Parse(database.Commodity(cnt).commodityID.ToString());
-                editName = database.Commodity(cnt).commodityName.ToString();
-                editBasePrice = int.Parse(database.Commodity(cnt).commodityBasePrice.ToString());
-                editClass = database.Commodity(cnt).commodityClass;
+                selectedIdx = rowIdx;
+                editImage = cdo.commodityImage;
+                editID = int.Parse(cdo.commodityID.ToString());
+                editName = cdo.commodityName.ToString();
+                editBasePrice = int.Parse(cdo.commodityBasePrice.ToString());
+                editClass = cdo.commodityClass;
             }
-            if (GUI.Button(new Rect(777, 32 * cnt, 100, 15), "Del"))
+            if (GUI.Button(new Rect(777, 32 * rowPos, 100, 15), "Del"))
             {
                 //Remove this from the array
-                database.RemoveAt(cnt);
+                database.Remove(cdo);
                 isEdit = false;
                 selectedIdx = -1;
             }
 
+            rowIdx += 1;
+            rowPos += 1.0f;
 
-            EditorGUILayout.EndHorizontal();
+            
         }
     }
 
     private void DisplayEditArea()
     {
-        float cellID = Screen.width * 0.1f;
-        float cellName = Screen.width * 0.2f;
-        float cellBasePrice = Screen.width * 0.15f;
-        float cellClass = Screen.width * 0.15f;
 
-        EditorGUILayout.BeginHorizontal(GUILayout.ExpandWidth(true));
+        EditorGUI.BeginDisabledGroup(enableEditArea == false);
 
         editImage = (Texture2D)EditorGUI.ObjectField(new Rect(10, 225, 64, 64), editImage, typeof(Texture2D), false);
         editID = int.Parse(TextField(new Rect(84, 225, 75, 15), "ID:", editID.ToString()));
@@ -170,13 +185,21 @@ public class CommodityObjectEditor : EditorWindow {
             ResetForm();
         }
 
-        EditorGUILayout.EndHorizontal();
+        if (GUI.Button(new Rect(809, 225, 100, 15), "Cancel"))
+        {
+            ResetForm();
+        }
+
+        EditorGUI.EndDisabledGroup();
     }
 
-    #endregion
+
+
 
     private void NewCommodity()
     {
+        enableEditArea = true;
+
         isEdit = false;
         editImage = null;
         editID = database.Count > 0 ? (database.Count) : 0;
@@ -189,6 +212,8 @@ public class CommodityObjectEditor : EditorWindow {
 
     private void ResetForm()
     {
+        enableEditArea = false; 
+
         isEdit = false;
         editImage = null;
         editID = 0;

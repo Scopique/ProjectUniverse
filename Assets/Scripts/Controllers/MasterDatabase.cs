@@ -318,22 +318,23 @@ public class MasterDatabase : MonoBehaviour
     /// </summary>
     private void LoadCommodities()
     {
-        tempCommodityMasterList.Add(new CommodityDataObject(1, "Carbon", 3, 0, 0, CommodityDataObject.COMMODITYCLASS.Minerals));
-        tempCommodityMasterList.Add(new CommodityDataObject(2, "Silver", 7, 0, 0, CommodityDataObject.COMMODITYCLASS.Minerals));
-        tempCommodityMasterList.Add(new CommodityDataObject(3, "Gold", 12, 0, 0, CommodityDataObject.COMMODITYCLASS.Minerals));
-        tempCommodityMasterList.Add(new CommodityDataObject(4, "Palladium", 50, 0, 0, CommodityDataObject.COMMODITYCLASS.Minerals));
-        tempCommodityMasterList.Add(new CommodityDataObject(5, "Oxygen", 2, 0, 0, CommodityDataObject.COMMODITYCLASS.Minerals));
-        tempCommodityMasterList.Add(new CommodityDataObject(6, "Mercury", 3, 0, 0, CommodityDataObject.COMMODITYCLASS.Minerals));
-        tempCommodityMasterList.Add(new CommodityDataObject(7, "Linens", 7, 0, 0, CommodityDataObject.COMMODITYCLASS.Luxury));
-        tempCommodityMasterList.Add(new CommodityDataObject(8, "Livestock", 10, 0, 0, CommodityDataObject.COMMODITYCLASS.Food));
-        tempCommodityMasterList.Add(new CommodityDataObject(9, "Space Suits", 20, 0, 0, CommodityDataObject.COMMODITYCLASS.Industrial));
-        tempCommodityMasterList.Add(new CommodityDataObject(10, "Toilet Paper", 2, 0, 0, CommodityDataObject.COMMODITYCLASS.Common));
-        tempCommodityMasterList.Add(new CommodityDataObject(11, "Wine", 8, 0, 0, CommodityDataObject.COMMODITYCLASS.Luxury));
-        tempCommodityMasterList.Add(new CommodityDataObject(12, "Antibiotics", 2, 0, 0, CommodityDataObject.COMMODITYCLASS.Medical));
-        tempCommodityMasterList.Add(new CommodityDataObject(13, "Construction Equipment", 30, 0, 0, CommodityDataObject.COMMODITYCLASS.Industrial));
-        tempCommodityMasterList.Add(new CommodityDataObject(14, "Body Armor", 12, 0, 0, CommodityDataObject.COMMODITYCLASS.Military));
+        //tempCommodityMasterList.Add(new CommodityDataObject(1, "Carbon", 3, 0, 0, CommodityDataObject.COMMODITYCLASS.Minerals));
+        //tempCommodityMasterList.Add(new CommodityDataObject(2, "Silver", 7, 0, 0, CommodityDataObject.COMMODITYCLASS.Minerals));
+        //tempCommodityMasterList.Add(new CommodityDataObject(3, "Gold", 12, 0, 0, CommodityDataObject.COMMODITYCLASS.Minerals));
+        //tempCommodityMasterList.Add(new CommodityDataObject(4, "Palladium", 50, 0, 0, CommodityDataObject.COMMODITYCLASS.Minerals));
+        //tempCommodityMasterList.Add(new CommodityDataObject(5, "Oxygen", 2, 0, 0, CommodityDataObject.COMMODITYCLASS.Minerals));
+        //tempCommodityMasterList.Add(new CommodityDataObject(6, "Mercury", 3, 0, 0, CommodityDataObject.COMMODITYCLASS.Minerals));
+        //tempCommodityMasterList.Add(new CommodityDataObject(7, "Linens", 7, 0, 0, CommodityDataObject.COMMODITYCLASS.Luxury));
+        //tempCommodityMasterList.Add(new CommodityDataObject(8, "Livestock", 10, 0, 0, CommodityDataObject.COMMODITYCLASS.Food));
+        //tempCommodityMasterList.Add(new CommodityDataObject(9, "Space Suits", 20, 0, 0, CommodityDataObject.COMMODITYCLASS.Industrial));
+        //tempCommodityMasterList.Add(new CommodityDataObject(10, "Toilet Paper", 2, 0, 0, CommodityDataObject.COMMODITYCLASS.Common));
+        //tempCommodityMasterList.Add(new CommodityDataObject(11, "Wine", 8, 0, 0, CommodityDataObject.COMMODITYCLASS.Luxury));
+        //tempCommodityMasterList.Add(new CommodityDataObject(12, "Antibiotics", 2, 0, 0, CommodityDataObject.COMMODITYCLASS.Medical));
+        //tempCommodityMasterList.Add(new CommodityDataObject(13, "Construction Equipment", 30, 0, 0, CommodityDataObject.COMMODITYCLASS.Industrial));
+        //tempCommodityMasterList.Add(new CommodityDataObject(14, "Body Armor", 12, 0, 0, CommodityDataObject.COMMODITYCLASS.Military));
 
-        DataController.dataController.commodityMasterList = tempCommodityMasterList;
+        dbCommodityDataObject db = (dbCommodityDataObject)Resources.Load(@"AssetDatabases/dbCommodityDataItems");
+        DataController.dataController.commodityMasterList = db.database;
 
     }
 

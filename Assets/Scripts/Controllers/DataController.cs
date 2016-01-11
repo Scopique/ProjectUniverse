@@ -111,7 +111,7 @@ public class DataController : MonoBehaviour
             jumpgateMasterList = new List<JumpgateDataObject>();
             planetMasterList = new List<PlanetDataObject>();
 
-            commodityShopMasterList = new List<CommodityShopDataObject>();
+            commodityShopMasterList = new List<CommodityShopDataObject>();      //Loaded from dbCommodityDataItems.asset
             commodityMasterList = new List<CommodityDataObject>();
             commodityShopInventoryList = new List<CommodityShopInventoryDataObject>();
 
