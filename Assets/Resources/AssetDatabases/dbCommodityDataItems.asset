@@ -14,10 +14,10 @@ MonoBehaviour:
   database:
   - commodityID: 0
     commodityName: Carbon
-    commodityBasePrice: 3
+    commodityBasePrice: 4
     commodityCurrentPrice: 0
     commodityQuantity: 0
-    commodityImage: {fileID: 0}
+    commodityImage: {fileID: 2800000, guid: f588d850485d0ae479d73cf3bd0b7b00, type: 3}
     commodityClass: 3
   - commodityID: 1
     commodityName: Gold

@@ -11,11 +11,11 @@ public class CommodityObjectEditor : EditorWindow {
     //When loading during runtime, Resources.Load() will need to reference this WITHOUT the .asset extension.
     private const string DATABASE_PATH = @"Assets/Resources/AssetDatabases/dbCommodityDataItems.asset";
 
-    private dbCommodityDataObject database;
+    private dbCommodityDataObject db;
 
     private bool enableEditArea = false;     //Lock it down until NEW or EDIT
     private bool isEdit = false;            //Is this an edit as opposed to a new record?
-    private int selectedIdx = -1;           //-1 means nothing selected
+
     private int editID = 0;
     private Texture2D editImage = new Texture2D(64,64);
     private string editName = string.Empty;
@@ -39,7 +39,7 @@ public class CommodityObjectEditor : EditorWindow {
 
     void OnEnable()
     {
-        if (database == null)
+        if (db == null)
             LoadDatabase();
     }
 
@@ -61,7 +61,7 @@ public class CommodityObjectEditor : EditorWindow {
 
         DisplayListAreaHeader();
         
-        scrollPos = EditorGUILayout.BeginScrollView( scrollPos,GUILayout.MaxWidth(Screen.width), GUILayout.Height(150));
+        scrollPos = EditorGUILayout.BeginScrollView( scrollPos,GUILayout.MaxWidth(Screen.width), GUILayout.Height(Screen.height - 150));
         DisplayListArea();
         EditorGUILayout.EndScrollView();
 
@@ -73,16 +73,16 @@ public class CommodityObjectEditor : EditorWindow {
 
     void CreateDatabase()
     {
-        database = ScriptableObject.CreateInstance<dbCommodityDataObject>();
-        AssetDatabase.CreateAsset(database, DATABASE_PATH);
+        db = ScriptableObject.CreateInstance<dbCommodityDataObject>();
+        AssetDatabase.CreateAsset(db, DATABASE_PATH);
         AssetDatabase.SaveAssets();
         AssetDatabase.Refresh();
     }
 
     void LoadDatabase()
     { 
-        database = (dbCommodityDataObject)AssetDatabase.LoadAssetAtPath(DATABASE_PATH, typeof(dbCommodityDataObject));
-        if (database == null)
+        db = (dbCommodityDataObject)AssetDatabase.LoadAssetAtPath(DATABASE_PATH, typeof(dbCommodityDataObject));
+        if (db == null)
             CreateDatabase();
     }
 
@@ -107,7 +107,7 @@ public class CommodityObjectEditor : EditorWindow {
         float cellBasePrice = Screen.width * 0.1f;
         float cellClass = Screen.width * 0.15f;
 
-        List<CommodityDataObject> filterList = (from db in database.database where db.commodityClass.Equals(filterClass) select db).ToList<CommodityDataObject>();
+        List<CommodityDataObject> filterList = (from assetDB in db.database where assetDB.commodityClass.Equals(filterClass) select assetDB).ToList<CommodityDataObject>();
 
         //for (int cnt = 0; cnt < filterList.Count; cnt++)
         foreach(CommodityDataObject cdo in filterList)
@@ -134,7 +134,6 @@ public class CommodityObjectEditor : EditorWindow {
                 enableEditArea = true;
 
                 isEdit = true;
-                selectedIdx = rowIdx;
                 editImage = cdo.commodityImage;
                 editID = int.Parse(cdo.commodityID.ToString());
                 editName = cdo.commodityName.ToString();
@@ -144,9 +143,8 @@ public class CommodityObjectEditor : EditorWindow {
             if (GUILayout.Button("Del", GUILayout.Width(100)))
             {
                 //Remove this from the array
-                database.Remove(cdo);
+                db.Remove(cdo);
                 isEdit = false;
-                selectedIdx = -1;
             }
 
             EditorGUILayout.EndHorizontal();
@@ -175,18 +173,18 @@ public class CommodityObjectEditor : EditorWindow {
             //Save this, either as a new item, or an edit
             if (isEdit)
             {
-                CommodityDataObject cib = database.Commodity(selectedIdx);
+                CommodityDataObject cib = db.Commodity(editID);
                 cib.commodityImage = editImage;
                 cib.commodityName = editName;
                 cib.commodityBasePrice = int.Parse(editBasePrice.ToString());
                 cib.commodityClass = editClass;
-                EditorUtility.SetDirty(database);
+                EditorUtility.SetDirty(db);
             }
             else
             {
                 CommodityDataObject cib = new CommodityDataObject(editID, editName, editBasePrice, 0, 0, editImage, editClass);
-                database.Add(cib);
-                EditorUtility.SetDirty(database);
+                db.Add(cib);
+                EditorUtility.SetDirty(db);
             }
 
             //Clear and disable the editor section
@@ -211,7 +209,7 @@ public class CommodityObjectEditor : EditorWindow {
 
         isEdit = false;
         editImage = null;
-        editID = database.Count > 0 ? (database.Count) : 0;
+        editID = db.Count > 0 ? (db.Count) : 0;
         editName = "New commodity";
         editBasePrice = 0;
         editClass = CommodityDataObject.COMMODITYCLASS.Common;
