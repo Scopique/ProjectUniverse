@@ -2,8 +2,8 @@
 using System.Linq;
 using System.Collections.Generic;
 
-[RequireComponent(typeof(MasterDatabase))]
 [RequireComponent(typeof(PlayerController))]
+[RequireComponent(typeof(SaveGameDataController))]
 public class DataController : MonoBehaviour
 {
 
@@ -22,7 +22,9 @@ public class DataController : MonoBehaviour
     /// </para>
     /// </summary>
 
-    //Master Lists -- Do not change over the course of the game
+    public static DataController DataAccess;        //For use with this singleton
+
+    //Master Lists -- These do not change over the course of the game
     public List<SectorDataObject> sectorMasterList;
     public List<StationDataObject> stationMasterList;
     public List<JumpgateDataObject> jumpgateMasterList;
@@ -45,45 +47,47 @@ public class DataController : MonoBehaviour
     public List<CrewMemberDataObject> crewMasterList;
 
     //Working lists - Modified over the course of the game
-    public List<CommodityShopInventoryDataObject> commodityShopInventoryList;
+    public List<CommodityShopInventoryDataObject> CommodityShopInventoryList { 
+        get { return SaveGameDataController.SaveGameAccess.CommodityShopInventoryList; }
+        set { SaveGameDataController.SaveGameAccess.CommodityShopInventoryList = value; }
+    }
 
-
+    //Poor NPCs...  :(
     public List<GameObject> NPCPool;
 
 
     #endregion
 
-    #region Variables
+    #region Private Variables
 
-    private static System.Random rnd;
-    public static DataController dataController;
+    private static System.Random rnd;               //Use with the globally accessible Random Number
+    
 
-    public int currentSectorID;         // Which sector are we in? Always non-zero
-    public int currentStationID;        // Which station are we docked at? 0 if not docked
+    public int currentSectorID;                     // Which sector are we in? Always non-zero
+    public int currentStationID;                    // Which station are we docked at? 0 if not docked
 
 
-    public enum COMMODITYCLASS
-    {
-        Common,
-        Luxury,
-        Food,
-        Minerals,
-        Medical,
-        Military,
-        Industrial
-    }
+    //public enum COMMODITYCLASS
+    //{
+    //    Common,
+    //    Luxury,
+    //    Food,
+    //    Minerals,
+    //    Medical,
+    //    Military,
+    //    Industrial
+    //}
 
     #endregion
 
-
-
+    #region Constructors and Unity Methods
+    
     /// <summary>
     /// Ensure that this Controller is the only one we have
     /// </summary>
     /// <remarks>
     /// 
     /// <para>
-    /// 
     /// If we don't have an instance yet, then ensure that 
     /// the Game Object that this is attached to will not
     /// be destroyed between loads, and set the instance 
@@ -98,56 +102,103 @@ public class DataController : MonoBehaviour
     void Awake()
     {
 
-        if (dataController == null)
+        if (DataAccess == null)
         {
 
             DontDestroyOnLoad(gameObject);
-            dataController = this;
+            DataAccess = this;
 
+            //Set up the global random number generator
             rnd = new System.Random();
 
-            sectorMasterList = new List<SectorDataObject>();
-            stationMasterList = new List<StationDataObject>();
-            jumpgateMasterList = new List<JumpgateDataObject>();
-            planetMasterList = new List<PlanetDataObject>();
+            //Note2Dev: Might need to check this to ensure we aren't always loading...
+            LoadMasterData();
 
-            commodityShopMasterList = new List<CommodityShopDataObject>();      //Loaded from dbCommodityDataItems.asset
-            commodityMasterList = new List<CommodityDataObject>();
-            commodityShopInventoryList = new List<CommodityShopInventoryDataObject>();
+            NewGame();
 
-            hullMasterList = new List<HullDataObject>();
-            cargoHoldMasterList = new List<CargoDataObject>();
-            cannonMasterList = new List<CannonDataObject>();
-            engineMasterList = new List<EngineDataObject>();
-            figherBayMasterList = new List<FighterBayDataObject>();
-            missileLauncherMasterList = new List<MissileLauncherDataObject>();
-            platingMasterList = new List<PlatingDataObject>();
-            scannerMasterList = new List<ScannerDataObject>();
-            shieldMasterList = new List<ShieldDataObject>();
-
-            crewMasterList = new List<CrewMemberDataObject>();
-
-
-            NPCPool = new List<GameObject>();
-
-            MasterDatabase md = gameObject.GetComponent<MasterDatabase>();
-            md.LoadMasterData();
-
-
-            //Loading or generating session data is handled elsewhere.
+            int i = 0;
 
         }
-        else if (dataController != null)
+        else if (DataAccess != null)
         {
             Destroy(gameObject);
         }
     }
 
-    // Update is called once per frame
-    void Update()
+    #endregion
+
+    #region Master Data Loading
+
+    /// <summary>
+    /// Loads data from the Resource store into the public lists. Only need to do this once (on new or load game)
+    /// </summary>
+    private void LoadMasterData()
+    {
+        dbCannonDataObject dbCannons = (dbCannonDataObject)Resources.Load(@"AssetDatabases/dbCannonDataItems");
+        cannonMasterList = dbCannons.database;
+
+        dbCargoModuleDataObject dbCargo = (dbCargoModuleDataObject)Resources.Load(@"AssetDatabases/dbCargoModuleDataItems");
+        cargoHoldMasterList = dbCargo.database;
+
+        dbCommodityDataObject dbCommodities = (dbCommodityDataObject)Resources.Load(@"AssetDatabases/dbCommodityDataItems");
+        commodityMasterList = dbCommodities.database;
+
+        dbCommodityShopDataObject dbCommodityShops = (dbCommodityShopDataObject)Resources.Load(@"AssetDatabases/dbCommodityShopDataItems");
+        commodityShopMasterList = dbCommodityShops.database;
+
+        dbCrewDataObject dbCrew = (dbCrewDataObject)Resources.Load(@"AssetDatabases/dbCrewDataItems");
+        crewMasterList = dbCrew.database;
+
+        dbEngineDataObject dbEngines = (dbEngineDataObject)Resources.Load(@"AssetDatabases/dbEngineDataItems");
+        engineMasterList = dbEngines.database;
+
+        dbFighterBayDataObject dbFighterBays = (dbFighterBayDataObject)Resources.Load(@"AssetDatabases/dbFighterBayDataItems");
+        figherBayMasterList = dbFighterBays.database;
+
+        dbHullDataObject dbHulls = (dbHullDataObject)Resources.Load(@"AssetDatabases/dbHullDataItems");
+        hullMasterList = dbHulls.database;
+
+        dbJumpgateDataObject dbJumpgates = (dbJumpgateDataObject)Resources.Load(@"AssetDatabases/dbJumpgateDataItems");
+        jumpgateMasterList = dbJumpgates.database;
+
+        dbMissileLauncherDataObject dbMissileLaunchers = (dbMissileLauncherDataObject)Resources.Load(@"AssetDatabases/dbMissileLauncherDataItems");
+        missileLauncherMasterList = dbMissileLaunchers.database;
+
+        //dbNPCDataObject dbCommodities = (dbNPCDataObject)Resources.Load(@"AssetDatabases/dbNPCDataItems");
+        //commodityMasterList = dbCommodities.database;
+
+        dbPlatingDataObject dbPlating = (dbPlatingDataObject)Resources.Load(@"AssetDatabases/dbPlatingDataItems");
+        platingMasterList = dbPlating.database;
+
+        dbScannerDataObject dbScanners = (dbScannerDataObject)Resources.Load(@"AssetDatabases/dbScannerDataItems");
+        scannerMasterList = dbScanners.database;
+
+        dbSectorDataObject dbSectors = (dbSectorDataObject)Resources.Load(@"AssetDatabases/dbSectorDataItems");
+        sectorMasterList = dbSectors.database;
+
+        dbShieldDataObject dbShields = (dbShieldDataObject)Resources.Load(@"AssetDatabases/dbShieldDataItems");
+        shieldMasterList = dbShields.database;
+
+        dbStationDataObject dbStations = (dbStationDataObject)Resources.Load(@"AssetDatabases/dbStationDataItems");
+        stationMasterList = dbStations.database;
+    }
+
+    #endregion
+
+    #region Game Loading
+    
+    private void NewGame()
+    {
+        MarketController mc = new MarketController();
+        mc.LoadCommodityShopInventories();
+    }
+
+    private void LoadGame(string SaveName)
     {
 
     }
+
+    #endregion
 
     #region Specialized Data Access Methods
 
@@ -197,7 +248,7 @@ public class DataController : MonoBehaviour
 
     public List<CommodityShopInventoryDataObject> GetShopInventory(int StationID)
     {
-        List<CommodityShopInventoryDataObject> items = dataController.commodityShopInventoryList
+        List<CommodityShopInventoryDataObject> items = DataAccess.CommodityShopInventoryList
             .Where(c => c.stationID.Equals(StationID))
             .ToList<CommodityShopInventoryDataObject>();
 
@@ -205,12 +256,14 @@ public class DataController : MonoBehaviour
     }
 
     #endregion
-
-
-
+    
+    #region Globally Accessible Methods
+    
     public int GetRandomInt(int min, int max)
     {
         //Random.seed = int.Parse(Time.time.ToString());
         return Random.Range(min, max);
     }
+
+    #endregion
 }

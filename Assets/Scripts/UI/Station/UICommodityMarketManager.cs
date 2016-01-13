@@ -52,7 +52,7 @@ public class UICommodityMarketManager : MonoBehaviour
 
         int stationID = PlayerController.playerController.stationID;
         if (stationID > 0) { 
-            List<CommodityShopInventoryDataObject> items = DataController.dataController.GetShopInventory(PlayerController.playerController.stationID);
+            List<CommodityShopInventoryDataObject> items = DataController.DataAccess.GetShopInventory(PlayerController.playerController.stationID);
 
             foreach(CommodityShopInventoryDataObject item in items)
             {

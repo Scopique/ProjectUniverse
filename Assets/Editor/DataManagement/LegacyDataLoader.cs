@@ -12,7 +12,8 @@ public class LegacyDataLoader : EditorWindow {
 
     private dbCannonDataObject dbCannons;
     private dbCargoModuleDataObject dbCargo;
-    //private dbCommodityDataObject dbCommodity;
+    private dbCommodityDataObject dbCommodity;
+    private dbCommodityShopDataObject dbCommodityShop;
     private dbCrewDataObject dbCrew;
     private dbEngineDataObject dbEngines;
     private dbFighterBayDataObject dbFighterBays;
@@ -51,7 +52,8 @@ public class LegacyDataLoader : EditorWindow {
     {
         dbCannons = (dbCannonDataObject)AssetDatabase.LoadAssetAtPath(DATABASE_PATH + "dbCannonDataItems.asset", typeof(dbCannonDataObject));
         dbCargo = (dbCargoModuleDataObject)AssetDatabase.LoadAssetAtPath(DATABASE_PATH + "dbCargoModuleDataItems.asset", typeof(dbCargoModuleDataObject));
-        //dbCommodity = (dbCommodityDataObject)AssetDatabase.LoadAssetAtPath(DATABASE_PATH + "dbCommodityDataItems.asset", typeof(dbCommodityDataObject));
+        dbCommodity = (dbCommodityDataObject)AssetDatabase.LoadAssetAtPath(DATABASE_PATH + "dbCommodityDataItems.asset", typeof(dbCommodityDataObject));
+        dbCommodityShop = (dbCommodityShopDataObject)AssetDatabase.LoadAssetAtPath(DATABASE_PATH + "dbCommodityShopDataItems.asset", typeof(dbCommodityShopDataObject));
         dbCrew = (dbCrewDataObject)AssetDatabase.LoadAssetAtPath(DATABASE_PATH + "dbCrewDataItems.asset", typeof(dbCrewDataObject));
         dbEngines = (dbEngineDataObject)AssetDatabase.LoadAssetAtPath(DATABASE_PATH + "dbEngineDataItems.asset", typeof(dbEngineDataObject));
         dbFighterBays = (dbFighterBayDataObject)AssetDatabase.LoadAssetAtPath(DATABASE_PATH + "dbFighterBayDataItems.asset", typeof(dbFighterBayDataObject));
@@ -77,11 +79,17 @@ public class LegacyDataLoader : EditorWindow {
             AssetDatabase.CreateAsset(dbCargo, DATABASE_PATH + "dbCargoModuleDataItems.asset");
         }
 
-        //if (dbCommodity == null)
-        //{
-        //    dbCommodity = ScriptableObject.CreateInstance<dbCommodityDataObject>();
-        //    AssetDatabase.CreateAsset(dbCommodity, DATABASE_PATH + "dbCommodityDataItems.asset");
-        //}
+        if (dbCommodity == null)
+        {
+            dbCommodity = ScriptableObject.CreateInstance<dbCommodityDataObject>();
+            AssetDatabase.CreateAsset(dbCommodity, DATABASE_PATH + "dbCommodityDataItems.asset");
+        }
+
+        if (dbCommodityShop == null)
+        {
+            dbCommodityShop = ScriptableObject.CreateInstance<dbCommodityShopDataObject>();
+            AssetDatabase.CreateAsset(dbCommodityShop, DATABASE_PATH + "dbCommodityShopDataItems.asset");
+        }
 
         if (dbCrew == null)
         {
@@ -167,7 +175,8 @@ public class LegacyDataLoader : EditorWindow {
 
         dbCannons.database = md.tempCannonMasterList;
         dbCargo.database = md.tempCargoHoldMasterList;
-        //dbCommodity.database = md.tempcommodityMasterList;
+        dbCommodity.database = md.tempCommodityMasterList;
+        dbCommodityShop.database = md.tempCommodityShopMasterList;
         dbCrew.database = md.tempCrewList;
         dbEngines.database = md.tempEngineMasterList;
         dbFighterBays.database = md.tempFighterBayMasterList;
@@ -182,7 +191,8 @@ public class LegacyDataLoader : EditorWindow {
 
         EditorUtility.SetDirty(dbCannons);
         EditorUtility.SetDirty(dbCargo);
-        //EditorUtility.SetDirty(dbCommodity);
+        EditorUtility.SetDirty(dbCommodity);
+        EditorUtility.SetDirty(dbCommodityShop);
         EditorUtility.SetDirty(dbCrew);
         EditorUtility.SetDirty(dbEngines);
         EditorUtility.SetDirty(dbFighterBays);

@@ -71,13 +71,13 @@ public class SectorController : MonoBehaviour
 
     void OnGUI()
     {
-        if (DataController.dataController.sectorMasterList.Count > 0)
+        if (DataController.DataAccess.sectorMasterList.Count > 0)
         {
-            SectorDataObject sdo = DataController.dataController.sectorMasterList.FirstOrDefault(x => x.sectorID.Equals(this.sectorID));
+            SectorDataObject sdo = DataController.DataAccess.sectorMasterList.FirstOrDefault(x => x.sectorID.Equals(this.sectorID));
             string sectorName = "Not Found (ID " + this.sectorID.ToString() + ")";
             if (sdo != null)
             {
-                DataController.dataController.currentSectorID = this.sectorID;
+                DataController.DataAccess.currentSectorID = this.sectorID;
                 sectorName = sdo.sectorName;
             }
             GUI.Label(new Rect(0, 0, 250, 30), "Sector: " + sectorName);
@@ -95,7 +95,7 @@ public class SectorController : MonoBehaviour
 
     public int GetRandomInt(int min, int max)
     {
-        return DataController.dataController.GetRandomInt(min, max);
+        return DataController.DataAccess.GetRandomInt(min, max);
     }
 
     public GameObject GetRandomStation()
@@ -110,13 +110,13 @@ public class SectorController : MonoBehaviour
 
     public GameObject GetRandomAsteroid()
     {
-        return DataController.dataController.GetRandomAsteroid();
+        return DataController.DataAccess.GetRandomAsteroid();
     }
 
     public StationDataObject GetStationData(int StationID)
     {
         StationDataObject sdo = DataController
-            .dataController
+            .DataAccess
             .stationMasterList
             .FirstOrDefault(x => x.stationID.Equals(StationID));
         return sdo;
@@ -125,7 +125,7 @@ public class SectorController : MonoBehaviour
     public JumpgateDataObject GetJumpgateData(int JumpgateID)
     {
         JumpgateDataObject jdo = DataController
-            .dataController
+            .DataAccess
             .jumpgateMasterList
             .FirstOrDefault(x => x.jumpgateID.Equals(JumpgateID));
         return jdo;

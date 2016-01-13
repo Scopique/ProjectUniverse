@@ -150,7 +150,7 @@ public class PlayerController : MonoBehaviour
                 {
                     case PlayerInventoryDataObject.INVENTORY_CLASS.Commodity:
                         //This is a commodity, so all we need is commodity info
-                        CommodityDataObject cmdo = DataController.dataController.commodityMasterList.Where(c => c.commodityID.Equals(ItemID)).First();
+                        CommodityDataObject cmdo = DataController.DataAccess.commodityMasterList.Where(c => c.commodityID.Equals(ItemID)).First();
                         npido.inventoryObjectID = cmdo.commodityID;
                         npido.inventoryObjectClass = PlayerInventoryDataObject.INVENTORY_CLASS.Commodity;
                         npido.inventoryObjectType = ItemType;
@@ -171,7 +171,7 @@ public class PlayerController : MonoBehaviour
                             //    npido.inventoryQuantity = Quantity; 
                             //    break;
                             case PlayerInventoryDataObject.INVENTORY_TYPE.Engine:
-                                EngineDataObject edo = DataController.dataController.engineMasterList.Where(e => e.iD.Equals(ItemID)).First();
+                                EngineDataObject edo = DataController.DataAccess.engineMasterList.Where(e => e.iD.Equals(ItemID)).First();
                                 npido.inventoryObjectID = edo.iD;
                                 npido.inventoryObjectClass = PlayerInventoryDataObject.INVENTORY_CLASS.ShipEquipment;
                                 npido.inventoryObjectType = ItemType;
@@ -185,42 +185,42 @@ public class PlayerController : MonoBehaviour
                             //    npido.inventoryQuantity = Quantity;
                             //    break;
                             case PlayerInventoryDataObject.INVENTORY_TYPE.Shield:
-                                ShieldDataObject shdo = DataController.dataController.shieldMasterList.Where(s => s.iD.Equals(ItemID)).First();
+                                ShieldDataObject shdo = DataController.DataAccess.shieldMasterList.Where(s => s.iD.Equals(ItemID)).First();
                                 npido.inventoryObjectID = shdo.iD;
                                 npido.inventoryObjectClass = PlayerInventoryDataObject.INVENTORY_CLASS.ShipEquipment;
                                 npido.inventoryObjectType = ItemType;
                                 npido.inventoryQuantity = Quantity;
                                 break;
                             case PlayerInventoryDataObject.INVENTORY_TYPE.Cannon:
-                                CannonDataObject cndo = DataController.dataController.cannonMasterList.Where(c => c.iD.Equals(ItemID)).First();
+                                CannonDataObject cndo = DataController.DataAccess.cannonMasterList.Where(c => c.iD.Equals(ItemID)).First();
                                 npido.inventoryObjectID = cndo.iD;
                                 npido.inventoryObjectClass = PlayerInventoryDataObject.INVENTORY_CLASS.ShipEquipment;
                                 npido.inventoryObjectType = ItemType;
                                 npido.inventoryQuantity = Quantity;
                                 break;
                             case PlayerInventoryDataObject.INVENTORY_TYPE.MissileLauncher:
-                                MissileLauncherDataObject mldo = DataController.dataController.missileLauncherMasterList.Where(m => m.iD.Equals(ItemID)).First();
+                                MissileLauncherDataObject mldo = DataController.DataAccess.missileLauncherMasterList.Where(m => m.iD.Equals(ItemID)).First();
                                 npido.inventoryObjectID = mldo.iD;
                                 npido.inventoryObjectClass = PlayerInventoryDataObject.INVENTORY_CLASS.ShipEquipment;
                                 npido.inventoryObjectType = ItemType;
                                 npido.inventoryQuantity = Quantity;
                                 break;
                             case PlayerInventoryDataObject.INVENTORY_TYPE.Scanner:
-                                ScannerDataObject scdo = DataController.dataController.scannerMasterList.Where(s => s.iD.Equals(ItemID)).First();
+                                ScannerDataObject scdo = DataController.DataAccess.scannerMasterList.Where(s => s.iD.Equals(ItemID)).First();
                                 npido.inventoryObjectID = scdo.iD;
                                 npido.inventoryObjectClass = PlayerInventoryDataObject.INVENTORY_CLASS.ShipEquipment;
                                 npido.inventoryObjectType = ItemType;
                                 npido.inventoryQuantity = Quantity;
                                 break;
                             case PlayerInventoryDataObject.INVENTORY_TYPE.FighterBay:
-                                FighterBayDataObject fbdo = DataController.dataController.figherBayMasterList.Where(f => f.iD.Equals(ItemID)).First();
+                                FighterBayDataObject fbdo = DataController.DataAccess.figherBayMasterList.Where(f => f.iD.Equals(ItemID)).First();
                                 npido.inventoryObjectID = fbdo.iD;
                                 npido.inventoryObjectClass = PlayerInventoryDataObject.INVENTORY_CLASS.ShipEquipment;
                                 npido.inventoryObjectType = ItemType;
                                 npido.inventoryQuantity = Quantity;
                                 break;
                             case PlayerInventoryDataObject.INVENTORY_TYPE.Plating:
-                                PlatingDataObject pdo = DataController.dataController.platingMasterList.Where(p => p.iD.Equals(ItemID)).First();
+                                PlatingDataObject pdo = DataController.DataAccess.platingMasterList.Where(p => p.iD.Equals(ItemID)).First();
                                 npido.inventoryObjectID = pdo.iD;
                                 npido.inventoryObjectClass = PlayerInventoryDataObject.INVENTORY_CLASS.ShipEquipment;
                                 npido.inventoryObjectType = ItemType;
@@ -319,22 +319,22 @@ public class PlayerController : MonoBehaviour
         switch (SlotID)
         {
             case 0:
-                cmdo = DataController.dataController.crewMasterList.Where(c => c.ID.Equals(pilotCrewID)).First();
+                cmdo = DataController.DataAccess.crewMasterList.Where(c => c.ID.Equals(pilotCrewID)).First();
                 break;
             case 1:
-                cmdo = DataController.dataController.crewMasterList.Where(c => c.ID.Equals(tacticalCrewID)).First();
+                cmdo = DataController.DataAccess.crewMasterList.Where(c => c.ID.Equals(tacticalCrewID)).First();
                 break;
             case 2:
-                cmdo = DataController.dataController.crewMasterList.Where(c => c.ID.Equals(engineeringCrewID)).First();
+                cmdo = DataController.DataAccess.crewMasterList.Where(c => c.ID.Equals(engineeringCrewID)).First();
                 break;
             case 3:
-                cmdo = DataController.dataController.crewMasterList.Where(c => c.ID.Equals(securityCrewID)).First();
+                cmdo = DataController.DataAccess.crewMasterList.Where(c => c.ID.Equals(securityCrewID)).First();
                 break;
             case 4:
-                cmdo = DataController.dataController.crewMasterList.Where(c => c.ID.Equals(medicalCrewID)).First();
+                cmdo = DataController.DataAccess.crewMasterList.Where(c => c.ID.Equals(medicalCrewID)).First();
                 break;
             case 5:
-                cmdo = DataController.dataController.crewMasterList.Where(c => c.ID.Equals(liasonCrewID)).First();
+                cmdo = DataController.DataAccess.crewMasterList.Where(c => c.ID.Equals(liasonCrewID)).First();
                 break;
             default:
                 break;
@@ -355,7 +355,7 @@ public class PlayerController : MonoBehaviour
     }
 
     private void GetHullValues() {
-        HullDataObject hdo = DataController.dataController.hullMasterList
+        HullDataObject hdo = DataController.DataAccess.hullMasterList
             .Where(h => h.iD.Equals(_hullID))
             .First();
 
@@ -368,7 +368,7 @@ public class PlayerController : MonoBehaviour
         }
     }
     private void GetPlatingValues() {
-        PlatingDataObject pdo = DataController.dataController.platingMasterList
+        PlatingDataObject pdo = DataController.DataAccess.platingMasterList
             .Where(p => p.iD.Equals(_platingID))
             .First();
 
@@ -382,7 +382,7 @@ public class PlayerController : MonoBehaviour
         }
     }
     private void GetEngineValues() {
-        EngineDataObject edo = DataController.dataController.engineMasterList
+        EngineDataObject edo = DataController.DataAccess.engineMasterList
             .Where(e => e.iD.Equals(_engineID))
             .First();
 
@@ -397,7 +397,7 @@ public class PlayerController : MonoBehaviour
     }
     private void GetCargoValues()
     {
-        CargoDataObject cdo = DataController.dataController.cargoHoldMasterList
+        CargoDataObject cdo = DataController.DataAccess.cargoHoldMasterList
             .Where(c => c.iD.Equals(_cargoID))
             .First();
 

@@ -9,8 +9,8 @@ GameObject:
   m_Component:
   - 4: {fileID: 497378}
   - 114: {fileID: 11480004}
-  - 114: {fileID: 11436504}
   - 114: {fileID: 11427584}
+  - 114: {fileID: 11429796}
   m_Layer: 0
   m_Name: DataController
   m_TagString: Untagged
@@ -25,7 +25,7 @@ Transform:
   m_PrefabInternal: {fileID: 100100000}
   m_GameObject: {fileID: 146698}
   m_LocalRotation: {x: 0, y: 0, z: 0, w: 1}
-  m_LocalPosition: {x: -4.22716522, y: -.130859375, z: .14919506}
+  m_LocalPosition: {x: -4.227165, y: -0.13085938, z: 0.14919506}
   m_LocalScale: {x: 1, y: 1, z: 1}
   m_Children: []
   m_Father: {fileID: 0}
@@ -57,11 +57,11 @@ MonoBehaviour:
   platingMasterList: []
   scannerMasterList: []
   shieldMasterList: []
-  commodityShopInventoryList: []
+  crewMasterList: []
   NPCPool: []
   currentSectorID: 0
   currentStationID: 0
---- !u!114 &11436504
+--- !u!114 &11429796
 MonoBehaviour:
   m_ObjectHideFlags: 1
   m_PrefabParentObject: {fileID: 0}
@@ -69,10 +69,11 @@ MonoBehaviour:
   m_GameObject: {fileID: 146698}
   m_Enabled: 1
   m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: f83d1f8a9e8f93d42a0ea3201b291052, type: 3}
+  m_Script: {fileID: 11500000, guid: 1c35f55fdc30f5d4b86356d5f6bcafed, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  perItemMax: 1500
+  SaveGameName: 
+  CommodityShopInventoryList: []
 --- !u!114 &11480004
 MonoBehaviour:
   m_ObjectHideFlags: 1
@@ -97,6 +98,9 @@ MonoBehaviour:
   medicalCrewID: 5
   liasonCrewID: 6
   playerWallet: 10000
+  sectorID: 0
+  stationID: 0
+  jumpgateID: 0
 --- !u!1001 &100100000
 Prefab:
   m_ObjectHideFlags: 1

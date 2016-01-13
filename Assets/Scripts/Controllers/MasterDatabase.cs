@@ -17,12 +17,6 @@ using System.Collections.Generic;
 public class MasterDatabase : MonoBehaviour
 {
 
-    #region Inspector Vars
-
-    public float perItemMax = 1500.0f;
-
-    #endregion
-
     #region Private Vars
 
     public List<SectorDataObject> tempSectorMasterList;
@@ -318,66 +312,27 @@ public class MasterDatabase : MonoBehaviour
     /// </summary>
     private void LoadCommodities()
     {
-        //tempCommodityMasterList.Add(new CommodityDataObject(1, "Carbon", 3, 0, 0, CommodityDataObject.COMMODITYCLASS.Minerals));
-        //tempCommodityMasterList.Add(new CommodityDataObject(2, "Silver", 7, 0, 0, CommodityDataObject.COMMODITYCLASS.Minerals));
-        //tempCommodityMasterList.Add(new CommodityDataObject(3, "Gold", 12, 0, 0, CommodityDataObject.COMMODITYCLASS.Minerals));
-        //tempCommodityMasterList.Add(new CommodityDataObject(4, "Palladium", 50, 0, 0, CommodityDataObject.COMMODITYCLASS.Minerals));
-        //tempCommodityMasterList.Add(new CommodityDataObject(5, "Oxygen", 2, 0, 0, CommodityDataObject.COMMODITYCLASS.Minerals));
-        //tempCommodityMasterList.Add(new CommodityDataObject(6, "Mercury", 3, 0, 0, CommodityDataObject.COMMODITYCLASS.Minerals));
-        //tempCommodityMasterList.Add(new CommodityDataObject(7, "Linens", 7, 0, 0, CommodityDataObject.COMMODITYCLASS.Luxury));
-        //tempCommodityMasterList.Add(new CommodityDataObject(8, "Livestock", 10, 0, 0, CommodityDataObject.COMMODITYCLASS.Food));
-        //tempCommodityMasterList.Add(new CommodityDataObject(9, "Space Suits", 20, 0, 0, CommodityDataObject.COMMODITYCLASS.Industrial));
-        //tempCommodityMasterList.Add(new CommodityDataObject(10, "Toilet Paper", 2, 0, 0, CommodityDataObject.COMMODITYCLASS.Common));
-        //tempCommodityMasterList.Add(new CommodityDataObject(11, "Wine", 8, 0, 0, CommodityDataObject.COMMODITYCLASS.Luxury));
-        //tempCommodityMasterList.Add(new CommodityDataObject(12, "Antibiotics", 2, 0, 0, CommodityDataObject.COMMODITYCLASS.Medical));
-        //tempCommodityMasterList.Add(new CommodityDataObject(13, "Construction Equipment", 30, 0, 0, CommodityDataObject.COMMODITYCLASS.Industrial));
-        //tempCommodityMasterList.Add(new CommodityDataObject(14, "Body Armor", 12, 0, 0, CommodityDataObject.COMMODITYCLASS.Military));
+        tempCommodityMasterList.Add(new CommodityDataObject(1, "Carbon", 3, 0, 0, CommodityDataObject.COMMODITYCLASS.Minerals));
+        tempCommodityMasterList.Add(new CommodityDataObject(2, "Silver", 7, 0, 0, CommodityDataObject.COMMODITYCLASS.Minerals));
+        tempCommodityMasterList.Add(new CommodityDataObject(3, "Gold", 12, 0, 0, CommodityDataObject.COMMODITYCLASS.Minerals));
+        tempCommodityMasterList.Add(new CommodityDataObject(4, "Palladium", 50, 0, 0, CommodityDataObject.COMMODITYCLASS.Minerals));
+        tempCommodityMasterList.Add(new CommodityDataObject(5, "Oxygen", 2, 0, 0, CommodityDataObject.COMMODITYCLASS.Minerals));
+        tempCommodityMasterList.Add(new CommodityDataObject(6, "Mercury", 3, 0, 0, CommodityDataObject.COMMODITYCLASS.Minerals));
+        tempCommodityMasterList.Add(new CommodityDataObject(7, "Linens", 7, 0, 0, CommodityDataObject.COMMODITYCLASS.Luxury));
+        tempCommodityMasterList.Add(new CommodityDataObject(8, "Livestock", 10, 0, 0, CommodityDataObject.COMMODITYCLASS.Food));
+        tempCommodityMasterList.Add(new CommodityDataObject(9, "Space Suits", 20, 0, 0, CommodityDataObject.COMMODITYCLASS.Industrial));
+        tempCommodityMasterList.Add(new CommodityDataObject(10, "Toilet Paper", 2, 0, 0, CommodityDataObject.COMMODITYCLASS.Common));
+        tempCommodityMasterList.Add(new CommodityDataObject(11, "Wine", 8, 0, 0, CommodityDataObject.COMMODITYCLASS.Luxury));
+        tempCommodityMasterList.Add(new CommodityDataObject(12, "Antibiotics", 2, 0, 0, CommodityDataObject.COMMODITYCLASS.Medical));
+        tempCommodityMasterList.Add(new CommodityDataObject(13, "Construction Equipment", 30, 0, 0, CommodityDataObject.COMMODITYCLASS.Industrial));
+        tempCommodityMasterList.Add(new CommodityDataObject(14, "Body Armor", 12, 0, 0, CommodityDataObject.COMMODITYCLASS.Military));
 
         //dbCommodityDataObject db = (dbCommodityDataObject)Resources.Load(@"AssetDatabases/dbCommodityDataItems");
         //DataController.dataController.commodityMasterList = db.database;
 
     }
 
-    /// <summary>
-    /// Will be loaded during initial game setup; Here only for testing purposes
-    /// </summary>
-    private void LoadCommodityShopInventories()
-    {
-        //Only happens on a NEW GAME
-        //loop through all stores
-        foreach (CommodityShopDataObject csd in DataController.dataController.commodityShopMasterList)
-        {
-
-            List<CommodityShopInventoryDataObject> tempShopInventory = new List<CommodityShopInventoryDataObject>();
-
-            //create an inventory item for each master item record we have
-            //  and assign it a quantity
-            foreach (CommodityDataObject cd in DataController.dataController.commodityMasterList)
-            {
-                int even = (int)perItemMax / DataController.dataController.commodityMasterList.Count;
-                int share = even - (DataController.dataController.GetRandomInt(0, 100) / 10);
-                string shopBuysOrSells = DataController.dataController.GetRandomInt(0, 50) > 25 ? "B" : "S";
-
-                CommodityShopInventoryDataObject cid = new CommodityShopInventoryDataObject(csd.stationID, cd.commodityID, share, 0, shopBuysOrSells);
-
-                tempShopInventory.Add(cid);
-
-            }
-
-            //move some of the inventory quantity around so it's not so uniform.
-            //TODO: Check perItemMin and keep it under perItemMax
-            foreach (CommodityShopInventoryDataObject cid in tempShopInventory)
-            {
-                int rndAmt = DataController.dataController.GetRandomInt(1, cid.commodityQuantity);
-                int rndItem = DataController.dataController.GetRandomInt(0, tempShopInventory.Count - 1);
-
-                tempShopInventory.ElementAt(rndItem).commodityQuantity += rndAmt;
-                cid.commodityQuantity -= rndAmt;
-            }
-
-            DataController.dataController.commodityShopInventoryList.AddRange(tempShopInventory);
-        }
-    }
+    
 
     private void LoadNPCs()
     {
