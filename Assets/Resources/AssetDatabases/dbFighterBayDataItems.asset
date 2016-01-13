@@ -11,4 +11,16 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 1c2fdcdf96f4a3345b05fb385f4efc09, type: 3}
   m_Name: dbFighterBayDataItems
   m_EditorClassIdentifier: 
-  database: []
+  database:
+  - iD: 1
+    name: Barnstormer Mk I
+    hardwareCode: FBAY
+    hardwareClass: 1
+    portrait: FBAY_BSMI.png
+    baseCost: 30000
+    baseToHit: 2
+    baseDamage: 5
+    damageType: BLSTC
+    baseRange: 500
+    totalFighters: 500
+    currentFighters: 500

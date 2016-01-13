@@ -11,4 +11,70 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: caf0237dcf2712a4fa6ec2be6b5f97f7, type: 3}
   m_Name: dbCrewDataItems
   m_EditorClassIdentifier: 
-  database: []
+  database:
+  - ID: 1
+    Name: Douglas Adams
+    Gender: M
+    Portrait: crew01
+    Biography: Crew 01
+    PayPerPeriod: 500
+    CurrentLevel: 1
+    CurrentExperience: 0
+    HealthTotal: 100
+    HealthCurrent: 20
+    HomeStationID: 31
+  - ID: 2
+    Name: Kelly Manson
+    Gender: F
+    Portrait: crew02
+    Biography: Crew 02
+    PayPerPeriod: 500
+    CurrentLevel: 1
+    CurrentExperience: 0
+    HealthTotal: 100
+    HealthCurrent: 100
+    HomeStationID: 31
+  - ID: 3
+    Name: Zelda Hyrule
+    Gender: F
+    Portrait: crew03
+    Biography: Crew 03
+    PayPerPeriod: 500
+    CurrentLevel: 1
+    CurrentExperience: 0
+    HealthTotal: 100
+    HealthCurrent: 100
+    HomeStationID: 31
+  - ID: 4
+    Name: Sammy Sung
+    Gender: M
+    Portrait: crew04
+    Biography: Crew 04
+    PayPerPeriod: 500
+    CurrentLevel: 1
+    CurrentExperience: 0
+    HealthTotal: 100
+    HealthCurrent: 100
+    HomeStationID: 31
+  - ID: 5
+    Name: Austin Fione
+    Gender: M
+    Portrait: crew05
+    Biography: Crew 05
+    PayPerPeriod: 500
+    CurrentLevel: 1
+    CurrentExperience: 0
+    HealthTotal: 100
+    HealthCurrent: 100
+    HomeStationID: 31
+  - ID: 6
+    Name: Howie Didot
+    Gender: M
+    Portrait: crew06
+    Biography: Crew 06
+    PayPerPeriod: 500
+    CurrentLevel: 1
+    CurrentExperience: 0
+    HealthTotal: 100
+    HealthCurrent: 100
+    HomeStationID: 31

@@ -11,4 +11,11 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: b7104e2e34c03694e8960abb0aa2b375, type: 3}
   m_Name: dbEngineDataItems
   m_EditorClassIdentifier: 
-  database: []
+  database:
+  - iD: 1
+    name: Thrustmaster
+    hardwareCode: ENGN
+    hardwareClass: 1
+    portrait: ENG.png
+    baseCost: 5000
+    forwardThrust: 100

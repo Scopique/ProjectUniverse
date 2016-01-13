@@ -11,4 +11,17 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: c8fd000827f46d44484384cbf67187ba, type: 3}
   m_Name: dbCannonDataItems
   m_EditorClassIdentifier: 
-  database: []
+  database:
+  - iD: 1
+    name: PeaShot 100
+    hardwareCode: CNON
+    hardwareClass: 1
+    portrait: CANON_PSHT.png
+    baseCost: 10000
+    BaseToHit: 2
+    BaseDamage: 5
+    DamageType: BLSTC
+    BaseRange: 500
+    RateOfFire: 500
+    RoundsFired: 2
+    AmmoCapacity: 500

@@ -11,4 +11,11 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 49f37df069d6a7841bbea84f22daf31e, type: 3}
   m_Name: dbShieldDataItems
   m_EditorClassIdentifier: 
-  database: []
+  database:
+  - iD: 1
+    name: Tortise
+    hardwareCode: SHLD
+    hardwareClass: 1
+    portrait: SHLD_TRTS.png
+    baseCost: 5000
+    Strength: 500

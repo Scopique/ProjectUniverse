@@ -11,4 +11,78 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 496981f3debd9ff4faf6a2812eeff9e5, type: 3}
   m_Name: dbSectorDataItems
   m_EditorClassIdentifier: 
-  database: []
+  database:
+  - sectorID: 1
+    sectorName: Alcyone
+  - sectorID: 2
+    sectorName: Aldebaran
+  - sectorID: 3
+    sectorName: Algol
+  - sectorID: 4
+    sectorName: Altair
+  - sectorID: 5
+    sectorName: Antares
+  - sectorID: 6
+    sectorName: Arcturus
+  - sectorID: 7
+    sectorName: Atlas
+  - sectorID: 8
+    sectorName: Auriga
+  - sectorID: 9
+    sectorName: Barnard's Star
+  - sectorID: 10
+    sectorName: Bellatrix
+  - sectorID: 11
+    sectorName: Betelgeus
+  - sectorID: 12
+    sectorName: Caleano
+  - sectorID: 13
+    sectorName: Canopus
+  - sectorID: 14
+    sectorName: Capella
+  - sectorID: 15
+    sectorName: Castor
+  - sectorID: 16
+    sectorName: Debenola
+  - sectorID: 17
+    sectorName: Deneb
+  - sectorID: 18
+    sectorName: Electra
+  - sectorID: 19
+    sectorName: Fomalhaut
+  - sectorID: 20
+    sectorName: Luyten's Star
+  - sectorID: 21
+    sectorName: Maia
+  - sectorID: 22
+    sectorName: Merope
+  - sectorID: 23
+    sectorName: Pleione
+  - sectorID: 24
+    sectorName: Pollux
+  - sectorID: 25
+    sectorName: Procyon
+  - sectorID: 26
+    sectorName: Proxima Centauri
+  - sectorID: 27
+    sectorName: Rasalhague
+  - sectorID: 28
+    sectorName: Regulus
+  - sectorID: 29
+    sectorName: Rigel
+  - sectorID: 30
+    sectorName: Sirius
+  - sectorID: 31
+    sectorName: Sol
+  - sectorID: 32
+    sectorName: Spica
+  - sectorID: 33
+    sectorName: Sterope
+  - sectorID: 34
+    sectorName: Taygeta
+  - sectorID: 35
+    sectorName: Vega
+  - sectorID: 36
+    sectorName: Wolf 359
+  - sectorID: 37
+    sectorName: Polaris

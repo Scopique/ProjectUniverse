@@ -11,4 +11,156 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: ddc5f2f915a34ca458848412aba02202, type: 3}
   m_Name: dbStationDataItems
   m_EditorClassIdentifier: 
-  database: []
+  database:
+  - stationID: 1
+    sectorID: 1
+    stationPosition: {x: 0, y: 0, z: 0}
+    stationName: Alcyone Station
+  - stationID: 2
+    sectorID: 2
+    stationPosition: {x: 0, y: 0, z: 0}
+    stationName: Aldebaran Station
+  - stationID: 3
+    sectorID: 3
+    stationPosition: {x: 0, y: 0, z: 0}
+    stationName: Algol Station
+  - stationID: 4
+    sectorID: 4
+    stationPosition: {x: 0, y: 0, z: 0}
+    stationName: Altair Station
+  - stationID: 5
+    sectorID: 5
+    stationPosition: {x: 0, y: 0, z: 0}
+    stationName: Antares Station
+  - stationID: 6
+    sectorID: 6
+    stationPosition: {x: 0, y: 0, z: 0}
+    stationName: Arcturus Station
+  - stationID: 7
+    sectorID: 7
+    stationPosition: {x: 0, y: 0, z: 0}
+    stationName: Atlas Station
+  - stationID: 8
+    sectorID: 8
+    stationPosition: {x: 0, y: 0, z: 0}
+    stationName: Auriga Station
+  - stationID: 9
+    sectorID: 9
+    stationPosition: {x: 0, y: 0, z: 0}
+    stationName: Barnard's Star Station
+  - stationID: 10
+    sectorID: 10
+    stationPosition: {x: 0, y: 0, z: 0}
+    stationName: Bellatrix Station
+  - stationID: 11
+    sectorID: 11
+    stationPosition: {x: 0, y: 0, z: 0}
+    stationName: Betelgeus Station
+  - stationID: 12
+    sectorID: 12
+    stationPosition: {x: 0, y: 0, z: 0}
+    stationName: Caleano Station
+  - stationID: 13
+    sectorID: 13
+    stationPosition: {x: 0, y: 0, z: 0}
+    stationName: Canopus Station
+  - stationID: 14
+    sectorID: 14
+    stationPosition: {x: 0, y: 0, z: 0}
+    stationName: Capella Station
+  - stationID: 15
+    sectorID: 15
+    stationPosition: {x: 0, y: 0, z: 0}
+    stationName: Castor Station
+  - stationID: 16
+    sectorID: 16
+    stationPosition: {x: 0, y: 0, z: 0}
+    stationName: Debenola Station
+  - stationID: 17
+    sectorID: 17
+    stationPosition: {x: 0, y: 0, z: 0}
+    stationName: Deneb Station
+  - stationID: 18
+    sectorID: 18
+    stationPosition: {x: 0, y: 0, z: 0}
+    stationName: Electra Station
+  - stationID: 19
+    sectorID: 19
+    stationPosition: {x: 0, y: 0, z: 0}
+    stationName: Fomalhaut Station
+  - stationID: 20
+    sectorID: 20
+    stationPosition: {x: 0, y: 0, z: 0}
+    stationName: Luyten's Star Station
+  - stationID: 21
+    sectorID: 21
+    stationPosition: {x: 0, y: 0, z: 0}
+    stationName: Maia Station
+  - stationID: 22
+    sectorID: 22
+    stationPosition: {x: 0, y: 0, z: 0}
+    stationName: Merope Station
+  - stationID: 23
+    sectorID: 23
+    stationPosition: {x: 0, y: 0, z: 0}
+    stationName: Pleione Station
+  - stationID: 24
+    sectorID: 24
+    stationPosition: {x: 0, y: 0, z: 0}
+    stationName: Pollux Station
+  - stationID: 25
+    sectorID: 25
+    stationPosition: {x: 0, y: 0, z: 0}
+    stationName: Procyon Station
+  - stationID: 26
+    sectorID: 26
+    stationPosition: {x: 0, y: 0, z: 0}
+    stationName: Proxima Centauri Station
+  - stationID: 27
+    sectorID: 27
+    stationPosition: {x: 0, y: 0, z: 0}
+    stationName: Rasalhague Station
+  - stationID: 28
+    sectorID: 28
+    stationPosition: {x: 0, y: 0, z: 0}
+    stationName: Regulus Station
+  - stationID: 29
+    sectorID: 29
+    stationPosition: {x: 0, y: 0, z: 0}
+    stationName: Rigel Station
+  - stationID: 30
+    sectorID: 30
+    stationPosition: {x: 0, y: 0, z: 0}
+    stationName: Sirius Station
+  - stationID: 31
+    sectorID: 31
+    stationPosition: {x: 0, y: 0, z: 0}
+    stationName: Earth Station
+  - stationID: 31
+    sectorID: 99
+    stationPosition: {x: 0, y: 0, z: 0}
+    stationName: Utopia Planetia
+  - stationID: 32
+    sectorID: 32
+    stationPosition: {x: 0, y: 0, z: 0}
+    stationName: Spica Station
+  - stationID: 33
+    sectorID: 33
+    stationPosition: {x: 0, y: 0, z: 0}
+    stationName: Sterope Station
+  - stationID: 34
+    sectorID: 34
+    stationPosition: {x: 0, y: 0, z: 0}
+    stationName: Taygeta Station
+  - stationID: 35
+    sectorID: 35
+    stationPosition: {x: 0, y: 0, z: 0}
+    stationName: Vega Station
+  - stationID: 36
+    sectorID: 36
+    stationPosition: {x: 0, y: 0, z: 0}
+    stationName: Wolf 359 Station
+  - stationID: 37
+    sectorID: 37
+    stationPosition: {x: 0, y: 0, z: 0}
+    stationName: Polaris Station

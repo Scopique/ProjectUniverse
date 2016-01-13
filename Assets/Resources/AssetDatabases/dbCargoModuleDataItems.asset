@@ -11,4 +11,11 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 82b374fa4a48a72459fbc87c14ebea78, type: 3}
   m_Name: dbCargoModuleDataItems
   m_EditorClassIdentifier: 
-  database: []
+  database:
+  - iD: 1
+    name: The Big Bucket
+    hardwareCode: CRGO
+    hardwareClass: 1
+    portrait: cargo_bbkt.png
+    baseCost: 10000
+    capacity: 100

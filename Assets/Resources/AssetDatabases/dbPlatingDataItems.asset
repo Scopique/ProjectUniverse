@@ -11,4 +11,11 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: de35d3b06c085794b91b0becd0ca4262, type: 3}
   m_Name: dbPlatingDataItems
   m_EditorClassIdentifier: 
-  database: []
+  database:
+  - iD: 1
+    name: Armadillo
+    hardwareCode: PLTNG
+    hardwareClass: 1
+    portrait: PLTNG_ARMA.png
+    baseCost: 100000
+    Strength: 5000

@@ -11,4 +11,17 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: b406b38921dcb6242b58304c3c7315ae, type: 3}
   m_Name: dbMissileLauncherDataItems
   m_EditorClassIdentifier: 
-  database: []
+  database:
+  - iD: 1
+    name: Slingshot
+    hardwareCode: MSLNC
+    hardwareClass: 1
+    portrait: MSLNC_SLNG.png
+    baseCost: 30000
+    baseToHit: 2
+    baseDamage: 5
+    damageType: BLSTC
+    baseRange: 500
+    magazine: 500
+    reloadSpeed: 2
+    roundsOnHand: 10

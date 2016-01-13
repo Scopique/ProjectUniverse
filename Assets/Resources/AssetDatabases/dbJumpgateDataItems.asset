@@ -11,4 +11,424 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: fe8be91229e30424c956b60b2cdcc160, type: 3}
   m_Name: dbJumpgateDataItems
   m_EditorClassIdentifier: 
-  database: []
+  database:
+  - jumpgateID: 1
+    sectorID: 1
+    jumpgatePosition: {x: 0, y: 0, z: 0}
+    destinationSectorID: 23
+    fee: 10
+  - jumpgateID: 2
+    sectorID: 1
+    jumpgatePosition: {x: 0, y: 0, z: 0}
+    destinationSectorID: 21
+    fee: 10
+  - jumpgateID: 3
+    sectorID: 1
+    jumpgatePosition: {x: 0, y: 0, z: 0}
+    destinationSectorID: 22
+    fee: 10
+  - jumpgateID: 4
+    sectorID: 1
+    jumpgatePosition: {x: 0, y: 0, z: 0}
+    destinationSectorID: 7
+    fee: 10
+  - jumpgateID: 5
+    sectorID: 1
+    jumpgatePosition: {x: 0, y: 0, z: 0}
+    destinationSectorID: 2
+    fee: 10
+  - jumpgateID: 6
+    sectorID: 2
+    jumpgatePosition: {x: 0, y: 0, z: 0}
+    destinationSectorID: 1
+    fee: 10
+  - jumpgateID: 7
+    sectorID: 2
+    jumpgatePosition: {x: 0, y: 0, z: 0}
+    destinationSectorID: 11
+    fee: 10
+  - jumpgateID: 8
+    sectorID: 2
+    jumpgatePosition: {x: 0, y: 0, z: 0}
+    destinationSectorID: 8
+    fee: 10
+  - jumpgateID: 9
+    sectorID: 2
+    jumpgatePosition: {x: 0, y: 0, z: 0}
+    destinationSectorID: 14
+    fee: 10
+  - jumpgateID: 10
+    sectorID: 3
+    jumpgatePosition: {x: 0, y: 0, z: 0}
+    destinationSectorID: 14
+    fee: 10
+  - jumpgateID: 11
+    sectorID: 4
+    jumpgatePosition: {x: 0, y: 0, z: 0}
+    destinationSectorID: 19
+    fee: 10
+  - jumpgateID: 12
+    sectorID: 4
+    jumpgatePosition: {x: 0, y: 0, z: 0}
+    destinationSectorID: 35
+    fee: 10
+  - jumpgateID: 13
+    sectorID: 5
+    jumpgatePosition: {x: 0, y: 0, z: 0}
+    destinationSectorID: 32
+    fee: 10
+  - jumpgateID: 14
+    sectorID: 6
+    jumpgatePosition: {x: 0, y: 0, z: 0}
+    destinationSectorID: 27
+    fee: 10
+  - jumpgateID: 15
+    sectorID: 6
+    jumpgatePosition: {x: 0, y: 0, z: 0}
+    destinationSectorID: 17
+    fee: 10
+  - jumpgateID: 16
+    sectorID: 7
+    jumpgatePosition: {x: 0, y: 0, z: 0}
+    destinationSectorID: 1
+    fee: 10
+  - jumpgateID: 17
+    sectorID: 8
+    jumpgatePosition: {x: 0, y: 0, z: 0}
+    destinationSectorID: 14
+    fee: 10
+  - jumpgateID: 18
+    sectorID: 8
+    jumpgatePosition: {x: 0, y: 0, z: 0}
+    destinationSectorID: 2
+    fee: 10
+  - jumpgateID: 19
+    sectorID: 9
+    jumpgatePosition: {x: 0, y: 0, z: 0}
+    destinationSectorID: 31
+    fee: 10
+  - jumpgateID: 20
+    sectorID: 10
+    jumpgatePosition: {x: 0, y: 0, z: 0}
+    destinationSectorID: 11
+    fee: 10
+  - jumpgateID: 21
+    sectorID: 10
+    jumpgatePosition: {x: 0, y: 0, z: 0}
+    destinationSectorID: 29
+    fee: 10
+  - jumpgateID: 22
+    sectorID: 11
+    jumpgatePosition: {x: 0, y: 0, z: 0}
+    destinationSectorID: 24
+    fee: 10
+  - jumpgateID: 23
+    sectorID: 11
+    jumpgatePosition: {x: 0, y: 0, z: 0}
+    destinationSectorID: 2
+    fee: 10
+  - jumpgateID: 24
+    sectorID: 11
+    jumpgatePosition: {x: 0, y: 0, z: 0}
+    destinationSectorID: 10
+    fee: 10
+  - jumpgateID: 25
+    sectorID: 11
+    jumpgatePosition: {x: 0, y: 0, z: 0}
+    destinationSectorID: 5
+    fee: 10
+  - jumpgateID: 26
+    sectorID: 11
+    jumpgatePosition: {x: 0, y: 0, z: 0}
+    destinationSectorID: 24
+    fee: 10
+  - jumpgateID: 27
+    sectorID: 11
+    jumpgatePosition: {x: 0, y: 0, z: 0}
+    destinationSectorID: 25
+    fee: 10
+  - jumpgateID: 28
+    sectorID: 12
+    jumpgatePosition: {x: 0, y: 0, z: 0}
+    destinationSectorID: 34
+    fee: 10
+  - jumpgateID: 29
+    sectorID: 12
+    jumpgatePosition: {x: 0, y: 0, z: 0}
+    destinationSectorID: 18
+    fee: 10
+  - jumpgateID: 30
+    sectorID: 13
+    jumpgatePosition: {x: 0, y: 0, z: 0}
+    destinationSectorID: 35
+    fee: 10
+  - jumpgateID: 31
+    sectorID: 14
+    jumpgatePosition: {x: 0, y: 0, z: 0}
+    destinationSectorID: 8
+    fee: 10
+  - jumpgateID: 32
+    sectorID: 14
+    jumpgatePosition: {x: 0, y: 0, z: 0}
+    destinationSectorID: 3
+    fee: 10
+  - jumpgateID: 33
+    sectorID: 15
+    jumpgatePosition: {x: 0, y: 0, z: 0}
+    destinationSectorID: 28
+    fee: 10
+  - jumpgateID: 34
+    sectorID: 15
+    jumpgatePosition: {x: 0, y: 0, z: 0}
+    destinationSectorID: 24
+    fee: 10
+  - jumpgateID: 35
+    sectorID: 15
+    jumpgatePosition: {x: 0, y: 0, z: 0}
+    destinationSectorID: 11
+    fee: 10
+  - jumpgateID: 36
+    sectorID: 16
+    jumpgatePosition: {x: 0, y: 0, z: 0}
+    destinationSectorID: 6
+    fee: 10
+  - jumpgateID: 37
+    sectorID: 16
+    jumpgatePosition: {x: 0, y: 0, z: 0}
+    destinationSectorID: 28
+    fee: 10
+  - jumpgateID: 38
+    sectorID: 16
+    jumpgatePosition: {x: 0, y: 0, z: 0}
+    destinationSectorID: 32
+    fee: 10
+  - jumpgateID: 39
+    sectorID: 17
+    jumpgatePosition: {x: 0, y: 0, z: 0}
+    destinationSectorID: 35
+    fee: 10
+  - jumpgateID: 40
+    sectorID: 18
+    jumpgatePosition: {x: 0, y: 0, z: 0}
+    destinationSectorID: 12
+    fee: 10
+  - jumpgateID: 41
+    sectorID: 18
+    jumpgatePosition: {x: 0, y: 0, z: 0}
+    destinationSectorID: 22
+    fee: 10
+  - jumpgateID: 42
+    sectorID: 19
+    jumpgatePosition: {x: 0, y: 0, z: 0}
+    destinationSectorID: 4
+    fee: 10
+  - jumpgateID: 43
+    sectorID: 20
+    jumpgatePosition: {x: 0, y: 0, z: 0}
+    destinationSectorID: 25
+    fee: 10
+  - jumpgateID: 44
+    sectorID: 21
+    jumpgatePosition: {x: 0, y: 0, z: 0}
+    destinationSectorID: 1
+    fee: 10
+  - jumpgateID: 45
+    sectorID: 21
+    jumpgatePosition: {x: 0, y: 0, z: 0}
+    destinationSectorID: 33
+    fee: 10
+  - jumpgateID: 46
+    sectorID: 21
+    jumpgatePosition: {x: 0, y: 0, z: 0}
+    destinationSectorID: 12
+    fee: 10
+  - jumpgateID: 47
+    sectorID: 22
+    jumpgatePosition: {x: 0, y: 0, z: 0}
+    destinationSectorID: 1
+    fee: 10
+  - jumpgateID: 48
+    sectorID: 22
+    jumpgatePosition: {x: 0, y: 0, z: 0}
+    destinationSectorID: 18
+    fee: 10
+  - jumpgateID: 49
+    sectorID: 23
+    jumpgatePosition: {x: 0, y: 0, z: 0}
+    destinationSectorID: 1
+    fee: 10
+  - jumpgateID: 50
+    sectorID: 24
+    jumpgatePosition: {x: 0, y: 0, z: 0}
+    destinationSectorID: 28
+    fee: 10
+  - jumpgateID: 51
+    sectorID: 24
+    jumpgatePosition: {x: 0, y: 0, z: 0}
+    destinationSectorID: 15
+    fee: 10
+  - jumpgateID: 52
+    sectorID: 24
+    jumpgatePosition: {x: 0, y: 0, z: 0}
+    destinationSectorID: 11
+    fee: 10
+  - jumpgateID: 53
+    sectorID: 25
+    jumpgatePosition: {x: 0, y: 0, z: 0}
+    destinationSectorID: 20
+    fee: 10
+  - jumpgateID: 54
+    sectorID: 25
+    jumpgatePosition: {x: 0, y: 0, z: 0}
+    destinationSectorID: 11
+    fee: 10
+  - jumpgateID: 55
+    sectorID: 25
+    jumpgatePosition: {x: 0, y: 0, z: 0}
+    destinationSectorID: 36
+    fee: 10
+  - jumpgateID: 56
+    sectorID: 25
+    jumpgatePosition: {x: 0, y: 0, z: 0}
+    destinationSectorID: 31
+    fee: 10
+  - jumpgateID: 57
+    sectorID: 25
+    jumpgatePosition: {x: 0, y: 0, z: 0}
+    destinationSectorID: 30
+    fee: 10
+  - jumpgateID: 58
+    sectorID: 26
+    jumpgatePosition: {x: 0, y: 0, z: 0}
+    destinationSectorID: 31
+    fee: 10
+  - jumpgateID: 59
+    sectorID: 27
+    jumpgatePosition: {x: 0, y: 0, z: 0}
+    destinationSectorID: 35
+    fee: 10
+  - jumpgateID: 60
+    sectorID: 27
+    jumpgatePosition: {x: 0, y: 0, z: 0}
+    destinationSectorID: 6
+    fee: 10
+  - jumpgateID: 61
+    sectorID: 28
+    jumpgatePosition: {x: 0, y: 0, z: 0}
+    destinationSectorID: 17
+    fee: 10
+  - jumpgateID: 62
+    sectorID: 28
+    jumpgatePosition: {x: 0, y: 0, z: 0}
+    destinationSectorID: 15
+    fee: 10
+  - jumpgateID: 63
+    sectorID: 28
+    jumpgatePosition: {x: 0, y: 0, z: 0}
+    destinationSectorID: 24
+    fee: 10
+  - jumpgateID: 64
+    sectorID: 29
+    jumpgatePosition: {x: 0, y: 0, z: 0}
+    destinationSectorID: 10
+    fee: 10
+  - jumpgateID: 65
+    sectorID: 29
+    jumpgatePosition: {x: 0, y: 0, z: 0}
+    destinationSectorID: 31
+    fee: 10
+  - jumpgateID: 66
+    sectorID: 30
+    jumpgatePosition: {x: 0, y: 0, z: 0}
+    destinationSectorID: 31
+    fee: 10
+  - jumpgateID: 67
+    sectorID: 30
+    jumpgatePosition: {x: 0, y: 0, z: 0}
+    destinationSectorID: 25
+    fee: 10
+  - jumpgateID: 68
+    sectorID: 31
+    jumpgatePosition: {x: 0, y: 0, z: 0}
+    destinationSectorID: 25
+    fee: 10
+  - jumpgateID: 69
+    sectorID: 31
+    jumpgatePosition: {x: 0, y: 0, z: 0}
+    destinationSectorID: 29
+    fee: 10
+  - jumpgateID: 70
+    sectorID: 31
+    jumpgatePosition: {x: 0, y: 0, z: 0}
+    destinationSectorID: 9
+    fee: 10
+  - jumpgateID: 71
+    sectorID: 31
+    jumpgatePosition: {x: 0, y: 0, z: 0}
+    destinationSectorID: 26
+    fee: 10
+  - jumpgateID: 72
+    sectorID: 31
+    jumpgatePosition: {x: 0, y: 0, z: 0}
+    destinationSectorID: 30
+    fee: 10
+  - jumpgateID: 73
+    sectorID: 32
+    jumpgatePosition: {x: 0, y: 0, z: 0}
+    destinationSectorID: 17
+    fee: 10
+  - jumpgateID: 74
+    sectorID: 32
+    jumpgatePosition: {x: 0, y: 0, z: 0}
+    destinationSectorID: 5
+    fee: 10
+  - jumpgateID: 75
+    sectorID: 33
+    jumpgatePosition: {x: 0, y: 0, z: 0}
+    destinationSectorID: 21
+    fee: 10
+  - jumpgateID: 76
+    sectorID: 33
+    jumpgatePosition: {x: 0, y: 0, z: 0}
+    destinationSectorID: 34
+    fee: 10
+  - jumpgateID: 77
+    sectorID: 34
+    jumpgatePosition: {x: 0, y: 0, z: 0}
+    destinationSectorID: 33
+    fee: 10
+  - jumpgateID: 78
+    sectorID: 34
+    jumpgatePosition: {x: 0, y: 0, z: 0}
+    destinationSectorID: 12
+    fee: 10
+  - jumpgateID: 79
+    sectorID: 35
+    jumpgatePosition: {x: 0, y: 0, z: 0}
+    destinationSectorID: 16
+    fee: 10
+  - jumpgateID: 80
+    sectorID: 35
+    jumpgatePosition: {x: 0, y: 0, z: 0}
+    destinationSectorID: 13
+    fee: 10
+  - jumpgateID: 81
+    sectorID: 35
+    jumpgatePosition: {x: 0, y: 0, z: 0}
+    destinationSectorID: 27
+    fee: 10
+  - jumpgateID: 82
+    sectorID: 35
+    jumpgatePosition: {x: 0, y: 0, z: 0}
+    destinationSectorID: 4
+    fee: 10
+  - jumpgateID: 83
+    sectorID: 36
+    jumpgatePosition: {x: 0, y: 0, z: 0}
+    destinationSectorID: 25
+    fee: 10
+  - jumpgateID: 84
+    sectorID: 37
+    jumpgatePosition: {x: 0, y: 0, z: 0}
+    destinationSectorID: 30
+    fee: 10

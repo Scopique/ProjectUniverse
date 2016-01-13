@@ -11,4 +11,12 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: ad66b14ac5b823245a266713a98049c1, type: 3}
   m_Name: dbScannerDataItems
   m_EditorClassIdentifier: 
-  database: []
+  database:
+  - iD: 1
+    name: Eagle-I
+    hardwareCode: SCNR
+    hardwareClass: 1
+    portrait: SCNR_EGLI.png
+    baseCost: 5000
+    baseRange: 1000
+    signatureThreshold: 1

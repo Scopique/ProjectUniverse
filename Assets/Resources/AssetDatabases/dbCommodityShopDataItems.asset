@@ -11,4 +11,13 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 9dc0619b24a9ca94688a693a28e2aedc, type: 3}
   m_Name: dbCommodityShopDataItems
   m_EditorClassIdentifier: 
-  database: []
+  database:
+  - stationID: 31
+    shopName: The Leftorium
+    shopDescription: A place where you can buy all kinds of gadgets for the lefty
+      in your life
+    shopkeeperPortait: flanders.png
+  - stationID: 25
+    shopName: CShop
+    shopDescription: Buy our crap!
+    shopkeeperPortait: pileofcrap.png

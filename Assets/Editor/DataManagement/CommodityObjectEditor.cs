@@ -33,7 +33,6 @@ public class CommodityObjectEditor : EditorWindow {
     public static void Init()
     {
         editorWindow = EditorWindow.GetWindow<CommodityObjectEditor>();
-        //editor.minSize = new Vector2(800, 400);
         editorWindow.Show();
     }
 

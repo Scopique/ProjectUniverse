@@ -11,4 +11,20 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: ff353ff78a1bee84ba065b4712e753c1, type: 3}
   m_Name: dbHullDataItems
   m_EditorClassIdentifier: 
-  database: []
+  database:
+  - iD: 1
+    name: Git-R-Done
+    hardwareCode: HULL
+    hardwareClass: 1
+    portrait: HULL_GRD.png
+    baseCost: 100000
+    baseStrength: 500
+    baseDefense: 9
+    engineClass: 1
+    cargoClass: 1
+    shieldClass: 1
+    cannonClass: 1
+    missileClass: 1
+    scannerClass: 1
+    fighterClass: 1
+    platingClass: 1
