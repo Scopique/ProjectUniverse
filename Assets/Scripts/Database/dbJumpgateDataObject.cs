@@ -3,28 +3,28 @@ using System.Collections;
 using System.Collections.Generic;
 using System.Linq;
 
-//http://git.burgzergarcade.net/Petey/ScriptableObject-Database-Example
-
-public class dbSectorDataObject : ScriptableObject
+//TODO: Not sure how to work with the Sector ID of this. 
+//  Maybe we don't assign it here, and set it up when placed...?
+public class dbJumpgateDataObject : ScriptableObject
 {
 
     [SerializeField]
-    public List<SectorDataObject> database;
+    public List<JumpgateDataObject> database;
 
     //#####################################################################
 
     void OnEnable()
     {
         if (database == null)
-            database = new List<SectorDataObject>();
+            database = new List<JumpgateDataObject>();
     }
 
-    public void Add(SectorDataObject dataObject)
+    public void Add(JumpgateDataObject dataObject)
     {
         database.Add(dataObject);
     }
 
-    public void Remove(SectorDataObject dataObject)
+    public void Remove(JumpgateDataObject dataObject)
     {
         database.Remove(dataObject);
     }
@@ -40,18 +40,9 @@ public class dbSectorDataObject : ScriptableObject
     }
 
     //.ElementAt() requires the System.Linq
-    public SectorDataObject GetSector(int index)
+    public JumpgateDataObject GetJumpgate(int index)
     {
         return database.ElementAt(index);
     }
-
-    public void SortAlphabeticallyAtoZ()
-    {
-        database.Sort((x, y) => string.Compare(x.sectorName, y.sectorName));
-    }
-
-
-
-
 
 }

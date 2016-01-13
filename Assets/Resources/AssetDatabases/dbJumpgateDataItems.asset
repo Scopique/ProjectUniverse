@@ -8,7 +8,7 @@ MonoBehaviour:
   m_GameObject: {fileID: 0}
   m_Enabled: 1
   m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: 496981f3debd9ff4faf6a2812eeff9e5, type: 3}
-  m_Name: dbSectorDataItems
+  m_Script: {fileID: 11500000, guid: fe8be91229e30424c956b60b2cdcc160, type: 3}
+  m_Name: dbJumpgateDataItems
   m_EditorClassIdentifier: 
   database: []

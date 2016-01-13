@@ -153,7 +153,7 @@ public class SectorObjectEditor : EditorWindow
             //Save this, either as a new item, or an edit
             if (isEdit)
             {
-                SectorDataObject sdo = db.Sector(editID);
+                SectorDataObject sdo = db.GetSector(editID);
                 //Can't change the ID once it's set
                 sdo.sectorName = editName;
                 EditorUtility.SetDirty(db);

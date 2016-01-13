@@ -3,28 +3,26 @@ using System.Collections;
 using System.Collections.Generic;
 using System.Linq;
 
-//http://git.burgzergarcade.net/Petey/ScriptableObject-Database-Example
 
-public class dbSectorDataObject : ScriptableObject
-{
+public class dbShieldDataObject : ScriptableObject {
 
     [SerializeField]
-    public List<SectorDataObject> database;
+    public List<ShieldDataObject> database;
 
     //#####################################################################
 
     void OnEnable()
     {
         if (database == null)
-            database = new List<SectorDataObject>();
+            database = new List<ShieldDataObject>();
     }
 
-    public void Add(SectorDataObject dataObject)
+    public void Add(ShieldDataObject dataObject)
     {
         database.Add(dataObject);
     }
 
-    public void Remove(SectorDataObject dataObject)
+    public void Remove(ShieldDataObject dataObject)
     {
         database.Remove(dataObject);
     }
@@ -40,18 +38,13 @@ public class dbSectorDataObject : ScriptableObject
     }
 
     //.ElementAt() requires the System.Linq
-    public SectorDataObject GetSector(int index)
+    public ShieldDataObject GetShield(int index)
     {
         return database.ElementAt(index);
     }
 
     public void SortAlphabeticallyAtoZ()
     {
-        database.Sort((x, y) => string.Compare(x.sectorName, y.sectorName));
+        database.Sort((x, y) => string.Compare(x.name, y.name));
     }
-
-
-
-
-
 }

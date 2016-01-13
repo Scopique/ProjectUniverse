@@ -3,28 +3,27 @@ using System.Collections;
 using System.Collections.Generic;
 using System.Linq;
 
-//http://git.burgzergarcade.net/Petey/ScriptableObject-Database-Example
-
-public class dbSectorDataObject : ScriptableObject
+//TODO: Crew database editor needs access to Crew Skills
+public class dbCrewDataObject : ScriptableObject
 {
 
     [SerializeField]
-    public List<SectorDataObject> database;
+    public List<CrewMemberDataObject> database;
 
     //#####################################################################
 
     void OnEnable()
     {
         if (database == null)
-            database = new List<SectorDataObject>();
+            database = new List<CrewMemberDataObject>();
     }
 
-    public void Add(SectorDataObject dataObject)
+    public void Add(CrewMemberDataObject dataObject)
     {
         database.Add(dataObject);
     }
 
-    public void Remove(SectorDataObject dataObject)
+    public void Remove(CrewMemberDataObject dataObject)
     {
         database.Remove(dataObject);
     }
@@ -40,18 +39,13 @@ public class dbSectorDataObject : ScriptableObject
     }
 
     //.ElementAt() requires the System.Linq
-    public SectorDataObject GetSector(int index)
+    public CrewMemberDataObject GetCrewMember(int index)
     {
         return database.ElementAt(index);
     }
 
     public void SortAlphabeticallyAtoZ()
     {
-        database.Sort((x, y) => string.Compare(x.sectorName, y.sectorName));
+        database.Sort((x, y) => string.Compare(x.Name, y.Name));
     }
-
-
-
-
-
 }

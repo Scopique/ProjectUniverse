@@ -173,7 +173,7 @@ public class CommodityObjectEditor : EditorWindow {
             //Save this, either as a new item, or an edit
             if (isEdit)
             {
-                CommodityDataObject cib = db.Commodity(editID);
+                CommodityDataObject cib = db.GetCommodity(editID);
                 cib.commodityImage = editImage;
                 cib.commodityName = editName;
                 cib.commodityBasePrice = int.Parse(editBasePrice.ToString());

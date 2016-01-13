@@ -18,14 +18,14 @@ public class dbCommodityDataObject : ScriptableObject {
             database = new List<CommodityDataObject>();
     }
 
-    public void Add(CommodityDataObject commodity)
+    public void Add(CommodityDataObject dataObject)
     {
-        database.Add(commodity);
+        database.Add(dataObject);
     }
 
-    public void Remove(CommodityDataObject commodity)
+    public void Remove(CommodityDataObject dataObject)
     {
-        database.Remove(commodity);
+        database.Remove(dataObject);
     }
 
     public void RemoveAt(int index)
@@ -39,7 +39,7 @@ public class dbCommodityDataObject : ScriptableObject {
     }
 
     //.ElementAt() requires the System.Linq
-    public CommodityDataObject Commodity(int index)
+    public CommodityDataObject GetCommodity(int index)
     {
         return database.ElementAt(index);
     }

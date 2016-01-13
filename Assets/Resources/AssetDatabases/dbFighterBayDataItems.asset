@@ -8,7 +8,7 @@ MonoBehaviour:
   m_GameObject: {fileID: 0}
   m_Enabled: 1
   m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: 496981f3debd9ff4faf6a2812eeff9e5, type: 3}
-  m_Name: dbSectorDataItems
+  m_Script: {fileID: 11500000, guid: 1c2fdcdf96f4a3345b05fb385f4efc09, type: 3}
+  m_Name: dbFighterBayDataItems
   m_EditorClassIdentifier: 
   database: []

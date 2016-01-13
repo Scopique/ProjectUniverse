@@ -25,28 +25,28 @@ public class MasterDatabase : MonoBehaviour
 
     #region Private Vars
 
-    List<SectorDataObject> tempSectorMasterList;
-    List<StationDataObject> tempStationMasterList;
-    List<JumpgateDataObject> tempJumpgateMasterList;
-    List<PlanetDataObject> tempPlanetMasterList;
-
-    List<NPCDataObject> tempNPCMasterList;
-
-    List<CommodityShopDataObject> tempCommodityShopMasterList;
-    List<CommodityDataObject> tempCommodityMasterList;
-    List<CommodityShopInventoryDataObject> tempCommodityShopInventoryList;
-
-    List<HullDataObject> tempHullMasterList;
-    List<CargoDataObject> tempCargoHoldMasterList;
-    List<CannonDataObject> tempCannonMasterList;
-    List<EngineDataObject> tempEngineMasterList;
-    List<FighterBayDataObject> tempFighterBayMasterList;
-    List<MissileLauncherDataObject> tempMissileLauncherMasterList;
-    List<PlatingDataObject> tempPlatingMasterList;
-    List<ScannerDataObject> tempScannerMasterList;
-    List<ShieldDataObject> tempShieldMasterList;
-
-    List<CrewMemberDataObject> tempCrewList;
+    public List<SectorDataObject> tempSectorMasterList;
+    public List<StationDataObject> tempStationMasterList;
+    public List<JumpgateDataObject> tempJumpgateMasterList;
+    public List<PlanetDataObject> tempPlanetMasterList;
+    
+    public List<NPCDataObject> tempNPCMasterList;
+     
+    public List<CommodityShopDataObject> tempCommodityShopMasterList;
+    public List<CommodityDataObject> tempCommodityMasterList;
+    public List<CommodityShopInventoryDataObject> tempCommodityShopInventoryList;
+    
+    public List<HullDataObject> tempHullMasterList;
+    public List<CargoDataObject> tempCargoHoldMasterList;
+    public List<CannonDataObject> tempCannonMasterList;
+    public List<EngineDataObject> tempEngineMasterList;
+    public List<FighterBayDataObject> tempFighterBayMasterList;
+    public List<MissileLauncherDataObject> tempMissileLauncherMasterList;
+    public List<PlatingDataObject> tempPlatingMasterList;
+    public List<ScannerDataObject> tempScannerMasterList;
+    public List<ShieldDataObject> tempShieldMasterList;
+    
+    public List<CrewMemberDataObject> tempCrewList;
 
     #endregion
 
@@ -87,7 +87,7 @@ public class MasterDatabase : MonoBehaviour
 
         LoadCommodityShops();
         LoadCommodities();
-        LoadCommodityShopInventories();
+        //LoadCommodityShopInventories();
 
         LoadHulls();
         LoadCargoModules();
@@ -156,7 +156,7 @@ public class MasterDatabase : MonoBehaviour
         tempSectorMasterList.Add(new SectorDataObject(36, "Wolf 359"));
         tempSectorMasterList.Add(new SectorDataObject(37, "Polaris"));
 
-        DataController.dataController.sectorMasterList = tempSectorMasterList;
+        //DataController.dataController.sectorMasterList = tempSectorMasterList;
 
     }
 
@@ -205,7 +205,7 @@ public class MasterDatabase : MonoBehaviour
 
 
 
-        DataController.dataController.stationMasterList = tempStationMasterList;
+        //DataController.dataController.stationMasterList = tempStationMasterList;
 
     }
 
@@ -296,7 +296,7 @@ public class MasterDatabase : MonoBehaviour
         tempJumpgateMasterList.Add(new JumpgateDataObject(83, 36, 25, 10));
         tempJumpgateMasterList.Add(new JumpgateDataObject(84, 37, 30, 10));
 
-        DataController.dataController.jumpgateMasterList = tempJumpgateMasterList;
+        //DataController.dataController.jumpgateMasterList = tempJumpgateMasterList;
 
     }
 
@@ -310,7 +310,7 @@ public class MasterDatabase : MonoBehaviour
         tempCommodityShopMasterList.Add(new CommodityShopDataObject(31, "The Leftorium", "A place where you can buy all kinds of gadgets for the lefty in your life", "flanders.png"));
         tempCommodityShopMasterList.Add(new CommodityShopDataObject(25, "CShop", "Buy our crap!", "pileofcrap.png"));
 
-        DataController.dataController.commodityShopMasterList = tempCommodityShopMasterList;
+        //DataController.dataController.commodityShopMasterList = tempCommodityShopMasterList;
     }
 
     /// <summary>
@@ -333,8 +333,8 @@ public class MasterDatabase : MonoBehaviour
         //tempCommodityMasterList.Add(new CommodityDataObject(13, "Construction Equipment", 30, 0, 0, CommodityDataObject.COMMODITYCLASS.Industrial));
         //tempCommodityMasterList.Add(new CommodityDataObject(14, "Body Armor", 12, 0, 0, CommodityDataObject.COMMODITYCLASS.Military));
 
-        dbCommodityDataObject db = (dbCommodityDataObject)Resources.Load(@"AssetDatabases/dbCommodityDataItems");
-        DataController.dataController.commodityMasterList = db.database;
+        //dbCommodityDataObject db = (dbCommodityDataObject)Resources.Load(@"AssetDatabases/dbCommodityDataItems");
+        //DataController.dataController.commodityMasterList = db.database;
 
     }
 
@@ -404,63 +404,63 @@ public class MasterDatabase : MonoBehaviour
         tempNPCMasterList.Add(new NPCDataObject(19, "Chris Tremblay", "Big Daddy's Home", "Human"));
         tempNPCMasterList.Add(new NPCDataObject(20, "Emily Joy Bembeneck", "Progressive Fire", "Human"));
 
-        DataController.dataController.NPCMasterList = tempNPCMasterList;
+        //DataController.dataController.NPCMasterList = tempNPCMasterList;
     }
 
     private void LoadHulls()
     {
         tempHullMasterList.Add(new HullDataObject(1, "Git-R-Done", "HULL", 1, "HULL_GRD.png", 100000, 500, 9.0f, 1, 1, 1, 1, 1, 1, 1, 1));
         
-        DataController.dataController.hullMasterList = tempHullMasterList;
+        //DataController.dataController.hullMasterList = tempHullMasterList;
     }
 
     private void LoadCargoModules()
     {
         tempCargoHoldMasterList.Add(new CargoDataObject(1, "The Big Bucket","CRGO",1,"cargo_bbkt.png",10000,100));
 
-        DataController.dataController.cargoHoldMasterList = tempCargoHoldMasterList;
+        //DataController.dataController.cargoHoldMasterList = tempCargoHoldMasterList;
     }
 
     private void LoadCannons()
     {
         tempCannonMasterList.Add(new CannonDataObject(1, "PeaShot 100", "CNON", 1, "CANON_PSHT.png", 10000, 2.0f, 5.0f, "BLSTC", 500, 500, 2, 500));
 
-        DataController.dataController.cannonMasterList = tempCannonMasterList;
+        //DataController.dataController.cannonMasterList = tempCannonMasterList;
     }
 
     private void LoadEngines()
     {
         tempEngineMasterList.Add(new EngineDataObject(1, "Thrustmaster", "ENGN", 1, "ENG.png", 5000, 100.0f, new Maneuverability(75.0f, 75.0f, 50.0f)));
 
-        DataController.dataController.engineMasterList = tempEngineMasterList;
+        //DataController.dataController.engineMasterList = tempEngineMasterList;
     }
 
     private void LoadFighterBays()
     {
         tempFighterBayMasterList.Add(new FighterBayDataObject(1, "Barnstormer Mk I", "FBAY", 1, "FBAY_BSMI.png", 30000, 2.0f, 5.0f, "BLSTC", 500, 500, 500));
 
-        DataController.dataController.figherBayMasterList = tempFighterBayMasterList;
+        //DataController.dataController.figherBayMasterList = tempFighterBayMasterList;
     }
 
     private void LoadMissileLaunchers()
     {
         tempMissileLauncherMasterList.Add(new MissileLauncherDataObject(1, "Slingshot", "MSLNC", 1, "MSLNC_SLNG.png", 30000, 2.0f, 5.0f, "BLSTC", 500, 500, 2.0f, 10));
 
-        DataController.dataController.missileLauncherMasterList = tempMissileLauncherMasterList;
+        //DataController.dataController.missileLauncherMasterList = tempMissileLauncherMasterList;
     }
 
     private void LoadPlating()
     {
         tempPlatingMasterList.Add(new PlatingDataObject(1, "Armadillo", "PLTNG", 1, "PLTNG_ARMA.png", 100000, 5000.0f));
 
-        DataController.dataController.platingMasterList = tempPlatingMasterList;
+        //DataController.dataController.platingMasterList = tempPlatingMasterList;
     }
 
     private void LoadScanners()
     {
         tempScannerMasterList.Add(new ScannerDataObject(1, "Eagle-I", "SCNR", 1, "SCNR_EGLI.png", 5000, 1000, 1));
 
-        DataController.dataController.scannerMasterList = tempScannerMasterList;
+        //DataController.dataController.scannerMasterList = tempScannerMasterList;
     }
 
     private void LoadShields()
@@ -468,7 +468,7 @@ public class MasterDatabase : MonoBehaviour
         tempShieldMasterList.Add(new ShieldDataObject(1, "Tortise", "SHLD", 1, "SHLD_TRTS.png", 5000, 500.0f));
 
 
-        DataController.dataController.shieldMasterList = tempShieldMasterList;
+        //DataController.dataController.shieldMasterList = tempShieldMasterList;
     }
 
 
@@ -481,7 +481,7 @@ public class MasterDatabase : MonoBehaviour
         tempCrewList.Add(new CrewMemberDataObject(5, "Austin Fione", "M", "crew05", "Crew 05", 500, 1, 0f, 100, 100, 31, new CrewMemberSkillsDataObject(0f, 0f, 0f, 0f, 5f, 0f, 0f, 0f)));
         tempCrewList.Add(new CrewMemberDataObject(6, "Howie Didot", "M", "crew06", "Crew 06", 500, 1, 0f, 100, 100, 31, new CrewMemberSkillsDataObject(0f, 0f, 0f, 0f, 0f, 0f, 5f, 0f)));
 
-        DataController.dataController.crewMasterList = tempCrewList;
+        //DataController.dataController.crewMasterList = tempCrewList;
     }
 
     #endregion
