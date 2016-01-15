@@ -101,11 +101,8 @@ public class SectorObjectEditor : EditorWindow
 
     private void DisplayListArea()
     {
-        
-        //for (int cnt = 0; cnt < filterList.Count; cnt++)
         foreach (SectorDataObject cdo in db.database)
         {
-
             EditorGUILayout.BeginHorizontal(GUILayout.Width(Screen.width));
 
             EditorGUILayout.LabelField(cdo.sectorID.ToString(), GUILayout.Width(75));

@@ -16,9 +16,12 @@ public class StationObjectEditor : EditorWindow {
     private dbCommodityShopDataObject dbCommodityShops;
     private dbCommodityDataObject dbCommodities;
 
+    private string[] sectorNames;
+
     private Vector2 scrollPos;
 
-    private List<bool> foldoutOpen;
+    private List<bool> stationFoldoutOpen;
+    private List<bool> commodityShopFolderOpen;
     private List<StationEditorValues> stationEditorValues;
 
     [MenuItem("Data Management/Stations")]
@@ -53,51 +56,79 @@ public class StationObjectEditor : EditorWindow {
         dbCommodities = (dbCommodityDataObject)AssetDatabase.LoadAssetAtPath(DATABASE_PATH + "dbCommodityDataItems.asset", typeof(dbCommodityDataObject));
     }
 
-    List<CommodityShopDataObject> GetCommodityShopByStationID(int StationID)
-    {
-        List<CommodityShopDataObject> shop = new List<CommodityShopDataObject>();
+   
 
-
-
-        return shop;
-    }
-
+    /// <summary>
+    /// Display the list of stations in foldout format. Includes scrolling ability
+    /// </summary>
     void DisplayStations()
     {
+        int itemIdx = 0;
+
         scrollPos = EditorGUILayout.BeginScrollView(scrollPos, GUILayout.Width(Screen.width), GUILayout.Height(Screen.height-150));
 
         //In here will be foldouts for each Station we have defined. 
         foreach (StationDataObject dbso in dbStations.database)
         {
-            foldoutOpen[dbso.stationID] = EditorGUILayout.Foldout((bool)foldoutOpen[dbso.stationID], dbso.stationName);
-            if ((bool)foldoutOpen[dbso.stationID])
+            stationFoldoutOpen[itemIdx] = EditorGUILayout.Foldout((bool)stationFoldoutOpen[itemIdx], dbso.stationName);
+            if ((bool)stationFoldoutOpen[itemIdx])
             {
-                EditorGUILayout.TextField("Sector ID", "");
+                stationEditorValues[dbso.stationID].stationID = dbso.stationID;
+                stationEditorValues[dbso.stationID].stationName = EditorGUILayout.TextField("Station Name", stationEditorValues[dbso.stationID].stationName, GUILayout.Width(300));
+                stationEditorValues[dbso.stationID].sectorID = int.Parse(EditorGUILayout.TextField("Sector ID", stationEditorValues[dbso.stationID].sectorID.ToString(), GUILayout.Width(200)));
+                stationEditorValues[dbso.stationID].stationPosition = EditorGUILayout.Vector3Field("Position in Sector", stationEditorValues[dbso.stationID].stationPosition, GUILayout.Width(300));
+
+                DisplayCommodityShop(dbso.stationID, itemIdx);
             }
+
+            itemIdx++;
         }
         
-
         EditorGUILayout.EndScrollView();
+        EditorGUILayout.Space();
     }
 
-    void DisplayCommodityShop()
+    //TODO: Needs more spacing :(
+    void DisplayCommodityShop(int StationID, int Idx)
     {
+        CommodityShopDataObject cdo = GetCommodityShopByStationID(StationID);
+        commodityShopFolderOpen[Idx] = EditorGUILayout.Foldout(commodityShopFolderOpen[Idx], "Commodity Shop - " + cdo.shopName);
+        if (commodityShopFolderOpen[Idx])
+        {
 
+        }
+
+    }
+
+    /// <summary>
+    /// Get the commodity shop for the provided station by station ID
+    /// </summary>
+    /// <returns>CommodityShopDataObject</returns>
+    CommodityShopDataObject GetCommodityShopByStationID(int StationID)
+    {
+        List<CommodityShopDataObject> shop = new List<CommodityShopDataObject>();
+        CommodityShopDataObject cdo = shop.Find(x => x.stationID.Equals(StationID));
+        if (cdo == null) { cdo = new CommodityShopDataObject(StationID, "Unassigned", "This commodity shop has not been opened.", "Empty.jpg"); }
+        return cdo;
     }
 
     
     void InitializeLists()
     {
         stationEditorValues = new List<StationEditorValues>();
-        foldoutOpen = new List<bool>();
+        stationFoldoutOpen = new List<bool>();
+        commodityShopFolderOpen = new List<bool>();
 
         stationEditorValues.Add(new StationEditorValues(0, 0, Vector3.zero, string.Empty));
-        foldoutOpen.Add(false);         //Since we're working by Station ID, reserve Idx 0
 
-        for (int i = 1; i <= dbStations.Count - 1; i++)
+        for (int i = 0; i <= dbStations.Count - 1; i++ )
         {
-            foldoutOpen.Add(false);
+            stationFoldoutOpen.Add(false);
+            commodityShopFolderOpen.Add(false);
+        }
 
+        for (int i = 1; i <= dbStations.Count-1; i++)
+        {
             stationEditorValues.Add(new StationEditorValues(dbStations.database[i].stationID, dbStations.database[i].sectorID, dbStations.database[i].stationPosition, dbStations.database[i].stationName));
         }
     }
@@ -105,9 +136,10 @@ public class StationObjectEditor : EditorWindow {
     void SetFoldoutOpen(int idx)
     {
         InitializeLists();
-        foldoutOpen[idx] = true;
+        stationFoldoutOpen[idx] = true;
     }
 
+    #region Editor Value Tracking Objects
 
     private class StationEditorValues
     {
@@ -128,6 +160,8 @@ public class StationObjectEditor : EditorWindow {
                 this.stationName = StationName;
             }
     }
+
+    #endregion  
 
 }
 
