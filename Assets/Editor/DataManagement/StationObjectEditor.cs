@@ -14,15 +14,10 @@ public class StationObjectEditor : EditorWindow {
 
     private dbStationDataObject dbStations;
     private dbCommodityShopDataObject dbCommodityShops;
-    private dbCommodityDataObject dbCommodities;
-
-    private string[] sectorNames;
 
     private Vector2 scrollPos;
 
     private List<bool> stationFoldoutOpen;
-    private List<bool> commodityShopFolderOpen;
-    private List<StationEditorValues> stationEditorValues;
 
     [MenuItem("Data Management/Stations")]
     public static void Init()
@@ -39,7 +34,10 @@ public class StationObjectEditor : EditorWindow {
 
     void OnGUI()
     {
+        DisplayActionButtons();
+        
         DisplayStations();
+        
     }
 
     /// <summary>
@@ -53,116 +51,129 @@ public class StationObjectEditor : EditorWindow {
     {
         dbStations = (dbStationDataObject)AssetDatabase.LoadAssetAtPath(DATABASE_PATH + "dbStationDataItems.asset", typeof(dbStationDataObject));
         dbCommodityShops = (dbCommodityShopDataObject)AssetDatabase.LoadAssetAtPath(DATABASE_PATH + "dbCommodityShopDataItems.asset", typeof(dbCommodityShopDataObject));
-        dbCommodities = (dbCommodityDataObject)AssetDatabase.LoadAssetAtPath(DATABASE_PATH + "dbCommodityDataItems.asset", typeof(dbCommodityDataObject));
     }
 
-   
-
-    /// <summary>
-    /// Display the list of stations in foldout format. Includes scrolling ability
-    /// </summary>
-    void DisplayStations()
+    private void InitializeLists()
     {
-        int itemIdx = 0;
-
-        scrollPos = EditorGUILayout.BeginScrollView(scrollPos, GUILayout.Width(Screen.width), GUILayout.Height(Screen.height-150));
-
-        //In here will be foldouts for each Station we have defined. 
-        foreach (StationDataObject dbso in dbStations.database)
-        {
-            stationFoldoutOpen[itemIdx] = EditorGUILayout.Foldout((bool)stationFoldoutOpen[itemIdx], dbso.stationName);
-            if ((bool)stationFoldoutOpen[itemIdx])
-            {
-                stationEditorValues[dbso.stationID].stationID = dbso.stationID;
-                stationEditorValues[dbso.stationID].stationName = EditorGUILayout.TextField("Station Name", stationEditorValues[dbso.stationID].stationName, GUILayout.Width(300));
-                stationEditorValues[dbso.stationID].sectorID = int.Parse(EditorGUILayout.TextField("Sector ID", stationEditorValues[dbso.stationID].sectorID.ToString(), GUILayout.Width(200)));
-                stationEditorValues[dbso.stationID].stationPosition = EditorGUILayout.Vector3Field("Position in Sector", stationEditorValues[dbso.stationID].stationPosition, GUILayout.Width(300));
-
-                DisplayCommodityShop(dbso.stationID, itemIdx);
-            }
-
-            itemIdx++;
-        }
-        
-        EditorGUILayout.EndScrollView();
-        EditorGUILayout.Space();
-    }
-
-    //TODO: Needs more spacing :(
-    void DisplayCommodityShop(int StationID, int Idx)
-    {
-        CommodityShopDataObject cdo = GetCommodityShopByStationID(StationID);
-        commodityShopFolderOpen[Idx] = EditorGUILayout.Foldout(commodityShopFolderOpen[Idx], "Commodity Shop - " + cdo.shopName);
-        if (commodityShopFolderOpen[Idx])
-        {
-
-        }
-
-    }
-
-    /// <summary>
-    /// Get the commodity shop for the provided station by station ID
-    /// </summary>
-    /// <returns>CommodityShopDataObject</returns>
-    CommodityShopDataObject GetCommodityShopByStationID(int StationID)
-    {
-        List<CommodityShopDataObject> shop = new List<CommodityShopDataObject>();
-        CommodityShopDataObject cdo = shop.Find(x => x.stationID.Equals(StationID));
-        if (cdo == null) { cdo = new CommodityShopDataObject(StationID, "Unassigned", "This commodity shop has not been opened.", "Empty.jpg"); }
-        return cdo;
-    }
-
-    
-    void InitializeLists()
-    {
-        stationEditorValues = new List<StationEditorValues>();
         stationFoldoutOpen = new List<bool>();
-        commodityShopFolderOpen = new List<bool>();
-
-        stationEditorValues.Add(new StationEditorValues(0, 0, Vector3.zero, string.Empty));
-
+       
         for (int i = 0; i <= dbStations.Count - 1; i++ )
         {
             stationFoldoutOpen.Add(false);
-            commodityShopFolderOpen.Add(false);
         }
 
-        for (int i = 1; i <= dbStations.Count-1; i++)
+        //Because we might not have child items for each station, we need to add in blanks to those databases in order to 
+        //  prepare for the eventual filling-in of the data
+        bool cshopIsDirty = false;
+        if (dbCommodityShops.Count < dbStations.Count)
         {
-            stationEditorValues.Add(new StationEditorValues(dbStations.database[i].stationID, dbStations.database[i].sectorID, dbStations.database[i].stationPosition, dbStations.database[i].stationName));
+            for (int i = 0; i <= dbStations.Count - 1; i++)
+            {
+                int stationID = dbStations.database[i].stationID;
+                CommodityShopDataObject tempCdso = dbCommodityShops.GetCommodityShopByStation(stationID);
+                if (tempCdso.shopName == string.Empty)
+                {
+                    tempCdso = new CommodityShopDataObject(stationID, "New Commodity Shop", "This space for rent", Texture2D.whiteTexture);
+                    dbCommodityShops.Add(tempCdso);
+
+                    cshopIsDirty = true;
+                }
+            }
         }
+
+        if (cshopIsDirty) { EditorUtility.SetDirty(dbCommodityShops); }
     }
 
+    private void DisplayActionButtons()
+    {
+        EditorGUILayout.BeginHorizontal(GUILayout.Width(Screen.width));
+        if (GUILayout.Button("Refresh"))
+        {
+            LoadDatabases();
+            InitializeLists();
+        }
+
+        EditorGUILayout.EndHorizontal();
+        EditorGUILayout.Space();
+    }
+
+    private void DisplayStations()
+    {
+        int stationIdx = 0;
+
+        scrollPos = EditorGUILayout.BeginScrollView(scrollPos, GUILayout.Width(Screen.width));
+
+        foreach (StationDataObject sdo in dbStations.database)
+        {
+            //Get data from other databases for this station
+            CommodityShopDataObject csdo = dbCommodityShops.GetCommodityShopByStation(sdo.stationID);     
+
+            //Indicator for what's missing from the station
+            string missingChildren = string.Empty;
+            if (csdo.shopName == string.Empty) { missingChildren += "C"; }
+
+            if (missingChildren != string.Empty) { missingChildren = " [" + missingChildren + "]"; }
+
+            //Foldout for each station
+            stationFoldoutOpen[stationIdx] = EditorGUILayout.Foldout(stationFoldoutOpen[stationIdx], sdo.stationID.ToString() + " - " + sdo.stationName + missingChildren);
+            if (stationFoldoutOpen[stationIdx])
+            {
+                //###############################################################################################
+                //Main station input form
+
+                //Change check: if anything in this block changes, we need to mark the DB as dirty for update.
+                EditorGUI.BeginChangeCheck();
+                sdo.stationName = EditorGUILayout.TextField("Name", sdo.stationName, GUILayout.Width(400));
+                sdo.sectorID = EditorGUILayout.IntField("Sector", sdo.sectorID, GUILayout.Width(200));
+                sdo.stationPosition = EditorGUILayout.Vector3Field("Position", sdo.stationPosition, GUILayout.Width(400));
+                if (EditorGUI.EndChangeCheck()) { EditorUtility.SetDirty(dbStations); }
+
+                EditorGUILayout.Space();
+
+                EditorGUILayout.BeginHorizontal(GUILayout.Width(Screen.width));
+                EditorGUILayout.LabelField("COMMODITY SHOP DETAILS");
+                EditorGUILayout.EndHorizontal();
+
+                EditorGUILayout.BeginHorizontal(GUILayout.Width(Screen.width));
+                EditorGUILayout.LabelField("Shop Name", GUILayout.Width(200));
+                EditorGUILayout.LabelField("Description", GUILayout.Width(250));
+                EditorGUILayout.LabelField("Portrait", GUILayout.Width(64));
+                EditorGUILayout.EndHorizontal();
+
+                //###############################################################################################
+                //Commodity market input form
+
+                EditorGUILayout.BeginHorizontal(GUILayout.Width(Screen.width));
+                //Change check: if anything in this block changes, we need to mark the DB as dirty for update.
+                EditorGUI.BeginChangeCheck();
+                csdo.shopName = EditorGUILayout.TextField(csdo.shopName, GUILayout.Width(200));
+                csdo.shopDescription = EditorGUILayout.TextArea(csdo.shopDescription, GUILayout.Width(250), GUILayout.Height(64));
+                csdo.shopkeeperPortraitTexture = (Texture2D)EditorGUILayout.ObjectField(csdo.shopkeeperPortraitTexture, typeof(Texture2D), GUILayout.Width(64), GUILayout.Height(64));
+                if (EditorGUI.EndChangeCheck()) { 
+                    //If this doesn't have a cshop record, we need to add one
+                    EditorUtility.SetDirty(dbCommodityShops); 
+                }
+                EditorGUILayout.EndHorizontal();
+            }
+
+            stationIdx++;
+        }
+
+        EditorGUILayout.EndScrollView();
+
+
+    }
+    
     void SetFoldoutOpen(int idx)
     {
         InitializeLists();
         stationFoldoutOpen[idx] = true;
     }
 
-    #region Editor Value Tracking Objects
-
-    private class StationEditorValues
+    void SaveChanges()
     {
-        public int stationID;
-        public int sectorID;
-        public Vector3 stationPosition;
-        public string stationName;
 
-        public StationEditorValues(
-            int StationID,
-            int SectorID,
-            Vector3 StationPosition,
-            string StationName)
-            {
-                this.stationID = StationID;
-                this.sectorID = SectorID;
-                this.stationPosition = StationPosition;
-                this.stationName = StationName;
-            }
     }
-
-    #endregion  
-
 }
 
 

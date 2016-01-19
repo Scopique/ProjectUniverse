@@ -189,7 +189,7 @@ public class MasterDatabase : MonoBehaviour
         tempStationMasterList.Add(new StationDataObject(29, 29, "Rigel Station"));
         tempStationMasterList.Add(new StationDataObject(30, 30, "Sirius Station"));
         tempStationMasterList.Add(new StationDataObject(31, 31, "Earth Station"));
-        tempStationMasterList.Add(new StationDataObject(31, 99, "Utopia Planetia"));
+        tempStationMasterList.Add(new StationDataObject(99, 31, "Utopia Planetia"));
         tempStationMasterList.Add(new StationDataObject(32, 32, "Spica Station"));
         tempStationMasterList.Add(new StationDataObject(33, 33, "Sterope Station"));
         tempStationMasterList.Add(new StationDataObject(34, 34, "Taygeta Station"));

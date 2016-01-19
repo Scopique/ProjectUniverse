@@ -10,6 +10,7 @@ public class CommodityShopDataObject
     public string shopName;
     public string shopDescription;
     public string shopkeeperPortait;
+    public Texture2D shopkeeperPortraitTexture;
 
     public CommodityShopDataObject()
     {
@@ -17,7 +18,8 @@ public class CommodityShopDataObject
             0,
             string.Empty,
             string.Empty,
-            string.Empty
+            string.Empty,
+            Texture2D.whiteTexture
             );
     }
 
@@ -32,7 +34,24 @@ public class CommodityShopDataObject
             StationID,
             ShopName,
             ShopDescription,
-            ShopkeeperPortrait
+            ShopkeeperPortrait,
+            Texture2D.whiteTexture
+            );
+    }
+
+    public CommodityShopDataObject(
+        int StationID,
+        string ShopName,
+        string ShopDescription,
+        Texture2D ShopkeeperPortraitTexture
+        )
+    {
+        NewCommodityShopDataObject(
+            StationID,
+            ShopName,
+            ShopDescription,
+            string.Empty,
+            shopkeeperPortraitTexture
             );
     }
 
@@ -40,7 +59,8 @@ public class CommodityShopDataObject
         int StationID,
         string ShopName,
         string ShopDescription,
-        string ShopkeeperPortrait
+        string ShopkeeperPortrait,
+        Texture2D ShopkeeperPortraitTexture
         )
     {
         this.stationID = StationID;
