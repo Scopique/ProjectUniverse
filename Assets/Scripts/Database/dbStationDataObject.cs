@@ -42,6 +42,13 @@ public class dbStationDataObject : ScriptableObject {
         return database.ElementAt(index);
     }
 
+    public StationDataObject GetStationByID(int StationID)
+    {
+        StationDataObject sdo = database.Find(x => x.stationID.Equals(StationID));
+        if (sdo.stationName == string.Empty) { sdo = new StationDataObject(); }
+        return sdo;
+    }
+
     public void SortAlphabeticallyAtoZ()
     {
         database.Sort((x, y) => string.Compare(x.stationName, y.stationName));
