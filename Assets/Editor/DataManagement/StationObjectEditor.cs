@@ -15,15 +15,15 @@ public class StationObjectEditor : EditorWindow {
     private dbStationDataObject dbStations;
     private dbCommodityShopDataObject dbCommodityShops;
 
+    private StationDataObject sdo;
+    private CommodityShopDataObject csdo;
+
     private Vector2 scrollPos;
 
-    bool foldStation = false;
-    bool foldCShop = false;
-
-    GUISkin editorSkin;
-    GUIStyle frame;
-    GUIStyle linkButton;
-
+    bool foldOutStation = false;
+    bool foldOutCShop = false;
+    bool okDelete = false;
+    
     int currentlySelectedStationID = 0;
 
     [MenuItem("Data Management/Stations")]
@@ -36,15 +36,13 @@ public class StationObjectEditor : EditorWindow {
     void OnEnable()
     {
         LoadResources();
-        InitializeLists();
+        Initialize();
     }
 
     void OnGUI()
     {
-        GUI.skin = editorSkin;
-        frame = editorSkin.GetStyle("Frame");
-        linkButton = editorSkin.GetStyle("LinkeButton");
-
+        EditorGUIUtility.LookLikeInspector();
+        
         DisplayActionButtons();
         DisplayFrame();
     }
@@ -60,11 +58,9 @@ public class StationObjectEditor : EditorWindow {
     {
         dbStations = (dbStationDataObject)AssetDatabase.LoadAssetAtPath(DATABASE_PATH + "dbStationDataItems.asset", typeof(dbStationDataObject));
         dbCommodityShops = (dbCommodityShopDataObject)AssetDatabase.LoadAssetAtPath(DATABASE_PATH + "dbCommodityShopDataItems.asset", typeof(dbCommodityShopDataObject));
-
-        editorSkin = (GUISkin)AssetDatabase.LoadAssetAtPath("Assets/Editor/DataManagement/_skins/EditorSkin.guiskin", typeof(GUISkin));
     }
 
-    private void InitializeLists()
+    private void Initialize()
     {
         //Because we might not have child items for each station, we need to add in blanks to those databases in order to 
         //  prepare for the eventual filling-in of the data
@@ -86,18 +82,13 @@ public class StationObjectEditor : EditorWindow {
         }
 
         if (cshopIsDirty) { EditorUtility.SetDirty(dbCommodityShops); }
+
+        sdo = new StationDataObject();
+        csdo = new CommodityShopDataObject();
     }
 
     private void DisplayActionButtons()
     {
-        EditorGUILayout.BeginHorizontal(GUILayout.Width(300));
-        if (GUILayout.Button("Refresh"))
-        {
-            LoadResources();
-            InitializeLists();
-        }
-
-        EditorGUILayout.EndHorizontal();
         EditorGUILayout.Space();
     }
 
@@ -106,13 +97,13 @@ public class StationObjectEditor : EditorWindow {
 
         EditorGUILayout.BeginHorizontal();
 
-        Rect leftSide = EditorGUILayout.BeginVertical(frame, GUILayout.Width(Screen.width * 0.25f)); ;
+        Rect leftSide = EditorGUILayout.BeginVertical(GUILayout.Width(Screen.width * 0.25f)); ;
 
         StationList();
 
         EditorGUILayout.EndVertical();
 
-        Rect rightSide = EditorGUILayout.BeginVertical(frame,GUILayout.Width((Screen.width * 0.75f) - 30));
+        Rect rightSide = EditorGUILayout.BeginVertical(GUILayout.Width((Screen.width * 0.75f) - 30));
 
         EditorPopulation();
 
@@ -129,7 +120,7 @@ public class StationObjectEditor : EditorWindow {
 
         foreach (StationDataObject sdo in dbStations.database)
         { 
-            if (GUILayout.Button(sdo.stationID + " - " + sdo.stationName, linkButton))
+            if (GUILayout.Button(sdo.stationID + " - " + sdo.stationName))
             {
                 currentlySelectedStationID = sdo.stationID;
                 
@@ -142,50 +133,126 @@ public class StationObjectEditor : EditorWindow {
 
     private void EditorPopulation()
     {
+        //###############################################################################################
+        // New station button. Also creates a new set of child shops
+        if (GUILayout.Button("New Station"))
+        {
+            //Create empty data buckets. Reset the currentlySelectedStation
+            //currentlySelectedStationID = 0;
+            CreateRecord();
+        }
+
+        //If we HAVE a currently selected station, get its data
         if (currentlySelectedStationID > 0)
         {
-            StationDataObject sdo = dbStations.GetStationByID(currentlySelectedStationID);
-            CommodityShopDataObject csdo = dbCommodityShops.GetCommodityShopByStation(currentlySelectedStationID);
-
+             sdo = dbStations.GetStationByID(currentlySelectedStationID);
+             csdo = dbCommodityShops.GetCommodityShopByStation(currentlySelectedStationID);
+        }
             
 
-            //###############################################################################################
-            //Main station input form
-            foldStation = EditorGUILayout.Foldout(foldStation, "Station");
-            if (foldStation) { 
-                //Change check: if anything in this block changes, we need to mark the DB as dirty for update.
-                EditorGUI.BeginChangeCheck();
-                sdo.stationName = EditorGUILayout.TextField("Name", sdo.stationName, GUILayout.Width(400));
-                sdo.sectorID = EditorGUILayout.IntField("Sector", sdo.sectorID, GUILayout.Width(200));
-                sdo.stationPosition = EditorGUILayout.Vector3Field("Position", sdo.stationPosition, GUILayout.Width(400));
-                if (EditorGUI.EndChangeCheck()) { EditorUtility.SetDirty(dbStations); }
-            }
+        //###############################################################################################
+        //Main station input form
+        foldOutStation = EditorGUILayout.Foldout(foldOutStation, "Station");
+        if (foldOutStation) { 
+            //Change check: if anything in this block changes, we need to mark the DB as dirty for update.
+            EditorGUI.BeginChangeCheck();
+            sdo.stationName = EditorGUILayout.TextField("Name", sdo.stationName, GUILayout.Width(400));
+            sdo.sectorID = EditorGUILayout.IntField("Sector", sdo.sectorID, GUILayout.Width(200));
+            sdo.stationPosition = EditorGUILayout.Vector3Field("Position", sdo.stationPosition, GUILayout.Width(400));
+            if (EditorGUI.EndChangeCheck()) { EditorUtility.SetDirty(dbStations); }
+        }
 
-            EditorGUILayout.Space();
+        EditorGUILayout.Space();
 
-            foldCShop = EditorGUILayout.Foldout(foldCShop, "Commodity Shop");
-            if (foldCShop) { 
+        foldOutCShop = EditorGUILayout.Foldout(foldOutCShop, "Commodity Shop");
+        if (foldOutCShop) { 
                 
-                //###############################################################################################
-                //Commodity market input form
+            //###############################################################################################
+            //Commodity market input form
 
-                //Change check: if anything in this block changes, we need to mark the DB as dirty for update.
-                EditorGUI.BeginChangeCheck();
-                csdo.shopName = EditorGUILayout.TextField("Shop Name", csdo.shopName, GUILayout.Width(350));
-                csdo.shopDescription = EditorGUILayout.TextArea(csdo.shopDescription, GUILayout.Width(350), GUILayout.Height(64));
-                csdo.shopkeeperPortraitTexture = (Texture2D)EditorGUILayout.ObjectField(csdo.shopkeeperPortraitTexture, typeof(Texture2D), false, GUILayout.Height(64), GUILayout.Width(64));
-                if (EditorGUI.EndChangeCheck()) { 
-                    //If this doesn't have a cshop record, we need to add one
-                    EditorUtility.SetDirty(dbCommodityShops); 
-                }
+            //Change check: if anything in this block changes, we need to mark the DB as dirty for update.
+            EditorGUI.BeginChangeCheck();
+            csdo.shopName = EditorGUILayout.TextField("Shop Name", csdo.shopName, GUILayout.Width(350));
+
+            EditorGUILayout.BeginHorizontal();
+            csdo.shopDescription = EditorGUILayout.TextArea(csdo.shopDescription, GUILayout.Width(350), GUILayout.Height(64));
+            csdo.shopkeeperPortraitTexture = (Texture2D)EditorGUILayout.ObjectField(csdo.shopkeeperPortraitTexture, typeof(Texture2D), false, GUILayout.Height(64), GUILayout.Width(64));
+            EditorGUILayout.EndHorizontal();
+
+            if (EditorGUI.EndChangeCheck()) { 
+                //If this doesn't have a cshop record, we need to add one
+                EditorUtility.SetDirty(dbCommodityShops); 
             }
         }
+
+        EditorGUILayout.Space();
+
+        //###############################################################################################
+        // Delete this station and child shops
+
+        EditorGUILayout.BeginHorizontal();
+        okDelete = EditorGUILayout.BeginToggleGroup("Delete the station and everyone in it.", okDelete);
+        
+        //Sanity check(mark)
+        if (GUILayout.Button("Delete this station", GUILayout.Width(175)) && currentlySelectedStationID > 0)
+        {
+            DeleteRecord();
+
+            okDelete = false;
+        }
+
+        EditorGUILayout.EndToggleGroup();    
+
+        EditorGUILayout.EndHorizontal();
+
     }
 
-    void SaveChanges()
+    void CreateRecord()
     {
+        //Get the next StationID in sequence
+        int newStationID = dbStations.database.Max(x => x.stationID) + 1;
 
+        //Create new dummy records
+        sdo = new StationDataObject(newStationID, 0, "New station");
+        csdo = new CommodityShopDataObject(newStationID, "New commodity shop", "This space for rent", Texture2D.whiteTexture);
+
+        //Add new records to database
+        dbStations.Add(sdo);
+        dbCommodityShops.Add(csdo);
+
+        //Set the currently selected StationID
+        currentlySelectedStationID = newStationID;
     }
+
+    void DeleteRecord()
+    {
+        int idxStation;
+        int idxCommodityShop;
+
+        //Find the object in the database
+        StationDataObject tempSDO = dbStations.database.Find(x => x .stationID.Equals(currentlySelectedStationID));
+        CommodityShopDataObject tempCSDO = dbCommodityShops.database.Find(x => x.stationID.Equals(currentlySelectedStationID));
+
+        //Get the index
+        idxStation = dbStations.database.IndexOf(tempSDO);
+        idxCommodityShop = dbCommodityShops.database.IndexOf(tempCSDO);
+
+        //Remove by index
+        dbStations.database.RemoveAt(idxStation);
+        dbCommodityShops.database.RemoveAt(idxCommodityShop);
+
+        //Update the SOs
+        EditorUtility.SetDirty(dbStations);
+        EditorUtility.SetDirty(dbCommodityShops);
+
+        //For clearing the form
+        sdo = new StationDataObject();
+        csdo = new CommodityShopDataObject();
+
+        //Clear the flag
+        currentlySelectedStationID = 0;
+    }
+
 }
 
 

@@ -27,10 +27,11 @@ MonoBehaviour:
     shopName: New Commodity Shop
     shopDescription: This space for rent
     shopkeeperPortait: 
-    shopkeeperPortraitTexture: {fileID: 0}
+    shopkeeperPortraitTexture: {fileID: 2800000, guid: dba999555c02e6045b9ea7fafbd18d89,
+      type: 3}
   - stationID: 2
     shopName: New Commodity Shop
-    shopDescription: This space for rent
+    shopDescription: Description
     shopkeeperPortait: 
     shopkeeperPortraitTexture: {fileID: 0}
   - stationID: 3
