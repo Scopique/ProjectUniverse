@@ -15,15 +15,40 @@ public class JumpgateObjectEditor : EditorWindow {
     private const string SECTOR_DATABASE = @"dbSectorDataItems.asset";
 
 
-    private dbJumpgateDataObject db;
+    private dbJumpgateDataObject dbJumpgates;
+    private dbSectorDataObject dbSectors;
+
+    private string[] sectorNames;
+    private int[] sectorIDs;
+
+    private string[] destGateNames;
+    private int[] destGateIDs;
 
     private bool enableEditArea = false;     //Lock it down until NEW or EDIT
     private bool isEdit = false;             //Is this an edit as opposed to a new record?
 
     private int editID = 0;
+    private string editJumpgateName = string.Empty;
     private int editSectorID = 0;
+    private int editDestinationSectorID = 0;
     private int editDestinationJumpgateID = 0;
     private int editFee = 0;
+
+
+    //Column widths
+    int colID = 100;
+    int colName = 200;
+    int colSectorID;
+    int colSectorName = 200;
+    int colDestinationSectorName = 225;
+    int colDestinationJumpgateID = 175;
+    int colDestinationJumpgateName = 200;
+    int colFee= 100;
+
+    int colButton1 = 125;
+    int colButton2 = 125;
+    int colButton3 = 125;
+    int colButton4 = 125;
 
     private Vector2 scrollPos;
 
@@ -37,170 +62,184 @@ public class JumpgateObjectEditor : EditorWindow {
 
     void OnEnable()
     {
-        if (db == null)
-            LoadDatabase();
+        LoadDatabases();
     }
 
     public void OnGUI()
     {
-        //A grid of existing items. Has DEL and EDIT buttons
-        //A button to create a NEW item
-        //A form that allows for the editing/adding
+        EditorGUIUtility.LookLikeInspector();
 
+        DisplaySetup();
+
+    }
+
+    void LoadDatabases()
+    {
+        dbJumpgates = (dbJumpgateDataObject)AssetDatabase.LoadAssetAtPath(DATABASE_PATH + JUMPGATE_DATABASE, typeof(dbJumpgateDataObject));
+        dbSectors = (dbSectorDataObject)AssetDatabase.LoadAssetAtPath(DATABASE_PATH + SECTOR_DATABASE, typeof(dbSectorDataObject));
+
+        sectorNames = dbSectors.database.Select(x => x.sectorName).ToArray();
+        sectorIDs = dbSectors.database.Select(x => x.sectorID).ToArray();
+    }
+
+    #region Display
+
+    private void DisplaySetup()
+    {
         EditorGUILayout.BeginHorizontal(GUILayout.Width(Screen.width));
-        if (GUILayout.Button("Add New Jumpgate", GUILayout.Width(200)))
+
+        if (GUILayout.Button("New Jumpgate", GUILayout.Width(300)))
         {
             NewJumpgate();
         }
-        
+
         EditorGUILayout.EndHorizontal();
 
         EditorGUILayout.Space();
 
-        DisplayListAreaHeader();
+        //Header
+        EditorGUILayout.BeginHorizontal(GUILayout.Width(Screen.width));
 
-        scrollPos = EditorGUILayout.BeginScrollView(scrollPos, GUILayout.MaxWidth(Screen.width), GUILayout.Height(Screen.height - 150));
-        DisplayListArea();
+        EditorGUILayout.LabelField("ID", GUILayout.Width(colID));
+        EditorGUILayout.LabelField("NAME", GUILayout.Width(colName));
+        EditorGUILayout.LabelField("SECTOR", GUILayout.Width(colSectorName));
+        EditorGUILayout.LabelField("DESTINATION SECTOR", GUILayout.Width(colDestinationSectorName));
+        EditorGUILayout.LabelField("DESTINATION GATE", GUILayout.Width(colDestinationJumpgateID));
+        EditorGUILayout.LabelField("GATE FEE", GUILayout.Width(colFee));
+
+        EditorGUILayout.EndHorizontal();
+
+        EditorGUILayout.BeginHorizontal(GUILayout.Width(Screen.width));
+
+        //TODO: Set height once we know about the editor requirements
+        scrollPos = EditorGUILayout.BeginScrollView(scrollPos, GUILayout.Width(Screen.width), GUILayout.Height(Screen.height - 125));
+
+        DisplayList();
+
         EditorGUILayout.EndScrollView();
 
-        EditorGUILayout.Space();
-        DisplayEditArea();
-
-    }
-
-
-    void CreateDatabase()
-    {
-        db = ScriptableObject.CreateInstance<dbJumpgateDataObject>();
-        AssetDatabase.CreateAsset(db, DATABASE_PATH);
-        AssetDatabase.SaveAssets();
-        AssetDatabase.Refresh();
-    }
-
-    void LoadDatabase()
-    {
-        db = (dbJumpgateDataObject)AssetDatabase.LoadAssetAtPath(DATABASE_PATH + JUMPGATE_DATABASE, typeof(dbJumpgateDataObject));
-        if (db == null)
-            CreateDatabase();
-    }
-
-    private void DisplayListAreaHeader()
-    {
-        EditorGUILayout.BeginHorizontal(GUILayout.Width(Screen.width));
-        EditorGUILayout.LabelField("ID", GUILayout.Width(75));
-        EditorGUILayout.LabelField("SECTOR ID", GUILayout.Width(75));
-        EditorGUILayout.LabelField("DESTINATION GATE ID", GUILayout.Width(125));
-        EditorGUILayout.LabelField("JUMP FEE", GUILayout.Width(75));
         EditorGUILayout.EndHorizontal();
+
+        EditorGUILayout.BeginHorizontal(GUILayout.Width(Screen.width));
+        DisplayEdit();
+        EditorGUILayout.EndHorizontal();
+
     }
 
-    private void DisplayListArea()
+    private void DisplayList()
     {
-        int rowIdx = 1;
-
-        //for (int cnt = 0; cnt < filterList.Count; cnt++)
-        foreach (JumpgateDataObject jdo in db.database)
+        foreach(JumpgateDataObject jdo in dbJumpgates.database)
         {
-
+            //List
             EditorGUILayout.BeginHorizontal(GUILayout.Width(Screen.width));
 
-            EditorGUILayout.LabelField(jdo.jumpgateID.ToString(), GUILayout.Width(75));
-            EditorGUILayout.LabelField(jdo.sectorID.ToString(), GUILayout.Width(75));
-            EditorGUILayout.LabelField(jdo.destinationJumpgateID.ToString(), GUILayout.Width(125));
-            EditorGUILayout.LabelField(jdo.fee.ToString(), GUILayout.Width(75));
+            EditorGUILayout.LabelField(jdo.jumpgateID.ToString(), GUILayout.Width(colID));
+            EditorGUILayout.LabelField(jdo.jumpgateName.ToString(), GUILayout.Width(colName));
+            EditorGUILayout.LabelField(dbSectors.GetSectorByID(jdo.sectorID).sectorName, GUILayout.Width(colSectorName));
+            EditorGUILayout.LabelField(dbSectors.GetSectorByID(jdo.destinationSectorID).sectorName, GUILayout.Width(colDestinationSectorName));
+            EditorGUILayout.LabelField(jdo.destinationJumpgateID.ToString(), GUILayout.Width(colDestinationJumpgateID));
+            EditorGUILayout.LabelField(jdo.fee.ToString(), GUILayout.Width(colFee));
 
-            if (GUILayout.Button("Edit", GUILayout.Width(100)))
-            {
-                //Copy this info to the edit form
-                enableEditArea = true;
-
+            if (GUILayout.Button("Edit", GUILayout.Width(colButton1))) {
                 isEdit = true;
+                enableEditArea = true;
                 editID = jdo.jumpgateID;
-                editSectorID = jdo.sectorID;              
+                editJumpgateName = jdo.jumpgateName;
+                editSectorID = jdo.sectorID;
+                editDestinationSectorID = jdo.destinationSectorID;
                 editDestinationJumpgateID = jdo.destinationJumpgateID;
                 editFee = jdo.fee;
             }
-            if (GUILayout.Button("Del", GUILayout.Width(100)))
-            {
-                //Remove this from the array
-                db.Remove(jdo);
+            if (GUILayout.Button("Delete", GUILayout.Width(colButton2))) {
                 isEdit = false;
+                dbJumpgates.Remove(jdo);
             }
-
+            
             EditorGUILayout.EndHorizontal();
-
-            rowIdx += 1;
-
         }
     }
 
-    private void DisplayEditArea()
+    private void DisplayEdit()
     {
 
-        EditorGUI.BeginDisabledGroup(enableEditArea == false);
+        FilterGatesBySector(editDestinationSectorID);
 
         EditorGUILayout.BeginHorizontal(GUILayout.Width(Screen.width));
 
-        editID = IntField("ID", editID, GUILayout.Width(75));
-        editSectorID = IntField("Sector", editSectorID, GUILayout.Width(75));
-        editDestinationJumpgateID = IntField("Destination Gate ID", editDestinationJumpgateID, GUILayout.Width(200));
-        editFee = IntField("Jump Fee:", editFee, GUILayout.Width(100));
+        EditorGUI.BeginDisabledGroup(enableEditArea == false);
 
-        if (GUILayout.Button("Save", GUILayout.Width(100)))
+        EditorGUILayout.LabelField(editID.ToString(), GUILayout.Width(colID));
+        editJumpgateName = EditorGUILayout.TextField(editJumpgateName, GUILayout.Width(colName));
+        editSectorID = EditorGUILayout.IntPopup(editSectorID, sectorNames, sectorIDs, GUILayout.Width(colSectorName));
+
+        //Need to update the destination gates to include just those in the proposed destination sector
+        EditorGUI.BeginChangeCheck();
+        editDestinationSectorID = EditorGUILayout.IntPopup(editDestinationSectorID, sectorNames, sectorIDs, GUILayout.Width(colDestinationSectorName));
+        if (EditorGUI.EndChangeCheck())
         {
-            //Save this, either as a new item, or an edit
-            if (isEdit)
-            {
-                JumpgateDataObject jdo = db.GetJumpgate(editID);
+            FilterGatesBySector(editDestinationSectorID);
+        }
+
+        editDestinationJumpgateID = EditorGUILayout.IntPopup(editDestinationJumpgateID, destGateNames, destGateIDs, GUILayout.Width(colDestinationJumpgateID));    //EditorGUILayout.IntField(editDestinationJumpgateID, GUILayout.Width(250));
+        editFee = EditorGUILayout.IntField(editFee, GUILayout.Width(colFee));
+
+        if (GUILayout.Button("Save", GUILayout.Width(colButton1))) {
+            if (isEdit) { 
+                JumpgateDataObject jdo = dbJumpgates.GetJumpgateByID(editID);
                 jdo.sectorID = editSectorID;
+                jdo.jumpgateName = editJumpgateName;
+                jdo.destinationSectorID = editDestinationSectorID;
                 jdo.destinationJumpgateID = editDestinationJumpgateID;
                 jdo.fee = editFee;
-                EditorUtility.SetDirty(db);
             }
             else
             {
-                JumpgateDataObject jdo = new JumpgateDataObject(0, 0, 0, 0);
-                db.Add(jdo);
-                EditorUtility.SetDirty(db);
+                JumpgateDataObject jdo = new JumpgateDataObject(editID, editJumpgateName, editSectorID, editDestinationSectorID, editDestinationJumpgateID, editFee);
+                dbJumpgates.Add(jdo);
             }
 
-            //Clear and disable the editor section
-            ResetForm();
+            ClearJumpgate();
+
+            EditorUtility.SetDirty(dbJumpgates);
+
+        }
+        if (GUILayout.Button("Cancel", GUILayout.Width(colButton2))) {
+            ClearJumpgate();
         }
 
-        if (GUILayout.Button("Cancel", GUILayout.Width(100)))
-        {
-            ResetForm();
-        }
+        EditorGUI.EndDisabledGroup();
 
         EditorGUILayout.EndHorizontal();
 
-        EditorGUI.EndDisabledGroup();
+
     }
+
 
     private void NewJumpgate()
     {
         enableEditArea = true;
 
-        isEdit = false;
-        editID = db.Count > 0 ? (db.Count) : 0;
-        editSectorID = 0;       
-        editDestinationJumpgateID = 0;
+        editID = dbJumpgates.database.Max(x => x.jumpgateID) + 1;
+        editJumpgateName = string.Empty;    
+        editSectorID = 1;
+        editDestinationSectorID = 1;
+        editDestinationJumpgateID = 1;
         editFee = 0;
-
-        //Enable the editor section
     }
 
-    private void ResetForm()
+    private void ClearJumpgate()
     {
         enableEditArea = false;
 
-        isEdit = false;
         editID = 0;
-        editSectorID = 0;      
+        editJumpgateName = string.Empty;    
+        editSectorID = 0;
+        editDestinationSectorID = 0;
         editDestinationJumpgateID = 0;
         editFee = 0;
     }
+    #endregion
+
 
     #region Helpers
 
@@ -221,11 +260,13 @@ public class JumpgateObjectEditor : EditorWindow {
         return EditorGUILayout.IntField(label, integer, args);
     }
 
-    public static CommodityDataObject.COMMODITYCLASS CommodityClassPopup(string label, CommodityDataObject.COMMODITYCLASS commodityClass, params GUILayoutOption[] args)
+    public void FilterGatesBySector(int SectorID)
     {
-        Vector2 textDimensions = GUI.skin.label.CalcSize(new GUIContent(label));
-        EditorGUIUtility.labelWidth = textDimensions.x;
-        return (CommodityDataObject.COMMODITYCLASS)EditorGUILayout.EnumPopup(label, commodityClass, args);
+        List<JumpgateDataObject> jgdo = (from db in dbJumpgates.database where db.sectorID.Equals(SectorID) select db).ToList();
+
+        destGateIDs = jgdo.Select(x => x.sectorID).ToArray();
+        destGateNames = jgdo.Select(x => x.jumpgateName).ToArray();
+
     }
 
     #endregion

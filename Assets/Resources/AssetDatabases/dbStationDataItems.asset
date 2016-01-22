@@ -136,8 +136,8 @@ MonoBehaviour:
     sectorID: 31
     stationPosition: {x: 0, y: 0, z: 0}
     stationName: Earth Station
-  - stationID: 31
-    sectorID: 99
+  - stationID: 99
+    sectorID: 31
     stationPosition: {x: 0, y: 0, z: 0}
     stationName: Utopia Planetia
   - stationID: 32

@@ -45,6 +45,19 @@ public class dbSectorDataObject : ScriptableObject
         return database.ElementAt(index);
     }
 
+    //.ElementAt() requires the System.Linq
+    public SectorDataObject GetSectorByID(int ID)
+    {
+        SectorDataObject sdo = new SectorDataObject(0, "New Sector");
+
+        if (ID > 0) { 
+            sdo = database.Find(x => x.sectorID.Equals(ID));
+            if (string.IsNullOrEmpty(sdo.sectorName)) { sdo = new SectorDataObject(0, "New Sector"); }
+        }
+
+        return sdo;
+    }
+
     public void SortAlphabeticallyAtoZ()
     {
         database.Sort((x, y) => string.Compare(x.sectorName, y.sectorName));

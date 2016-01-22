@@ -45,4 +45,12 @@ public class dbJumpgateDataObject : ScriptableObject
         return database.ElementAt(index);
     }
 
+    //.ElementAt() requires the System.Linq
+    public JumpgateDataObject GetJumpgateByID(int ID)
+    {
+        JumpgateDataObject jdo = database.Find(x => x.jumpgateID.Equals(ID));
+        if (jdo.jumpgateID == 0) { jdo = new JumpgateDataObject(0, string.Empty, 0, 0, 0, 0); }
+        return jdo;
+    }
+
 }
