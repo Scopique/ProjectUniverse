@@ -152,16 +152,13 @@ public class StationObjectEditor : EditorWindow {
 
         //###############################################################################################
         //Main station input form
-        foldOutStation = EditorGUILayout.Foldout(foldOutStation, "Station");
-        if (foldOutStation) { 
-            //Change check: if anything in this block changes, we need to mark the DB as dirty for update.
-            EditorGUI.BeginChangeCheck();
-            sdo.stationName = EditorGUILayout.TextField("Name", sdo.stationName, GUILayout.Width(400));
-            sdo.sectorID = EditorGUILayout.IntField("Sector", sdo.sectorID, GUILayout.Width(200));
-            sdo.stationPosition = EditorGUILayout.Vector3Field("Position", sdo.stationPosition, GUILayout.Width(400));
-            if (EditorGUI.EndChangeCheck()) { EditorUtility.SetDirty(dbStations); }
-        }
-
+        //Change check: if anything in this block changes, we need to mark the DB as dirty for update.
+        EditorGUI.BeginChangeCheck();
+        sdo.stationName = EditorGUILayout.TextField("Name", sdo.stationName, GUILayout.Width(400));
+        sdo.sectorID = EditorGUILayout.IntField("Sector", sdo.sectorID, GUILayout.Width(200));
+        sdo.stationPosition = EditorGUILayout.Vector3Field("Position", sdo.stationPosition, GUILayout.Width(400));
+        if (EditorGUI.EndChangeCheck()) { EditorUtility.SetDirty(dbStations); }
+        
         EditorGUILayout.Space();
 
         foldOutCShop = EditorGUILayout.Foldout(foldOutCShop, "Commodity Shop");

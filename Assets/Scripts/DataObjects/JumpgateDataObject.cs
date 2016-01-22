@@ -8,7 +8,7 @@ public class JumpgateDataObject
     public int jumpgateID;
     public int sectorID;
     public Vector3 jumpgatePosition;
-    public int destinationSectorID;
+    public int destinationJumpgateID;
     public int fee;
 
 
@@ -21,35 +21,35 @@ public class JumpgateDataObject
         int JumpgateID,
         int SectorID,
         Vector3 JumpgatePosition,
-        int DestinationSectorID,
+        int DestinationJumpgateID,
         int Fee
         )
     {
-        NewJumpgateDataObject(JumpgateID, SectorID, JumpgatePosition, DestinationSectorID, Fee);
+        NewJumpgateDataObject(JumpgateID, SectorID, JumpgatePosition, DestinationJumpgateID, Fee);
     }
 
     public JumpgateDataObject(
         int JumpgateID,
         int SectorID,
-        int DestinationSectorID,
+        int DestinationJumpgateID,
         int Fee
         )
     {
-        NewJumpgateDataObject(JumpgateID, SectorID, Vector3.zero, DestinationSectorID, Fee);
+        NewJumpgateDataObject(JumpgateID, SectorID, Vector3.zero, DestinationJumpgateID, Fee);
     }
 
     private void NewJumpgateDataObject(
         int JumpgateID,
         int SectorID,
         Vector3 JumpgatePosition,
-        int DestinationSectorID,
+        int DestinationJumpgateID,
         int Fee
         )
     {
         this.jumpgateID = JumpgateID;
         this.sectorID = SectorID;
         this.jumpgatePosition = JumpgatePosition;
-        this.destinationSectorID = DestinationSectorID;
+        this.destinationJumpgateID = DestinationJumpgateID;
         this.fee = Fee;
     }
 }
