@@ -4,6 +4,8 @@ using System.Linq;
 using System.Collections;
 using System.Collections.Generic;
 
+//TODO: Create a stand-alone reciprical updatoer to set destination gates based on the DestinationSector and DestinationGate IDs
+
 
 public class JumpgateObjectEditor : EditorWindow {
 
@@ -137,7 +139,7 @@ public class JumpgateObjectEditor : EditorWindow {
             EditorGUILayout.LabelField(jdo.jumpgateName.ToString(), GUILayout.Width(colName));
             EditorGUILayout.LabelField(dbSectors.GetSectorByID(jdo.sectorID).sectorName, GUILayout.Width(colSectorName));
             EditorGUILayout.LabelField(dbSectors.GetSectorByID(jdo.destinationSectorID).sectorName, GUILayout.Width(colDestinationSectorName));
-            EditorGUILayout.LabelField(jdo.destinationJumpgateID.ToString(), GUILayout.Width(colDestinationJumpgateID));
+            EditorGUILayout.LabelField(dbJumpgates.GetJumpgateByID(jdo.destinationJumpgateID).jumpgateName, GUILayout.Width(colDestinationJumpgateID));
             EditorGUILayout.LabelField(jdo.fee.ToString(), GUILayout.Width(colFee));
 
             if (GUILayout.Button("Edit", GUILayout.Width(colButton1))) {
@@ -153,6 +155,7 @@ public class JumpgateObjectEditor : EditorWindow {
             if (GUILayout.Button("Delete", GUILayout.Width(colButton2))) {
                 isEdit = false;
                 dbJumpgates.Remove(jdo);
+                EditorUtility.SetDirty(dbJumpgates);
             }
             
             EditorGUILayout.EndHorizontal();
@@ -191,6 +194,8 @@ public class JumpgateObjectEditor : EditorWindow {
                 jdo.destinationSectorID = editDestinationSectorID;
                 jdo.destinationJumpgateID = editDestinationJumpgateID;
                 jdo.fee = editFee;
+
+                RecipricateDestinationGate(editSectorID, editID, editDestinationSectorID, editDestinationJumpgateID);
             }
             else
             {
@@ -201,8 +206,8 @@ public class JumpgateObjectEditor : EditorWindow {
             ClearJumpgate();
 
             EditorUtility.SetDirty(dbJumpgates);
-
         }
+
         if (GUILayout.Button("Cancel", GUILayout.Width(colButton2))) {
             ClearJumpgate();
         }
@@ -214,6 +219,20 @@ public class JumpgateObjectEditor : EditorWindow {
 
     }
 
+    private void RecipricateDestinationGate(int EditSectorID, int EditGateID, int DestinationSectorID, int DestinationGateID)
+    {
+        if (editSectorID != 0 && EditGateID != 0)
+        { 
+            JumpgateDataObject jgdo = (from db in dbJumpgates.database where db.jumpgateID.Equals(DestinationGateID) && db.sectorID.Equals(DestinationSectorID) select db).FirstOrDefault();
+            if (jgdo != null) { 
+                jgdo.destinationSectorID = editSectorID;
+                jgdo.destinationJumpgateID = EditGateID;
+            }
+            //int sector = editSectorID;
+            //int gate = EditGateID;
+        }
+
+    }
 
     private void NewJumpgate()
     {
@@ -229,14 +248,16 @@ public class JumpgateObjectEditor : EditorWindow {
 
     private void ClearJumpgate()
     {
-        enableEditArea = false;
-
         editID = 0;
         editJumpgateName = string.Empty;    
         editSectorID = 0;
         editDestinationSectorID = 0;
         editDestinationJumpgateID = 0;
         editFee = 0;
+
+        enableEditArea = false;
+        GUIUtility.keyboardControl = 0;
+        GUIUtility.hotControl = 0;
     }
     #endregion
 
@@ -264,9 +285,8 @@ public class JumpgateObjectEditor : EditorWindow {
     {
         List<JumpgateDataObject> jgdo = (from db in dbJumpgates.database where db.sectorID.Equals(SectorID) select db).ToList();
 
-        destGateIDs = jgdo.Select(x => x.sectorID).ToArray();
+        destGateIDs = jgdo.Select(x => x.jumpgateID).ToArray();
         destGateNames = jgdo.Select(x => x.jumpgateName).ToArray();
-
     }
 
     #endregion
