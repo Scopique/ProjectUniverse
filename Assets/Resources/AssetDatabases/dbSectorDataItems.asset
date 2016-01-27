@@ -14,75 +14,112 @@ MonoBehaviour:
   database:
   - sectorID: 1
     sectorName: Alcyone
+    sectorMapCoordinates: {x: 8, y: 7}
   - sectorID: 2
     sectorName: Aldebaran
+    sectorMapCoordinates: {x: 5, y: 6}
   - sectorID: 3
     sectorName: Algol
+    sectorMapCoordinates: {x: 5, y: 10}
   - sectorID: 4
     sectorName: Altair
+    sectorMapCoordinates: {x: -18, y: 1}
   - sectorID: 5
     sectorName: Antares
+    sectorMapCoordinates: {x: -12, y: -3}
   - sectorID: 6
     sectorName: Arcturus
+    sectorMapCoordinates: {x: -11, y: 3}
   - sectorID: 7
     sectorName: Atlas
+    sectorMapCoordinates: {x: 7, y: 5}
   - sectorID: 8
     sectorName: Auriga
+    sectorMapCoordinates: {x: -1, y: 7}
   - sectorID: 9
     sectorName: Barnard's Star
+    sectorMapCoordinates: {x: 6, y: -7}
   - sectorID: 10
     sectorName: Bellatrix
+    sectorMapCoordinates: {x: 5, y: -1}
   - sectorID: 11
     sectorName: Betelgeus
+    sectorMapCoordinates: {x: 0, y: 0}
   - sectorID: 12
     sectorName: Caleano
+    sectorMapCoordinates: {x: 14, y: 7}
   - sectorID: 13
     sectorName: Canopus
+    sectorMapCoordinates: {x: -15, y: 6}
   - sectorID: 14
     sectorName: Capella
+    sectorMapCoordinates: {x: 0, y: 9}
   - sectorID: 15
     sectorName: Castor
+    sectorMapCoordinates: {x: -3, y: 0}
   - sectorID: 16
     sectorName: Debenola
+    sectorMapCoordinates: {x: -19, y: 4}
   - sectorID: 17
     sectorName: Deneb
+    sectorMapCoordinates: {x: -9, y: 2}
   - sectorID: 18
     sectorName: Electra
+    sectorMapCoordinates: {x: 13, y: 5}
   - sectorID: 19
     sectorName: Fomalhaut
+    sectorMapCoordinates: {x: -20, y: -1}
   - sectorID: 20
     sectorName: Luyten's Star
+    sectorMapCoordinates: {x: -5, y: -2}
   - sectorID: 21
     sectorName: Maia
+    sectorMapCoordinates: {x: 10, y: 8}
   - sectorID: 22
     sectorName: Merope
+    sectorMapCoordinates: {x: 10, y: 6}
   - sectorID: 23
     sectorName: Pleione
+    sectorMapCoordinates: {x: 7, y: 8}
   - sectorID: 24
     sectorName: Pollux
+    sectorMapCoordinates: {x: -3, y: 2}
   - sectorID: 25
     sectorName: Procyon
+    sectorMapCoordinates: {x: -2, y: -4}
   - sectorID: 26
     sectorName: Proxima Centauri
+    sectorMapCoordinates: {x: 2, y: 8}
   - sectorID: 27
     sectorName: Rasalhague
+    sectorMapCoordinates: {x: -14, y: 8}
   - sectorID: 28
     sectorName: Regulus
+    sectorMapCoordinates: {x: -6, y: 1}
   - sectorID: 29
     sectorName: Rigel
+    sectorMapCoordinates: {x: 9, y: -2}
   - sectorID: 30
     sectorName: Sirius
+    sectorMapCoordinates: {x: -2, y: -8}
   - sectorID: 31
     sectorName: Sol
+    sectorMapCoordinates: {x: 2, y: -6}
   - sectorID: 32
     sectorName: Spica
+    sectorMapCoordinates: {x: -10, y: -1}
   - sectorID: 33
     sectorName: Sterope
+    sectorMapCoordinates: {x: 12, y: 10}
   - sectorID: 34
     sectorName: Taygeta
+    sectorMapCoordinates: {x: 14, y: 9}
   - sectorID: 35
     sectorName: Vega
+    sectorMapCoordinates: {x: -16, y: 3}
   - sectorID: 36
     sectorName: Wolf 359
+    sectorMapCoordinates: {x: 1, y: -3}
   - sectorID: 37
     sectorName: Polaris
+    sectorMapCoordinates: {x: -1, y: -10}

@@ -17,8 +17,9 @@ public class SectorObjectEditor : EditorWindow
     private bool enableEditArea = false;            //Lock it down until NEW or EDIT
     private bool isEdit = false;                    //Is this an edit as opposed to a new record?
     
-    private int editID = 1;                         //ID of the item being edited.
-    private string editName = string.Empty;         //Name of the item being edited
+    private int editID = 0;                                 //ID of the item being edited.
+    private string editName = string.Empty;                 //Name of the item being edited
+    private Vector2 editMapCoordinates = Vector2.zero;      //Grid position for relational calculations
 
     private Vector2 scrollPos;
 
@@ -95,6 +96,7 @@ public class SectorObjectEditor : EditorWindow
 
         EditorGUILayout.LabelField("ID", GUILayout.Width(75));
         EditorGUILayout.LabelField("NAME", GUILayout.Width(200));
+        EditorGUILayout.LabelField("COORDINATES", GUILayout.Width(250));
 
         EditorGUILayout.EndHorizontal();
     }
@@ -107,6 +109,7 @@ public class SectorObjectEditor : EditorWindow
 
             EditorGUILayout.LabelField(cdo.sectorID.ToString(), GUILayout.Width(75));
             EditorGUILayout.LabelField(cdo.sectorName, GUILayout.Width(200));
+            EditorGUILayout.LabelField("(" + cdo.sectorMapCoordinates.x + "," + cdo.sectorMapCoordinates.y + ")", GUILayout.Width(200));
 
             if (GUILayout.Button("Edit", GUILayout.Width(100)))
             {
@@ -116,6 +119,7 @@ public class SectorObjectEditor : EditorWindow
                 isEdit = true;
                 editID = int.Parse(cdo.sectorID.ToString());
                 editName = cdo.sectorName.ToString();
+                editMapCoordinates = cdo.sectorMapCoordinates;
 
                 EditorGUI.FocusTextInControl("EditName");
                 
@@ -127,6 +131,7 @@ public class SectorObjectEditor : EditorWindow
                 isEdit = false;
                 editID = -1;
                 editName = string.Empty;
+                editMapCoordinates = Vector2.zero;
                     
             }
 
@@ -145,19 +150,22 @@ public class SectorObjectEditor : EditorWindow
         GUI.SetNextControlName("EditName");
         editName = TextField("Name:", editName, GUILayout.Width(200)).ToString();
 
+        editMapCoordinates = EditorGUILayout.Vector2Field("Coordinates", editMapCoordinates, GUILayout.Width(250));
+
         if (GUILayout.Button("Save", GUILayout.Width(100)))
         {
             //Save this, either as a new item, or an edit
             if (isEdit)
             {
-                SectorDataObject sdo = db.GetSector(editID);
+                SectorDataObject sdo = db.GetSectorByID(editID);
                 //Can't change the ID once it's set
                 sdo.sectorName = editName;
+                sdo.sectorMapCoordinates = editMapCoordinates;
                 EditorUtility.SetDirty(db);
             }
             else
             {
-                SectorDataObject sdo = new SectorDataObject(editID, editName);
+                SectorDataObject sdo = new SectorDataObject(editID, editName, editMapCoordinates);
                 db.Add(sdo);
                 EditorUtility.SetDirty(db);
             }
@@ -183,6 +191,7 @@ public class SectorObjectEditor : EditorWindow
         isEdit = false;
         editID = db.Count > 0 ? (db.Count + 1) : 1;
         editName = "New sector";
+        editMapCoordinates = Vector2.zero;
 
         EditorGUI.FocusTextInControl("EditName");
     }
@@ -194,6 +203,7 @@ public class SectorObjectEditor : EditorWindow
         isEdit = false;
         editID = 0;
         editName = string.Empty;
+        editMapCoordinates = Vector2.zero;
     }
 
     #region Helpers

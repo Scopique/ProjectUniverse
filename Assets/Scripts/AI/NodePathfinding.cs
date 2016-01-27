@@ -1,81 +1,124 @@
 ﻿using UnityEngine;
-using System.Linq;
+using System.Collections;
 using System.Collections.Generic;
+using System.Linq;
+using System;
 
 
-/// <summary>
-/// Based on the current sector and the desired destination sector,
-/// determine which jumpgates to use to get from point A to point B
-/// http://www.redblobgames.com/pathfinding/a-star/introduction.html
-/// http://www.raywenderlich.com/4946/introduction-to-a-pathfinding
-/// http://heyes-jones.com/astar.php
-/// 
-/// 
-/// </summary>
-public class NodePathfinding : MonoBehaviour 
-{
-    List<int> Open;
-    List<int> Closed;
+// SectorDatabase = (dbSectorDataObject)Resources.Load(@"AssetDatabases/dbSectorDataItems");
+//JumpgateDatabase = (dbJumpgateDataObject)Resources.Load(@"AssetDatabases/dbJumpgateDataItems");
 
-    List<SectorDataObject> dbSectors;
-    List<JumpgateDataObject> dbJumpgates;
+public class NodePathfinding : MonoBehaviour {
 
     public int StartingSectorID;
     public int EndingSectorID;
+    public List<int> SolutionPath;
 
-    void Start()
-    {
-        
-    }
+    private int currentSectorID;
+    private List<int> openSectors;
+    private List<int> closedSectors;
 
-    void Update()
-    {
+    private List<int> neighboringSectors;
 
-    }
-
+    dbSectorDataObject SectorDatabase;
+    dbJumpgateDataObject JumpgateDatabase;
     
-
-    public void BeginRouting()
+    public NodePathfinding()
     {
         Init();
-        GraphIt();
     }
 
-    void Init()
+
+    public void FindRoute(int StartingSectorID, int EndingSectorID)
     {
-        Open = new List<int>();
-        Closed = new List<int>();
+        currentSectorID = StartingSectorID;
 
-        dbSectorDataObject SectorDatabase = (dbSectorDataObject)Resources.Load(@"AssetDatabases/dbSectorDataItems");
-        dbSectors = SectorDatabase.database;
+        //Get the neighboring sectors based on the starting sector
+        //Put these into the openSector listing
+        GetNeighboringSectors();
 
-        dbJumpgateDataObject JumpgateDatabase = (dbJumpgateDataObject)Resources.Load(@"AssetDatabases/dbJumpgateDataItems");
-        dbJumpgates = JumpgateDatabase.database;
-
-
-        Open.Add(StartingSectorID);
-        Closed.Add(StartingSectorID);       
-    }
-
-    void GraphIt()
-    {
-        
-    }
-
-    /// <summary>
-    /// Based on the sector, find neighboring sectors that aren't in the CLOSED list (already dealt with)
-    /// </summary>
-    /// <param name="SectorID"></param>
-    void FindOpenNeighbors(int SectorID)
-    {
-        List<JumpgateDataObject> openJGDO = (from db in dbJumpgates where db.sectorID.Equals(SectorID) select db).ToList<JumpgateDataObject>();
-        foreach(JumpgateDataObject jgdo in openJGDO)
+        while (openSectors.Count > 0)
         {
-            if (!Closed.Contains(jgdo.destinationSectorID))
-            {
-                Open.Add(jgdo.destinationSectorID);
-            }
+            //Need to check each one to see who's got the shortest route from
+            //  the currentSectorID
+            currentSectorID = GetLowestCostOpenSector();
+
+            //Remove other sectors who aren't the currentSectorID;
+            CloseLosingSectors(currentSectorID);
+
+            GetNeighboringSectors();
+            
         }
     }
 
+    #region Private Methods
+    
+    void Init()
+    {
+        SolutionPath = new List<int>();
+        
+        openSectors = new List<int>();
+        closedSectors = new List<int>();
+        neighboringSectors = new List<int>();
+
+        //TODO: Get this from DataController
+        SectorDatabase = (dbSectorDataObject)Resources.Load(@"AssetDatabases/dbSectorDataItems");
+        JumpgateDatabase = (dbJumpgateDataObject)Resources.Load(@"AssetDatabases/dbJumpgateDataItems");
+    }
+
+    int GetLowestCostOpenSector()
+    {
+        Vector2 currentSectorCoord = SectorDatabase.database.Find(x => x.sectorID.Equals(StartingSectorID)).sectorMapCoordinates;
+        double currentLowestValue = 10000;
+        int currentLowestSector = currentSectorID;
+
+        foreach(int i in openSectors)
+        {
+            int currentSector = i;
+
+            Vector2 nextOpenSectorCoords = SectorDatabase.database.Find(x => x.sectorID.Equals(currentSector)).sectorMapCoordinates;
+            double dX =Math.Pow(nextOpenSectorCoords.x - currentSectorCoord.x, 2);
+            double dY = Math.Pow(nextOpenSectorCoords.y - currentSectorCoord.y, 2);
+            double distance = Math.Sqrt(dX + dY);
+            if (distance < currentLowestValue)
+            {
+                //It's a good match. Keep it in Open and
+                //  set the new champ values
+                currentLowestValue = distance;
+                currentLowestSector = currentSector;
+            }
+        }
+
+        return currentLowestSector;
+    }
+
+    double GetSectorCost(int SectorIDToCheck)
+    {
+        Vector2 currentSectorCoord = SectorDatabase.database.Find(x => x.sectorID.Equals(StartingSectorID)).sectorMapCoordinates;
+        Vector2 nextOpenSectorCoords = SectorDatabase.database.Find(x => x.sectorID.Equals(SectorIDToCheck)).sectorMapCoordinates;
+        double dX =Math.Pow(nextOpenSectorCoords.x - currentSectorCoord.x, 2);
+        double dY = Math.Pow(nextOpenSectorCoords.y - currentSectorCoord.y, 2);
+        double distance = Math.Sqrt(dX + dY);
+        return distance;
+    }
+
+    void GetNeighboringSectors()
+    {
+        neighboringSectors = (JumpgateDatabase.database.FindAll(x => x.sectorID.Equals(currentSectorID)).Select(y => y.destinationSectorID)).ToList<int>();
+        openSectors = (from n in neighboringSectors
+                      where !(from c in closedSectors
+                              select c)
+                                  .Contains(n)
+                      select n).ToList<int>();
+        int i = 0;
+
+    }
+
+    void CloseLosingSectors(int WinningSector)
+    {
+        List<int> losingSectors = (from db in openSectors where !db.Equals(WinningSector) select db).ToList<int>();
+        closedSectors.AddRange(losingSectors);
+    }
+
+    #endregion
 }

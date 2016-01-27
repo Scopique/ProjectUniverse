@@ -28,7 +28,7 @@ public class PathfindingTest : EditorWindow
         {
             np.StartingSectorID = StartingSectorID;
             np.EndingSectorID = EndingSectorID;
-            np.BeginRouting();
+            np.FindRoute(StartingSectorID, EndingSectorID);
         }
     }
 

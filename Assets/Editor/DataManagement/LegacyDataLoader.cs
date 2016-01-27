@@ -173,37 +173,37 @@ public class LegacyDataLoader : EditorWindow {
         
         
 
-        dbCannons.database = md.tempCannonMasterList;
-        dbCargo.database = md.tempCargoHoldMasterList;
-        dbCommodity.database = md.tempCommodityMasterList;
-        dbCommodityShop.database = md.tempCommodityShopMasterList;
-        dbCrew.database = md.tempCrewList;
-        dbEngines.database = md.tempEngineMasterList;
-        dbFighterBays.database = md.tempFighterBayMasterList;
-        dbHulls.database = md.tempHullMasterList;
-        dbJumpgates.database = md.tempJumpgateMasterList;
-        dbMissileLaunchers.database = md.tempMissileLauncherMasterList;
-        dbPlating.database = md.tempPlatingMasterList;
-        dbScanners.database = md.tempScannerMasterList;
+        //dbCannons.database = md.tempCannonMasterList;
+        //dbCargo.database = md.tempCargoHoldMasterList;
+        //dbCommodity.database = md.tempCommodityMasterList;
+        //dbCommodityShop.database = md.tempCommodityShopMasterList;
+        //dbCrew.database = md.tempCrewList;
+        //dbEngines.database = md.tempEngineMasterList;
+        //dbFighterBays.database = md.tempFighterBayMasterList;
+        //dbHulls.database = md.tempHullMasterList;
+        //dbJumpgates.database = md.tempJumpgateMasterList;
+        //dbMissileLaunchers.database = md.tempMissileLauncherMasterList;
+        //dbPlating.database = md.tempPlatingMasterList;
+        //dbScanners.database = md.tempScannerMasterList;
         dbSectors.database = md.tempSectorMasterList;
-        dbShields.database = md.tempShieldMasterList;
-        dbStations.database = md.tempStationMasterList;
+        //dbShields.database = md.tempShieldMasterList;
+        //dbStations.database = md.tempStationMasterList;
 
-        EditorUtility.SetDirty(dbCannons);
-        EditorUtility.SetDirty(dbCargo);
-        EditorUtility.SetDirty(dbCommodity);
-        EditorUtility.SetDirty(dbCommodityShop);
-        EditorUtility.SetDirty(dbCrew);
-        EditorUtility.SetDirty(dbEngines);
-        EditorUtility.SetDirty(dbFighterBays);
-        EditorUtility.SetDirty(dbHulls);
-        EditorUtility.SetDirty(dbJumpgates);
-        EditorUtility.SetDirty(dbMissileLaunchers);
-        EditorUtility.SetDirty(dbPlating);
-        EditorUtility.SetDirty(dbScanners);
+        //EditorUtility.SetDirty(dbCannons);
+        //EditorUtility.SetDirty(dbCargo);
+        //EditorUtility.SetDirty(dbCommodity);
+        //EditorUtility.SetDirty(dbCommodityShop);
+        //EditorUtility.SetDirty(dbCrew);
+        //EditorUtility.SetDirty(dbEngines);
+        //EditorUtility.SetDirty(dbFighterBays);
+        //EditorUtility.SetDirty(dbHulls);
+        //EditorUtility.SetDirty(dbJumpgates);
+        //EditorUtility.SetDirty(dbMissileLaunchers);
+        //EditorUtility.SetDirty(dbPlating);
+        //EditorUtility.SetDirty(dbScanners);
         EditorUtility.SetDirty(dbSectors);
-        EditorUtility.SetDirty(dbShields);
-        EditorUtility.SetDirty(dbStations);
+        //EditorUtility.SetDirty(dbShields);
+        //EditorUtility.SetDirty(dbStations);
     }
 
 
