@@ -25,13 +25,17 @@ public class NodePathfinding : MonoBehaviour {
     
     public NodePathfinding()
     {
+        
         Init();
     }
 
 
     public void FindRoute(int StartingSectorID, int EndingSectorID)
     {
+
         currentSectorID = StartingSectorID;
+        SolutionPath.Add(StartingSectorID);
+        closedSectors.Add(StartingSectorID);        //Don't come back here.
 
         //Get the neighboring sectors based on the starting sector
         //Put these into the openSector listing
@@ -39,6 +43,14 @@ public class NodePathfinding : MonoBehaviour {
 
         while (openSectors.Count > 0)
         {
+            if (openSectors.Contains(EndingSectorID))
+            {
+                //We're done!
+                SolutionPath.Add(EndingSectorID);
+                PrintSolution();
+                break;
+            }
+
             //Need to check each one to see who's got the shortest route from
             //  the currentSectorID
             currentSectorID = GetLowestCostOpenSector();
@@ -68,7 +80,7 @@ public class NodePathfinding : MonoBehaviour {
 
     int GetLowestCostOpenSector()
     {
-        Vector2 currentSectorCoord = SectorDatabase.database.Find(x => x.sectorID.Equals(StartingSectorID)).sectorMapCoordinates;
+        Vector2 endSectorCoord = SectorDatabase.database.Find(x => x.sectorID.Equals(EndingSectorID)).sectorMapCoordinates;
         double currentLowestValue = 10000;
         int currentLowestSector = currentSectorID;
 
@@ -77,8 +89,8 @@ public class NodePathfinding : MonoBehaviour {
             int currentSector = i;
 
             Vector2 nextOpenSectorCoords = SectorDatabase.database.Find(x => x.sectorID.Equals(currentSector)).sectorMapCoordinates;
-            double dX =Math.Pow(nextOpenSectorCoords.x - currentSectorCoord.x, 2);
-            double dY = Math.Pow(nextOpenSectorCoords.y - currentSectorCoord.y, 2);
+            double dX =Math.Pow(nextOpenSectorCoords.x - endSectorCoord.x, 2);
+            double dY = Math.Pow(nextOpenSectorCoords.y - endSectorCoord.y, 2);
             double distance = Math.Sqrt(dX + dY);
             if (distance < currentLowestValue)
             {
@@ -118,7 +130,24 @@ public class NodePathfinding : MonoBehaviour {
     {
         List<int> losingSectors = (from db in openSectors where !db.Equals(WinningSector) select db).ToList<int>();
         closedSectors.AddRange(losingSectors);
+
+        SolutionPath.Add(WinningSector);
+
+        closedSectors.Add(currentSectorID);     //Don't come back this way.
     }
 
     #endregion
+
+
+    void PrintSolution()
+    {
+        string output = string.Empty;
+        foreach(int i in SolutionPath)
+        {
+            output += i + " - ";
+        }
+        output += " [Complete]";
+
+        Debug.Log(output);
+    }
 }
