@@ -10,16 +10,15 @@ using System;
 
 public class NodePathfinding : MonoBehaviour {
 
-    public int StartingSectorID;
-    public int EndingSectorID;
     public List<int> SolutionPath;
 
     private bool isReverseLookup = false;
-    private int currentSectorID;
+
     private List<int> openSectors;
     private List<int> closedSectors;
 
     private List<int> neighboringSectors;
+    
 
     dbSectorDataObject SectorDatabase;
     dbJumpgateDataObject JumpgateDatabase;
@@ -27,77 +26,38 @@ public class NodePathfinding : MonoBehaviour {
     public NodePathfinding()
     {
         
-        Init();
     }
 
 
-    public void FindRoute(int StartingSectorID, int EndingSectorID)
+    public void FindRoute(int OriginSectorID, int DestinationSectorID)
     {
-        currentSectorID = StartingSectorID;
-        SolutionPath.Add(StartingSectorID);
-        closedSectors.Add(StartingSectorID);        //Don't come back here.
+        Init();
 
-        //Get the neighboring sectors based on the starting sector
-        //Put these into the openSector listing
-        GetNeighboringSectors();
+        SolutionPath.Add(OriginSectorID);
+        closedSectors.Add(OriginSectorID);        //Don't come back here.
 
-        while (openSectors.Count > 0)
+        bool haveRoute = CalculateForward(OriginSectorID, DestinationSectorID);
+        if (!haveRoute)
         {
-            if (openSectors.Contains(EndingSectorID))
+            Init();
+            haveRoute = CalculateReverse(DestinationSectorID, OriginSectorID);
+            if (haveRoute)
             {
-                //We're done!
-                SolutionPath.Add(EndingSectorID);
-                PrintSolution();
-                break;
+                SolutionPath.Reverse();
             }
-
-            //Need to check each one to see who's got the shortest route from
-            //  the currentSectorID
-            currentSectorID = GetLowestCostOpenSector();
-
-            //Remove other sectors who aren't the currentSectorID;
-            CloseLosingSectors(currentSectorID);
-
-            GetNeighboringSectors();
-            
         }
 
-        //TODO: This whole idea needs to be re-engineered...
-        #region Redo This
-        
-        
-        //Somehow, check the last item and if it doesn't equal the destination sector,
-        //  reverse the check -- run it from destination to origin. If we get the 
-        //  starting sector as the LAST item in the list, we have a path and should
-        //  reverse it before presentation. Otherwise, we can claim we have no path.
-        //bool haveDestination = HaveDestinationInSolution();
+        if (haveRoute)
+        {
+            PrintSolution();
+        }
+        else
+        {
+            Debug.LogError("There's no route from " + OriginSectorID.ToString() + " to " + DestinationSectorID.ToString());
+        }
 
-        //if (!haveDestination && isReverseLookup)
-        //{
-        //    //We're screwed. This is the second pass and we can't find a route. 
-        //    SolutionPath.Clear();
-
-        //}else if (!haveDestination && !isReverseLookup)
-        //{
-        //    //Reverse the lookup and run it again
-        //    isReverseLookup = true;
-        //    Init();
-
-        //    FindRoute(EndingSectorID, StartingSectorID);
-        //}
-        //else if (haveDestination && isReverseLookup)
-        //{
-        //    //we need to reverse the order of the solution so we can 
-        //    //  present a usable route
-        //    SolutionPath.Reverse();
-        //}
-        //else
-        //{
-        //    //Route is just fine the way it is. Do nothing
-        //}
-
-        #endregion
     }
+
 
     #region Private Methods
     
@@ -110,23 +70,105 @@ public class NodePathfinding : MonoBehaviour {
         neighboringSectors = new List<int>();
 
         //TODO: Get this from DataController
-        SectorDatabase = (dbSectorDataObject)Resources.Load(@"AssetDatabases/dbSectorDataItems");
-        JumpgateDatabase = (dbJumpgateDataObject)Resources.Load(@"AssetDatabases/dbJumpgateDataItems");
+        if (SectorDatabase == null && JumpgateDatabase == null) { 
+            SectorDatabase = (dbSectorDataObject)Resources.Load(@"AssetDatabases/dbSectorDataItems");
+            JumpgateDatabase = (dbJumpgateDataObject)Resources.Load(@"AssetDatabases/dbJumpgateDataItems");
+        }
     }
 
-    int GetLowestCostOpenSector()
+    bool CalculateForward(int OriginSectorID, int DestinationSectorID) {
+
+        bool haveRoute = false;
+        int currentSectorID = OriginSectorID;
+
+        Vector2 DestinationSectorCoords = SectorDatabase.database.Find(x => x.sectorID.Equals(DestinationSectorID)).sectorMapCoordinates;
+
+        //Get the neighboring sectors based on the starting sector
+        //Put these into the openSector listing
+        GetNeighboringSectors(currentSectorID);
+
+        while (openSectors.Count > 0)
+        {
+            if (openSectors.Contains(DestinationSectorID))
+            {
+                //We're done!
+                SolutionPath.Add(DestinationSectorID);
+                break;
+            }
+
+            //Need to check each one to see who's got the shortest route from
+            //  the currentSectorID and set the NEW currentSectorID
+            currentSectorID = GetLowestCostOpenSector(DestinationSectorCoords, currentSectorID);
+
+            //Remove other sectors who aren't the currentSectorID;
+            CloseLosingSectors(currentSectorID);
+            //Don't come back this way.
+            closedSectors.Add(currentSectorID);     
+
+            GetNeighboringSectors(currentSectorID);
+        }
+
+        if (SolutionPath.Contains(DestinationSectorID))
+        {
+            haveRoute = true;
+        }
+
+        return haveRoute;
+    }
+
+    bool CalculateReverse(int OriginSectorID, int DestinationSectorID) 
     {
-        Vector2 endSectorCoord = SectorDatabase.database.Find(x => x.sectorID.Equals(EndingSectorID)).sectorMapCoordinates;
+        bool haveRoute = false;
+        int currentSectorID = OriginSectorID;
+
+        Vector2 DestinationSectorCoords = SectorDatabase.database.Find(x => x.sectorID.Equals(DestinationSectorID)).sectorMapCoordinates;
+
+        //Get the neighboring sectors based on the starting sector
+        //Put these into the openSector listing
+        GetNeighboringSectors(currentSectorID);
+
+        while (openSectors.Count > 0)
+        {
+            if (openSectors.Contains(DestinationSectorID))
+            {
+                //We're done!
+                SolutionPath.Add(DestinationSectorID);
+                break;
+            }
+
+            //Need to check each one to see who's got the shortest route from
+            //  the currentSectorID and set the NEW currentSectorID
+            currentSectorID = GetLowestCostOpenSector(DestinationSectorCoords, currentSectorID);
+
+            //Remove other sectors who aren't the currentSectorID;
+            CloseLosingSectors(currentSectorID);
+            //Don't come back this way.
+            closedSectors.Add(currentSectorID);
+
+            GetNeighboringSectors(currentSectorID);
+        }
+
+        if (SolutionPath.Contains(DestinationSectorID))
+        {
+            haveRoute = true;
+        }
+
+        return haveRoute;
+    }
+
+
+    int GetLowestCostOpenSector(Vector2 DestinationSectorCoords, int CurrentSectorID)
+    {
         double currentLowestValue = 10000;
-        int currentLowestSector = currentSectorID;
+        int currentLowestSector = CurrentSectorID;
 
         foreach(int i in openSectors)
         {
             int currentSector = i;
 
             Vector2 nextOpenSectorCoords = SectorDatabase.database.Find(x => x.sectorID.Equals(currentSector)).sectorMapCoordinates;
-            double dX =Math.Pow(nextOpenSectorCoords.x - endSectorCoord.x, 2);
-            double dY = Math.Pow(nextOpenSectorCoords.y - endSectorCoord.y, 2);
+            double dX = Math.Pow(nextOpenSectorCoords.x - DestinationSectorCoords.x, 2);
+            double dY = Math.Pow(nextOpenSectorCoords.y - DestinationSectorCoords.y, 2);
             double distance = Math.Sqrt(dX + dY);
             if (distance < currentLowestValue)
             {
@@ -140,19 +182,19 @@ public class NodePathfinding : MonoBehaviour {
         return currentLowestSector;
     }
 
-    double GetSectorCost(int SectorIDToCheck)
-    {
-        Vector2 currentSectorCoord = SectorDatabase.database.Find(x => x.sectorID.Equals(StartingSectorID)).sectorMapCoordinates;
-        Vector2 nextOpenSectorCoords = SectorDatabase.database.Find(x => x.sectorID.Equals(SectorIDToCheck)).sectorMapCoordinates;
-        double dX =Math.Pow(nextOpenSectorCoords.x - currentSectorCoord.x, 2);
-        double dY = Math.Pow(nextOpenSectorCoords.y - currentSectorCoord.y, 2);
-        double distance = Math.Sqrt(dX + dY);
-        return distance;
-    }
+    //double GetSectorCost(int CurrentSectorID, int SectorIDToCheck)
+    //{
+    //    Vector2 currentSectorCoord = SectorDatabase.database.Find(x => x.sectorID.Equals(CurrentSectorID)).sectorMapCoordinates;
+    //    Vector2 nextOpenSectorCoords = SectorDatabase.database.Find(x => x.sectorID.Equals(SectorIDToCheck)).sectorMapCoordinates;
+    //    double dX =Math.Pow(nextOpenSectorCoords.x - currentSectorCoord.x, 2);
+    //    double dY = Math.Pow(nextOpenSectorCoords.y - currentSectorCoord.y, 2);
+    //    double distance = Math.Sqrt(dX + dY);
+    //    return distance;
+    //}
 
-    void GetNeighboringSectors()
+    void GetNeighboringSectors(int CurrentSectorID)
     {
-        neighboringSectors = (JumpgateDatabase.database.FindAll(x => x.sectorID.Equals(currentSectorID)).Select(y => y.destinationSectorID)).ToList<int>();
+        neighboringSectors = (JumpgateDatabase.database.FindAll(x => x.sectorID.Equals(CurrentSectorID)).Select(y => y.destinationSectorID)).ToList<int>();
         openSectors = (from n in neighboringSectors
                       where !(from c in closedSectors
                               select c)
@@ -168,14 +210,12 @@ public class NodePathfinding : MonoBehaviour {
         closedSectors.AddRange(losingSectors);
 
         SolutionPath.Add(WinningSector);
-
-        closedSectors.Add(currentSectorID);     //Don't come back this way.
     }
 
-    bool HaveDestinationInSolution()
+    bool HaveDestinationInSolution(int DestinationSectorID)
     {
         bool haveDestination = false;
-        if (SolutionPath[SolutionPath.Count - 1] == EndingSectorID)
+        if (SolutionPath[SolutionPath.Count - 1] == DestinationSectorID)
         {
             haveDestination = true;
         }

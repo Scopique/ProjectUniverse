@@ -26,8 +26,6 @@ public class PathfindingTest : EditorWindow
         EndingSectorID = EditorGUILayout.IntField("Ending ID", EndingSectorID);
         if (GUILayout.Button("Find Path"))
         {
-            np.StartingSectorID = StartingSectorID;
-            np.EndingSectorID = EndingSectorID;
             np.FindRoute(StartingSectorID, EndingSectorID);
         }
     }
