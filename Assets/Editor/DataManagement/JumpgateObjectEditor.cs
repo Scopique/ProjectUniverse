@@ -189,13 +189,19 @@ public class JumpgateObjectEditor : EditorWindow {
         if (GUILayout.Button("Save", GUILayout.Width(colButton1))) {
             if (isEdit) { 
                 JumpgateDataObject jdo = dbJumpgates.GetJumpgateByID(editID);
-                jdo.sectorID = editSectorID;
-                jdo.jumpgateName = editJumpgateName;
-                jdo.destinationSectorID = editDestinationSectorID;
-                jdo.destinationJumpgateID = editDestinationJumpgateID;
-                jdo.fee = editFee;
+                if (jdo != null) { 
+                    jdo.sectorID = editSectorID;
+                    jdo.jumpgateName = editJumpgateName;
+                    jdo.destinationSectorID = editDestinationSectorID;
+                    jdo.destinationJumpgateID = editDestinationJumpgateID;
+                    jdo.fee = editFee;
 
-                RecipricateDestinationGate(editSectorID, editID, editDestinationSectorID, editDestinationJumpgateID);
+                    RecipricateDestinationGate(editSectorID, editID, editDestinationSectorID, editDestinationJumpgateID);
+                }
+                else
+                {
+                    Debug.LogError("Jumpgate ID " + editID.ToString() + " was not found. Try restarting the panel.");
+                }
             }
             else
             {
@@ -248,6 +254,8 @@ public class JumpgateObjectEditor : EditorWindow {
 
     private void ClearJumpgate()
     {
+        isEdit = false;
+
         editID = 0;
         editJumpgateName = string.Empty;    
         editSectorID = 0;

@@ -114,8 +114,8 @@ MonoBehaviour:
     jumpgateName: Carlsbad Conduit
     sectorID: 6
     jumpgatePosition: {x: 0, y: 0, z: 0}
-    destinationSectorID: 16
-    destinationJumpgateID: 36
+    destinationSectorID: 17
+    destinationJumpgateID: 88
     fee: 10
   - jumpgateID: 16
     jumpgateName: PMR 32
@@ -273,7 +273,7 @@ MonoBehaviour:
     fee: 10
   - jumpgateID: 39
     jumpgateName: The Liason Gate
-    sectorID: 17
+    sectorID: 16
     jumpgatePosition: {x: 0, y: 0, z: 0}
     destinationSectorID: 35
     destinationJumpgateID: 79
@@ -429,8 +429,8 @@ MonoBehaviour:
     jumpgateName: Icon Gateway
     sectorID: 28
     jumpgatePosition: {x: 0, y: 0, z: 0}
-    destinationSectorID: 16
-    destinationJumpgateID: 37
+    destinationSectorID: 17
+    destinationJumpgateID: 90
     fee: 10
   - jumpgateID: 62
     jumpgateName: Canello Transport
@@ -513,8 +513,8 @@ MonoBehaviour:
     jumpgateName: Queen's Triumph Transway
     sectorID: 32
     jumpgatePosition: {x: 0, y: 0, z: 0}
-    destinationSectorID: 16
-    destinationJumpgateID: 38
+    destinationSectorID: 17
+    destinationJumpgateID: 89
     fee: 10
   - jumpgateID: 74
     jumpgateName: Wolf's Head Gateway
@@ -555,7 +555,7 @@ MonoBehaviour:
     jumpgateName: Renault's Transway
     sectorID: 35
     jumpgatePosition: {x: 0, y: 0, z: 0}
-    destinationSectorID: 17
+    destinationSectorID: 16
     destinationJumpgateID: 39
     fee: 10
   - jumpgateID: 80
@@ -613,4 +613,249 @@ MonoBehaviour:
     jumpgatePosition: {x: 0, y: 0, z: 0}
     destinationSectorID: 25
     destinationJumpgateID: 57
+    fee: 10
+  - jumpgateID: 88
+    jumpgateName: Capsule Gateway
+    sectorID: 17
+    jumpgatePosition: {x: 0, y: 0, z: 0}
+    destinationSectorID: 6
+    destinationJumpgateID: 15
+    fee: 10
+  - jumpgateID: 89
+    jumpgateName: Divisional Rift
+    sectorID: 17
+    jumpgatePosition: {x: 0, y: 0, z: 0}
+    destinationSectorID: 32
+    destinationJumpgateID: 73
+    fee: 10
+  - jumpgateID: 90
+    jumpgateName: Victory Solo
+    sectorID: 17
+    jumpgatePosition: {x: 0, y: 0, z: 0}
+    destinationSectorID: 28
+    destinationJumpgateID: 61
+    fee: 10
+  - jumpgateID: 91
+    jumpgateName: Baeid Gate
+    sectorID: 17
+    jumpgatePosition: {x: 0, y: 0, z: 0}
+    destinationSectorID: 8
+    destinationJumpgateID: 93
+    fee: 10
+  - jumpgateID: 92
+    jumpgateName: Urrun Transway
+    sectorID: 18
+    jumpgatePosition: {x: 0, y: 0, z: 0}
+    destinationSectorID: 10
+    destinationJumpgateID: 94
+    fee: 10
+  - jumpgateID: 93
+    jumpgateName: Swinging Door
+    sectorID: 8
+    jumpgatePosition: {x: 0, y: 0, z: 0}
+    destinationSectorID: 17
+    destinationJumpgateID: 91
+    fee: 10
+  - jumpgateID: 94
+    jumpgateName: Chudovyy Doroha
+    sectorID: 10
+    jumpgatePosition: {x: 0, y: 0, z: 0}
+    destinationSectorID: 18
+    destinationJumpgateID: 92
+    fee: 10
+  - jumpgateID: 95
+    jumpgateName: Semplice Strada
+    sectorID: 10
+    jumpgatePosition: {x: 0, y: 0, z: 0}
+    destinationSectorID: 36
+    destinationJumpgateID: 96
+    fee: 10
+  - jumpgateID: 96
+    jumpgateName: Mocna Sila
+    sectorID: 36
+    jumpgatePosition: {x: 0, y: 0, z: 0}
+    destinationSectorID: 10
+    destinationJumpgateID: 95
+    fee: 10
+  - jumpgateID: 97
+    jumpgateName: One True Path
+    sectorID: 29
+    jumpgatePosition: {x: 0, y: 0, z: 0}
+    destinationSectorID: 9
+    destinationJumpgateID: 98
+    fee: 10
+  - jumpgateID: 98
+    jumpgateName: Second Thoughts
+    sectorID: 9
+    jumpgatePosition: {x: 0, y: 0, z: 0}
+    destinationSectorID: 29
+    destinationJumpgateID: 97
+    fee: 10
+  - jumpgateID: 99
+    jumpgateName: Sa Pid
+    sectorID: 26
+    jumpgatePosition: {x: 0, y: 0, z: 0}
+    destinationSectorID: 37
+    destinationJumpgateID: 100
+    fee: 10
+  - jumpgateID: 100
+    jumpgateName: Form of God
+    sectorID: 37
+    jumpgatePosition: {x: 0, y: 0, z: 0}
+    destinationSectorID: 26
+    destinationJumpgateID: 99
+    fee: 10
+  - jumpgateID: 101
+    jumpgateName: Prata un Prata
+    sectorID: 15
+    jumpgatePosition: {x: 0, y: 0, z: 0}
+    destinationSectorID: 20
+    destinationJumpgateID: 102
+    fee: 10
+  - jumpgateID: 102
+    jumpgateName: Silence Gateway
+    sectorID: 20
+    jumpgatePosition: {x: 0, y: 0, z: 0}
+    destinationSectorID: 15
+    destinationJumpgateID: 101
+    fee: 10
+  - jumpgateID: 103
+    jumpgateName: 100101
+    sectorID: 20
+    jumpgatePosition: {x: 0, y: 0, z: 0}
+    destinationSectorID: 32
+    destinationJumpgateID: 104
+    fee: 10
+  - jumpgateID: 104
+    jumpgateName: Bastard's Rest
+    sectorID: 32
+    jumpgatePosition: {x: 0, y: 0, z: 0}
+    destinationSectorID: 20
+    destinationJumpgateID: 103
+    fee: 10
+  - jumpgateID: 105
+    jumpgateName: Everyday Transway
+    sectorID: 28
+    jumpgatePosition: {x: 0, y: 0, z: 0}
+    destinationSectorID: 32
+    destinationJumpgateID: 106
+    fee: 10
+  - jumpgateID: 106
+    jumpgateName: Phrive Gate
+    sectorID: 32
+    jumpgatePosition: {x: 0, y: 0, z: 0}
+    destinationSectorID: 28
+    destinationJumpgateID: 105
+    fee: 10
+  - jumpgateID: 107
+    jumpgateName: P'arrk Transway
+    sectorID: 7
+    jumpgatePosition: {x: 0, y: 0, z: 0}
+    destinationSectorID: 22
+    destinationJumpgateID: 108
+    fee: 10
+  - jumpgateID: 108
+    jumpgateName: Sunrise Terminus
+    sectorID: 22
+    jumpgatePosition: {x: 0, y: 0, z: 0}
+    destinationSectorID: 7
+    destinationJumpgateID: 107
+    fee: 10
+  - jumpgateID: 109
+    jumpgateName: Elite Gateway
+    sectorID: 3
+    jumpgatePosition: {x: 0, y: 0, z: 0}
+    destinationSectorID: 23
+    destinationJumpgateID: 110
+    fee: 10
+  - jumpgateID: 110
+    jumpgateName: Fokhn Gateway
+    sectorID: 23
+    jumpgatePosition: {x: 0, y: 0, z: 0}
+    destinationSectorID: 3
+    destinationJumpgateID: 109
+    fee: 10
+  - jumpgateID: 111
+    jumpgateName: Saeng Daw Path
+    sectorID: 27
+    jumpgatePosition: {x: 0, y: 0, z: 0}
+    destinationSectorID: 5
+    destinationJumpgateID: 112
+    fee: 10
+  - jumpgateID: 112
+    jumpgateName: Gate of the Smiling Face
+    sectorID: 5
+    jumpgatePosition: {x: 0, y: 0, z: 0}
+    destinationSectorID: 27
+    destinationJumpgateID: 111
+    fee: 10
+  - jumpgateID: 113
+    jumpgateName: Path of Fate
+    sectorID: 5
+    jumpgatePosition: {x: 0, y: 0, z: 0}
+    destinationSectorID: 19
+    destinationJumpgateID: 114
+    fee: 10
+  - jumpgateID: 114
+    jumpgateName: Path of Wrong
+    sectorID: 19
+    jumpgatePosition: {x: 0, y: 0, z: 0}
+    destinationSectorID: 5
+    destinationJumpgateID: 113
+    fee: 10
+  - jumpgateID: 115
+    jumpgateName: Headlong Flight
+    sectorID: 19
+    jumpgatePosition: {x: 0, y: 0, z: 0}
+    destinationSectorID: 16
+    destinationJumpgateID: 116
+    fee: 10
+  - jumpgateID: 116
+    jumpgateName: Wrath of Twins
+    sectorID: 16
+    jumpgatePosition: {x: 0, y: 0, z: 0}
+    destinationSectorID: 19
+    destinationJumpgateID: 115
+    fee: 10
+  - jumpgateID: 117
+    jumpgateName: Sweets Gateway
+    sectorID: 16
+    jumpgatePosition: {x: 0, y: 0, z: 0}
+    destinationSectorID: 13
+    destinationJumpgateID: 1
+    fee: 10
+  - jumpgateID: 118
+    jumpgateName: Remarkable Prophecy
+    sectorID: 13
+    jumpgatePosition: {x: 0, y: 0, z: 0}
+    destinationSectorID: 16
+    destinationJumpgateID: 117
+    fee: 0
+  - jumpgateID: 119
+    jumpgateName: Path of Enlightenment
+    sectorID: 13
+    jumpgatePosition: {x: 0, y: 0, z: 0}
+    destinationSectorID: 6
+    destinationJumpgateID: 1
+    fee: 10
+  - jumpgateID: 120
+    jumpgateName: Lost Star
+    sectorID: 6
+    jumpgatePosition: {x: 0, y: 0, z: 0}
+    destinationSectorID: 13
+    destinationJumpgateID: 119
+    fee: 0
+  - jumpgateID: 121
+    jumpgateName: Last Chance
+    sectorID: 27
+    jumpgatePosition: {x: 0, y: 0, z: 0}
+    destinationSectorID: 4
+    destinationJumpgateID: 1
+    fee: 10
+  - jumpgateID: 122
+    jumpgateName: Foreign Specter
+    sectorID: 4
+    jumpgatePosition: {x: 0, y: 0, z: 0}
+    destinationSectorID: 27
+    destinationJumpgateID: 121
     fee: 10

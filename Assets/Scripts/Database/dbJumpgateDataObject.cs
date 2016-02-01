@@ -52,7 +52,7 @@ public class dbJumpgateDataObject : ScriptableObject
         if (ID>0)
         {
             jdo = database.Find(x => x.jumpgateID.Equals(ID));
-            if (jdo.jumpgateID == 0) { jdo = new JumpgateDataObject(0, string.Empty, 0, 0, 0, 0); }
+            if (jdo.jumpgateID == null) { jdo = new JumpgateDataObject(0, string.Empty, 0, 0, 0, 0); }
         }
 
         return jdo;

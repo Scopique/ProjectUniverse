@@ -14,6 +14,7 @@ public class NodePathfinding : MonoBehaviour {
     public int EndingSectorID;
     public List<int> SolutionPath;
 
+    private bool isReverseLookup = false;
     private int currentSectorID;
     private List<int> openSectors;
     private List<int> closedSectors;
@@ -32,7 +33,6 @@ public class NodePathfinding : MonoBehaviour {
 
     public void FindRoute(int StartingSectorID, int EndingSectorID)
     {
-
         currentSectorID = StartingSectorID;
         SolutionPath.Add(StartingSectorID);
         closedSectors.Add(StartingSectorID);        //Don't come back here.
@@ -61,6 +61,42 @@ public class NodePathfinding : MonoBehaviour {
             GetNeighboringSectors();
             
         }
+
+        //TODO: This whole idea needs to be re-engineered...
+        #region Redo This
+        
+        
+        //Somehow, check the last item and if it doesn't equal the destination sector,
+        //  reverse the check -- run it from destination to origin. If we get the 
+        //  starting sector as the LAST item in the list, we have a path and should
+        //  reverse it before presentation. Otherwise, we can claim we have no path.
+        //bool haveDestination = HaveDestinationInSolution();
+
+        //if (!haveDestination && isReverseLookup)
+        //{
+        //    //We're screwed. This is the second pass and we can't find a route. 
+        //    SolutionPath.Clear();
+
+        //}else if (!haveDestination && !isReverseLookup)
+        //{
+        //    //Reverse the lookup and run it again
+        //    isReverseLookup = true;
+        //    Init();
+
+        //    FindRoute(EndingSectorID, StartingSectorID);
+        //}
+        //else if (haveDestination && isReverseLookup)
+        //{
+        //    //we need to reverse the order of the solution so we can 
+        //    //  present a usable route
+        //    SolutionPath.Reverse();
+        //}
+        //else
+        //{
+        //    //Route is just fine the way it is. Do nothing
+        //}
+
+        #endregion
     }
 
     #region Private Methods
@@ -134,6 +170,23 @@ public class NodePathfinding : MonoBehaviour {
         SolutionPath.Add(WinningSector);
 
         closedSectors.Add(currentSectorID);     //Don't come back this way.
+    }
+
+    bool HaveDestinationInSolution()
+    {
+        bool haveDestination = false;
+        if (SolutionPath[SolutionPath.Count - 1] == EndingSectorID)
+        {
+            haveDestination = true;
+        }
+
+
+        return haveDestination;
+    }
+
+    void ReverseRoute()
+    {
+
     }
 
     #endregion
