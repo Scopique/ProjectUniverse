@@ -57,6 +57,7 @@ public class NPCController : MonoBehaviour
     [Header("Timers")]
     public float spawnInterval = 3.0f;
     public float undockInterval = 10.0f;
+    public float simulationStepIntervalMinutes = 3.0f;
 
     #endregion
 
@@ -103,6 +104,7 @@ public class NPCController : MonoBehaviour
         SetupMinerPool();
 
         //Spawn police and miners
+        //TODO: Spawning will move into a check based on sim interval step and player presence
         CheckPoliceSpawnPermission();
         CheckMinerSpawnPermission();
 
@@ -685,6 +687,51 @@ public class NPCController : MonoBehaviour
 
         return spawnPoint;
     }
+
+    #endregion
+
+    #region Merchant Simulation
+
+    /*#############################################################################################
+     * Merchant NPCs should be loaded into GDC from MDS and augmented from the state file if a 
+     * save game has been loaded. 
+     * ---
+     * The simulation runs on a timer, and that timer actually acts based on an interval value
+     * that has a base setting defined above, and a random value for each NPC that is assigned
+     * when the NPC is added to the data pool. This allows us to stagger the activity of NPCs so 
+     * they don't all act at the exact same time.
+     * 
+     * When a tick happens, NPCs will:
+     * * Check to see if the next action will take place in the player's current sector or not. 
+     *      This will determine if we only simulate or have to instantiate
+     * * Simulation:
+     *      If at a station, they will find a station that buys their goods for less than they
+     *      paid for them, calc the route, and jump to the first sector.
+     *      If in a sector on their route, they'll jump to the next sector in the route
+     *      If the next sector in the route is the destination sector, they'll dock immediately
+     *          at the station, sell their goods, and buy the lowest cost good that they can
+     *          afford/fit into their cargo hold
+     *  * Instantiation
+     *  If at any time any of the sim steps coincide with the player's current sector
+     *      If at a station, we instantiate the prefab at the spawn point outside of that station
+     *          and assign any data we need from the data object to the component (at least the
+     *          ID of the data object and the name of the pilot). We also generate the route as
+     *          per the sim verion and the NPC will start their trip to the necessary gate. 
+     *      If in a sector, we instantiate the prefab at the gate that leads to the previous 
+     *          sector. The NPC will move to the gate that leads to the next sector, and the
+     *          gate mechanics will take over at that point.
+     *      If in the destination sector, the NPC will spawn at the inbound gate and will move
+     *          to the destination station where the docking process will take over. 
+     * ---
+     * The tick might happen before or after the player arrives in the system. In this case, the tick
+     *      will be SIMULATED and will not invoke the instantiation, so the NPC will "ghost in" while
+     *      the player isn't looking. 
+     * Certain instantiated activities will force a tick and reset the tick timer for that NPC:
+     *  * Jumping out of a system - gate mechanics transfer the NPC and resets the timer
+     *  * Docking at a station - triggers the buying and selling, and resets the timer
+    #############################################################################################*/
+
+
 
     #endregion
 }
