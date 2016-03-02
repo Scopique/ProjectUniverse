@@ -13,7 +13,7 @@ public class PathfindingTest : EditorWindow
     int StartingSectorID = 1;
     int EndingSectorID = 25;
 
-    [MenuItem("Data Management/Pathing Test")]
+    //[MenuItem("Data Management/Pathing Test")]
     public static void Init()
     {
         editorWindow = EditorWindow.GetWindow<PathfindingTest>();

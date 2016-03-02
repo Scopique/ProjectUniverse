@@ -23,3 +23,183 @@ MonoBehaviour:
     shopDescription: Buy our crap!
     shopkeeperPortait: pileofcrap.png
     shopkeeperPortraitTexture: {fileID: 0}
+  - stationID: 1
+    shopName: New Commodity Shop
+    shopDescription: This space for rent
+    shopkeeperPortait: 
+    shopkeeperPortraitTexture: {fileID: 0}
+  - stationID: 2
+    shopName: New Commodity Shop
+    shopDescription: This space for rent
+    shopkeeperPortait: 
+    shopkeeperPortraitTexture: {fileID: 0}
+  - stationID: 3
+    shopName: New Commodity Shop
+    shopDescription: This space for rent
+    shopkeeperPortait: 
+    shopkeeperPortraitTexture: {fileID: 0}
+  - stationID: 4
+    shopName: New Commodity Shop
+    shopDescription: This space for rent
+    shopkeeperPortait: 
+    shopkeeperPortraitTexture: {fileID: 0}
+  - stationID: 5
+    shopName: New Commodity Shop
+    shopDescription: This space for rent
+    shopkeeperPortait: 
+    shopkeeperPortraitTexture: {fileID: 0}
+  - stationID: 6
+    shopName: New Commodity Shop
+    shopDescription: This space for rent
+    shopkeeperPortait: 
+    shopkeeperPortraitTexture: {fileID: 0}
+  - stationID: 7
+    shopName: New Commodity Shop
+    shopDescription: This space for rent
+    shopkeeperPortait: 
+    shopkeeperPortraitTexture: {fileID: 0}
+  - stationID: 8
+    shopName: New Commodity Shop
+    shopDescription: This space for rent
+    shopkeeperPortait: 
+    shopkeeperPortraitTexture: {fileID: 0}
+  - stationID: 9
+    shopName: New Commodity Shop
+    shopDescription: This space for rent
+    shopkeeperPortait: 
+    shopkeeperPortraitTexture: {fileID: 0}
+  - stationID: 10
+    shopName: New Commodity Shop
+    shopDescription: This space for rent
+    shopkeeperPortait: 
+    shopkeeperPortraitTexture: {fileID: 0}
+  - stationID: 11
+    shopName: New Commodity Shop
+    shopDescription: This space for rent
+    shopkeeperPortait: 
+    shopkeeperPortraitTexture: {fileID: 0}
+  - stationID: 12
+    shopName: New Commodity Shop
+    shopDescription: This space for rent
+    shopkeeperPortait: 
+    shopkeeperPortraitTexture: {fileID: 0}
+  - stationID: 13
+    shopName: New Commodity Shop
+    shopDescription: This space for rent
+    shopkeeperPortait: 
+    shopkeeperPortraitTexture: {fileID: 0}
+  - stationID: 14
+    shopName: New Commodity Shop
+    shopDescription: This space for rent
+    shopkeeperPortait: 
+    shopkeeperPortraitTexture: {fileID: 0}
+  - stationID: 15
+    shopName: New Commodity Shop
+    shopDescription: This space for rent
+    shopkeeperPortait: 
+    shopkeeperPortraitTexture: {fileID: 0}
+  - stationID: 16
+    shopName: New Commodity Shop
+    shopDescription: This space for rent
+    shopkeeperPortait: 
+    shopkeeperPortraitTexture: {fileID: 0}
+  - stationID: 17
+    shopName: New Commodity Shop
+    shopDescription: This space for rent
+    shopkeeperPortait: 
+    shopkeeperPortraitTexture: {fileID: 0}
+  - stationID: 18
+    shopName: New Commodity Shop
+    shopDescription: This space for rent
+    shopkeeperPortait: 
+    shopkeeperPortraitTexture: {fileID: 0}
+  - stationID: 19
+    shopName: New Commodity Shop
+    shopDescription: This space for rent
+    shopkeeperPortait: 
+    shopkeeperPortraitTexture: {fileID: 0}
+  - stationID: 20
+    shopName: New Commodity Shop
+    shopDescription: This space for rent
+    shopkeeperPortait: 
+    shopkeeperPortraitTexture: {fileID: 0}
+  - stationID: 21
+    shopName: New Commodity Shop
+    shopDescription: This space for rent
+    shopkeeperPortait: 
+    shopkeeperPortraitTexture: {fileID: 0}
+  - stationID: 22
+    shopName: New Commodity Shop
+    shopDescription: This space for rent
+    shopkeeperPortait: 
+    shopkeeperPortraitTexture: {fileID: 0}
+  - stationID: 23
+    shopName: New Commodity Shop
+    shopDescription: This space for rent
+    shopkeeperPortait: 
+    shopkeeperPortraitTexture: {fileID: 0}
+  - stationID: 24
+    shopName: New Commodity Shop
+    shopDescription: This space for rent
+    shopkeeperPortait: 
+    shopkeeperPortraitTexture: {fileID: 0}
+  - stationID: 26
+    shopName: New Commodity Shop
+    shopDescription: This space for rent
+    shopkeeperPortait: 
+    shopkeeperPortraitTexture: {fileID: 0}
+  - stationID: 27
+    shopName: New Commodity Shop
+    shopDescription: This space for rent
+    shopkeeperPortait: 
+    shopkeeperPortraitTexture: {fileID: 0}
+  - stationID: 28
+    shopName: New Commodity Shop
+    shopDescription: This space for rent
+    shopkeeperPortait: 
+    shopkeeperPortraitTexture: {fileID: 0}
+  - stationID: 29
+    shopName: New Commodity Shop
+    shopDescription: This space for rent
+    shopkeeperPortait: 
+    shopkeeperPortraitTexture: {fileID: 0}
+  - stationID: 30
+    shopName: New Commodity Shop
+    shopDescription: This space for rent
+    shopkeeperPortait: 
+    shopkeeperPortraitTexture: {fileID: 0}
+  - stationID: 99
+    shopName: New Commodity Shop
+    shopDescription: This space for rent
+    shopkeeperPortait: 
+    shopkeeperPortraitTexture: {fileID: 0}
+  - stationID: 32
+    shopName: New Commodity Shop
+    shopDescription: This space for rent
+    shopkeeperPortait: 
+    shopkeeperPortraitTexture: {fileID: 0}
+  - stationID: 33
+    shopName: New Commodity Shop
+    shopDescription: This space for rent
+    shopkeeperPortait: 
+    shopkeeperPortraitTexture: {fileID: 0}
+  - stationID: 34
+    shopName: New Commodity Shop
+    shopDescription: This space for rent
+    shopkeeperPortait: 
+    shopkeeperPortraitTexture: {fileID: 0}
+  - stationID: 35
+    shopName: New Commodity Shop
+    shopDescription: This space for rent
+    shopkeeperPortait: 
+    shopkeeperPortraitTexture: {fileID: 0}
+  - stationID: 36
+    shopName: New Commodity Shop
+    shopDescription: This space for rent
+    shopkeeperPortait: 
+    shopkeeperPortraitTexture: {fileID: 0}
+  - stationID: 37
+    shopName: New Commodity Shop
+    shopDescription: This space for rent
+    shopkeeperPortait: 
+    shopkeeperPortraitTexture: {fileID: 0}

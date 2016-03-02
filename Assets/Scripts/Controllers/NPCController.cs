@@ -730,7 +730,65 @@ public class NPCController : MonoBehaviour
      *  * Jumping out of a system - gate mechanics transfer the NPC and resets the timer
      *  * Docking at a station - triggers the buying and selling, and resets the timer
     #############################################################################################*/
+    /*
+     * We're going to need a central source for MERCHANT NPCS. That will be where we get our data
+     * We don't even have this defined in the DataController (3/2/2016)
+     * Start testing with one made up MerchantNPC object so we can follow it around the sim. 
+     * Then add in instantiation.
+     * Then add additional merchants
+     */
+   
+    public void MerchantSimulation()
+    {
+        MerchantNPC merch = new MerchantNPC();
+        merch.MerchantID = 1;
+        merch.FirstName = "Jonah";
+        merch.LastName = "Joris";
 
+        //These 6 values will be determined by the lookup of
+        //  the current cargo in the station inventory database. 
+        //  We'll use the PricePaid property of the cargo inventory
+        //  to figure out a "better price" than what was paid and 
+        //  will select that station/sector as the destination
+        merch.StartingSectorID = 33;
+        merch.CurrentSectorID = 33;
+        merch.DestinationSectorID = 37;
+                
+        merch.StartingStationID = 0;
+        merch.CurrentStationID = 0;
+        merch.DestinationStationID = 0;
+
+        merch.DestinationJumpgateID = 0;
+
+        merch.CurrentRoute = new List<int>();
+
+        merch.TickIntervalInSeconds = 30;
+        merch.LastActionTick = System.DateTime.Now;
+        merch.SuspendTickForPlayer = false;
+
+        merch.NPCWallet = 10000;
+
+        merch.CurrentCargo = new List<CommodityInventoryDataObject>();
+
+
+        //Step 1. Get the Merch's from the database. 
+
+        //Step 2. Looping through, start everyone at a station
+        //        Have them pick up a commodity they can afford and fit
+        //        Calculate the best place to sell that entire cargo
+
+        //Step 3. Calculate route. Set Destination values
+
+        //Step 4. Determine destination jumpgate in current sector
+
+        //Step 5. Begin tick counter
+
+        //ON_TICK
+        //A. If docked, undock
+        //B. If undocked and w/DestinationJumpgateID, move to next sector
+        //   Calc next jumpgate
+        //C. If in destination system, dock at destination station
+    }
 
 
     #endregion

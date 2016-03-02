@@ -164,8 +164,8 @@ public class DataController : MonoBehaviour
         dbMissileLauncherDataObject dbMissileLaunchers = (dbMissileLauncherDataObject)Resources.Load(@"AssetDatabases/dbMissileLauncherDataItems");
         missileLauncherMasterList = dbMissileLaunchers.database;
 
-        //dbNPCDataObject dbCommodities = (dbNPCDataObject)Resources.Load(@"AssetDatabases/dbNPCDataItems");
-        //commodityMasterList = dbCommodities.database;
+        //dbNPCDataObject dbNPCs = (dbNPCDataObject)Resources.Load(@"AssetDatabases/dbNPCDataItems");
+        //NPCPool = dbNPCs.database;
 
         dbPlatingDataObject dbPlating = (dbPlatingDataObject)Resources.Load(@"AssetDatabases/dbPlatingDataItems");
         platingMasterList = dbPlating.database;
