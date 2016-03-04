@@ -731,65 +731,78 @@ public class NPCController : MonoBehaviour
      *  * Docking at a station - triggers the buying and selling, and resets the timer
     #############################################################################################*/
     /*
-     * We're going to need a central source for MERCHANT NPCS. That will be where we get our data
-     * We don't even have this defined in the DataController (3/2/2016)
-     * Start testing with one made up MerchantNPC object so we can follow it around the sim. 
-     * Then add in instantiation.
-     * Then add additional merchants
+     * 
      */
-   
-    public void MerchantSimulation()
+
+    public void LoadNewMerchants()
     {
-        MerchantNPC merch = new MerchantNPC();
-        merch.MerchantID = 1;
-        merch.FirstName = "Jonah";
-        merch.LastName = "Joris";
+        //Takes the records from the DataController and puts them into the 
+        //  working collection for use in the game. 
+        List<MerchantNPCDataObject> Merchs = DataController.DataAccess.merchantMasterList;
 
-        //These 6 values will be determined by the lookup of
-        //  the current cargo in the station inventory database. 
-        //  We'll use the PricePaid property of the cargo inventory
-        //  to figure out a "better price" than what was paid and 
-        //  will select that station/sector as the destination
-        merch.StartingSectorID = 33;
-        merch.CurrentSectorID = 33;
-        merch.DestinationSectorID = 37;
-                
-        merch.StartingStationID = 0;
-        merch.CurrentStationID = 0;
-        merch.DestinationStationID = 0;
+        //But we need to set them up with initial locations and purposes. 
+        
+        foreach(MerchantNPCDataObject merch in Merchs)
+        {
+            //Each merchant will start at a station (currently 37)
+            StationDataObject sdo = (from s in DataController.DataAccess.stationMasterList orderby System.Guid.NewGuid() select s).First();
 
-        merch.DestinationJumpgateID = 0;
+            merch.CurrentSectorID = sdo.sectorID;
+            merch.CurrentStationID = sdo.stationID;
 
-        merch.CurrentRoute = new List<int>();
+            //Now it needs to BUY stuff from that station
+            //  Go for the LOWEST PRICED ITEM
+            List<CommodityShopInventoryDataObject> shopInv = DataController.DataAccess.GetShopInventory(sdo.stationID);
+            CommodityShopInventoryDataObject csidoBuy = (from si in shopInv where si.currentPrice.Equals(shopInv.Min(s => s.currentPrice)) && si.shopBuysOrSells.Equals("S") select si).First();
 
-        merch.TickIntervalInSeconds = 30;
-        merch.LastActionTick = System.DateTime.Now;
-        merch.SuspendTickForPlayer = false;
+            int shopQty = csidoBuy.commodityQuantity;
 
-        merch.NPCWallet = 10000;
+            //How much can we hold?
+            int cargoCap = (from cgo in DataController.DataAccess.cargoHoldMasterList where cgo.iD.Equals(merch.CargoID) select cgo).FirstOrDefault().capacity;
+            //Do we have anything in there already?
+            int cargoNow = merch.Inventory.inventoryQuantity;
 
-        merch.CurrentCargo = new List<CommodityInventoryDataObject>();
+            if (cargoNow == 0) { 
+                //They can only carry one item, and since this is the only way for them to get
+                //  items into their cargo hold, we assume they have something or they don't
+                if (cargoNow < cargoCap)
+                {
+                    int canBuy = cargoCap - cargoNow;
+                    if (shopQty > canBuy && (csidoBuy.currentPrice * canBuy) < merch.Wallet)
+                    {
+                        //Buy the canBuy amount.
+                        merch.Inventory.inventoryQuantity = canBuy;
+                        merch.Inventory.inventoryObjectType = PlayerInventoryDataObject.INVENTORY_TYPE.Commodity;
+                        merch.Inventory.inventoryObjectID = csidoBuy.commodityID;
+                        merch.Inventory.inventoryObjectClass = PlayerInventoryDataObject.INVENTORY_CLASS.Commodity;
+                        merch.InventoryPurchaseTotal = (canBuy * csidoBuy.currentPrice);
 
+                        merch.Wallet -= merch.InventoryPurchaseTotal;
 
-        //Step 1. Get the Merch's from the database. 
+                    }else{
+                        //Need to find another low price item to buy.
+                        //Need to excise the item finding part into it's own method. 
+                        //Also need to track the ID's of the items we've already tried.
+                    }
+                }
+            }
 
-        //Step 2. Looping through, start everyone at a station
-        //        Have them pick up a commodity they can afford and fit
-        //        Calculate the best place to sell that entire cargo
+            //So we have cargo (theoretically). Figure out where in the universe we can sell this crap
+            CommodityShopInventoryDataObject csidoSell = (from si in DataController.DataAccess.CommodityShopInventoryList where 
+                                                              si.commodityID.Equals(csidoBuy.commodityID) && 
+                                                              si.stationID != sdo.stationID && 
+                                                              si.currentPrice > csidoBuy.currentPrice 
+                                                          select si).FirstOrDefault();
 
-        //Step 3. Calculate route. Set Destination values
+            //Ideally we have values. Set them
+            merch.DestinationSectorID = 0; //Crap. Need to get this from the record we have in csidoSell  :(
 
-        //Step 4. Determine destination jumpgate in current sector
+            
+        }
 
-        //Step 5. Begin tick counter
+        
 
-        //ON_TICK
-        //A. If docked, undock
-        //B. If undocked and w/DestinationJumpgateID, move to next sector
-        //   Calc next jumpgate
-        //C. If in destination system, dock at destination station
     }
-
-
+   
     #endregion
 }

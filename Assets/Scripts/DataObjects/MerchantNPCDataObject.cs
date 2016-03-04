@@ -27,7 +27,11 @@ public class MerchantNPCDataObject
     #endregion
 
     #region State Data Properties
-    
+
+    //Where we headed? 0 if nowhere.
+    public int DestinationSectorID;
+    //Where we headed SPECIFICALLY? 0 if nowhere.
+    public int DestinationStationID;
     //Overwritten before each undocking
     public List<int> CurrentRoute;
     //Updated on tick
@@ -52,6 +56,8 @@ public class MerchantNPCDataObject
     //Calc of profit will need to count cargo and use remote prices to compare
     //  to this value to see if it's worth the trip.
     public int InventoryPurchaseTotal;
+
+    public int Wallet = 10000;
 
     #endregion
 

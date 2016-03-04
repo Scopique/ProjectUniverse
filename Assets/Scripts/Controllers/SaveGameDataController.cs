@@ -35,7 +35,9 @@ public class SaveGameDataController : MonoBehaviour
 
     void Start()
     {
-        CommodityShopInventoryList = new List<CommodityShopInventoryDataObject>();
+        WorkingCommodityShopInventoryList = new List<CommodityShopInventoryDataObject>();
+        WorkingMerchantNPCList = new List<MerchantNPCDataObject>();
+        WorkingSectorList = new List<SectorDataObject>();
     }
 
     void Awake()
@@ -62,7 +64,9 @@ public class SaveGameDataController : MonoBehaviour
     #region Lists to Save
 
     //Accessed through the DataController, though it can be accessed through here.
-    public List<CommodityShopInventoryDataObject> CommodityShopInventoryList;
+    public List<CommodityShopInventoryDataObject> WorkingCommodityShopInventoryList;
+    public List<MerchantNPCDataObject> WorkingMerchantNPCList;
+    public List<SectorDataObject> WorkingSectorList;
 
     #endregion
 

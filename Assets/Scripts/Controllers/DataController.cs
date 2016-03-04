@@ -29,7 +29,7 @@ public class DataController : MonoBehaviour
     public List<StationDataObject> stationMasterList;
     public List<JumpgateDataObject> jumpgateMasterList;
     public List<PlanetDataObject> planetMasterList;
-    public List<NPCDataObject> NPCMasterList;
+    public List<MerchantNPCDataObject> merchantMasterList;
 
     public List<CommodityShopDataObject> commodityShopMasterList;
     public List<CommodityDataObject> commodityMasterList;
@@ -47,9 +47,22 @@ public class DataController : MonoBehaviour
     public List<CrewMemberDataObject> crewMasterList;
 
     //Working lists - Modified over the course of the game
+    //Actual properties that access the values stored in SAVEGAMEDATACONTROLLER
     public List<CommodityShopInventoryDataObject> CommodityShopInventoryList { 
-        get { return SaveGameDataController.SaveGameAccess.CommodityShopInventoryList; }
-        set { SaveGameDataController.SaveGameAccess.CommodityShopInventoryList = value; }
+        get { return SaveGameDataController.SaveGameAccess.WorkingCommodityShopInventoryList; }
+        set { SaveGameDataController.SaveGameAccess.WorkingCommodityShopInventoryList = value; }
+    }
+
+    public List<SectorDataObject> SectorList
+    {
+        get { return SaveGameDataController.SaveGameAccess.WorkingSectorList; }
+        set { SaveGameDataController.SaveGameAccess.WorkingSectorList = value; }
+    }
+
+    public List<MerchantNPCDataObject> MerchantNPCList
+    {
+        get { return SaveGameDataController.SaveGameAccess.WorkingMerchantNPCList; }
+        set { SaveGameDataController.SaveGameAccess.WorkingMerchantNPCList = value; }
     }
 
     //Poor NPCs...  :(
@@ -164,8 +177,8 @@ public class DataController : MonoBehaviour
         dbMissileLauncherDataObject dbMissileLaunchers = (dbMissileLauncherDataObject)Resources.Load(@"AssetDatabases/dbMissileLauncherDataItems");
         missileLauncherMasterList = dbMissileLaunchers.database;
 
-        //dbNPCDataObject dbNPCs = (dbNPCDataObject)Resources.Load(@"AssetDatabases/dbNPCDataItems");
-        //NPCPool = dbNPCs.database;
+        dbMerchantNPCDataObject dbMerchants = (dbMerchantNPCDataObject)Resources.Load(@"AssetDatabases/dbMerchantDataItems");
+        merchantMasterList = dbMerchants.database;
 
         dbPlatingDataObject dbPlating = (dbPlatingDataObject)Resources.Load(@"AssetDatabases/dbPlatingDataItems");
         platingMasterList = dbPlating.database;
@@ -191,6 +204,9 @@ public class DataController : MonoBehaviour
     {
         MarketController mc = new MarketController();
         mc.LoadCommodityShopInventories();
+
+        NPCController nc = new NPCController();
+        nc.LoadNewMerchants();
     }
 
     private void LoadGame(string SaveName)

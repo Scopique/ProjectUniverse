@@ -78,26 +78,28 @@ public class CommodityShopInventoryDataObject
     public int commodityQuantity;
     public int commodityLastQuantity;
     public string shopBuysOrSells;      //Either B (if the shop buys) or S (if the shop sells)
+    public int currentPrice;            //Calculated on quantity or circumstance change
 
 
 
     public CommodityShopInventoryDataObject()
     {
-        NewCommodityShopInventoryDataObject(0, 0, 0, 0, string.Empty);
+        NewCommodityShopInventoryDataObject(0, 0, 0, 0, string.Empty, 0);
     }
 
     public CommodityShopInventoryDataObject(int StationID, int CommodityID, int CommodityQuantity, int CommodityLastQuantity, string ShopBuysOrSells)
     {
-        NewCommodityShopInventoryDataObject(StationID, CommodityID, CommodityQuantity, CommodityLastQuantity, ShopBuysOrSells);
+        NewCommodityShopInventoryDataObject(StationID, CommodityID, CommodityQuantity, CommodityLastQuantity, ShopBuysOrSells, 0);
     }
 
-    private void NewCommodityShopInventoryDataObject(int StationID, int CommodityID, int CommodityQuantity, int CommodityLastQuantity, string ShopBuysOrSells)
+    private void NewCommodityShopInventoryDataObject(int StationID, int CommodityID, int CommodityQuantity, int CommodityLastQuantity, string ShopBuysOrSells, int CurrentPrice)
     {
         this.stationID = StationID;
         this.commodityID = CommodityID;
         this.commodityQuantity = CommodityQuantity;
         this.commodityLastQuantity = CommodityLastQuantity;
         this.shopBuysOrSells = ShopBuysOrSells;
+        this.currentPrice = CurrentPrice;
     }
 }
 

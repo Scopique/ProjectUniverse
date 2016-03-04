@@ -66,4 +66,59 @@ public class MarketController : MonoBehaviour {
     }
 
     #endregion  
+
+    #region Pricing Calculation
+    
+    /***************************************************************************
+     * w$ = (Base$ * (Base$ * (% Demand/100)))
+     * $PI = ((w$ * (Qty - (Tx Qty/Qty))) + w$)
+     **************************************************************************/
+
+    public int CurrentPrice(int SectorID, int StationID, int CommodityID)
+    {
+        int ppi = 0;
+
+        //Provides class modifiers
+        SectorDataObject sdo = (from sl in DataController.DataAccess.SectorList where sl.sectorID.Equals(SectorID) select sl).FirstOrDefault();
+        //Provides qty and price property
+        CommodityShopInventoryDataObject csi = (from cs in DataController.DataAccess.CommodityShopInventoryList where cs.stationID.Equals(StationID) && cs.commodityID.Equals(CommodityID) select cs).FirstOrDefault();
+        //Provides class of item
+        CommodityDataObject cdo = (from c in DataController.DataAccess.commodityMasterList where c.commodityID.Equals(CommodityID) select c).FirstOrDefault();
+
+        int demandPercent = 0;
+        switch (cdo.commodityClass)
+        {
+            case CommodityDataObject.COMMODITYCLASS.Common:
+                demandPercent = sdo.common;
+                break;
+            case CommodityDataObject.COMMODITYCLASS.Luxury:
+                demandPercent = sdo.luxury;
+                break;
+            case CommodityDataObject.COMMODITYCLASS.Food:
+                demandPercent = sdo.food;
+                break;
+            case CommodityDataObject.COMMODITYCLASS.Minerals:
+                demandPercent = sdo.minerals;
+                break;
+            case CommodityDataObject.COMMODITYCLASS.Medical:
+                demandPercent = sdo.medical;
+                break;
+            case CommodityDataObject.COMMODITYCLASS.Military:
+                demandPercent = sdo.military;
+                break;
+            case CommodityDataObject.COMMODITYCLASS.Industrial:
+                demandPercent = sdo.industrial;
+                break;
+            default:
+                break;
+        }
+
+        int workingPrice = (cdo.commodityBasePrice * (cdo.commodityBasePrice * (demandPercent/100)));
+        ppi = ((workingPrice * (csi.commodityQuantity - (csi.commodityLastQuantity / csi.commodityQuantity))) + workingPrice);
+
+        
+        return ppi;
+    }
+
+    #endregion
 }
